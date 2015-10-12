@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4C2972BC-EA18-44E9-85F7-FC76CD5EDC27}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZSharp.Framework.MongoDb</RootNamespace>
+    <AssemblyName>ZSharp.Framework.MongoDb</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\..\Dll\MongoDb\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\..\Dll\MongoDb\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core">
+      <HintPath>..\..\Dll\MongoDb\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseMongoDB.cs" />
+    <Compile Include="Entities\BaseMongoEntity.cs" />
+    <Compile Include="Entities\CollectionNameAttribute.cs" />
+    <Compile Include="Entities\GuidKeyMongoEntity.cs" />
+    <Compile Include="Entities\IdentityEntity.cs" />
+    <Compile Include="Entities\IntKeyMongoEntity.cs" />
+    <Compile Include="Entities\LongKeyMongoEntity.cs" />
+    <Compile Include="Entities\StringKeyMongoEntity.cs" />
+    <Compile Include="Managers\CommandResult.cs" />
+    <Compile Include="Managers\Contexts\BaseContext.cs" />
+    <Compile Include="Managers\Contexts\DataContext.cs" />
+    <Compile Include="Managers\Contexts\IndexContext.cs" />
+    <Compile Include="Managers\Contexts\ProfileContext.cs" />
+    <Compile Include="Managers\Contexts\ReplicationContext.cs" />
+    <Compile Include="Managers\Contexts\ServerContext.cs" />
+    <Compile Include="Managers\Helpers\CacheHelper.cs" />
+    <Compile Include="Managers\Helpers\ConstHelper.cs" />
+    <Compile Include="Managers\IIndexManager.cs" />
+    <Compile Include="Managers\IMongoManager.cs" />
+    <Compile Include="Managers\IndexManager.cs" />
+    <Compile Include="Managers\Infos\BaseInfo.cs" />
+    <Compile Include="Managers\Infos\CollectionInfo.cs" />
+    <Compile Include="Managers\Infos\DatabaseInfo.cs" />
+    <Compile Include="Managers\Infos\IMongoInfo.cs" />
+    <Compile Include="Managers\Infos\ServerInfo.cs" />
+    <Compile Include="Managers\Models\BaseModel.cs" />
+    <Compile Include="Managers\Models\CollectionModel.cs" />
+    <Compile Include="Managers\Models\DatabaseModel.cs" />
+    <Compile Include="Managers\Models\FieldModel.cs" />
+    <Compile Include="Managers\Models\IModel.cs" />
+    <Compile Include="Managers\Models\IndexEditModel.cs" />
+    <Compile Include="Managers\Models\IndexModel.cs" />
+    <Compile Include="Managers\Models\IndexOrderType.cs" />
+    <Compile Include="Managers\Models\ProfileModel.cs" />
+    <Compile Include="Managers\Models\ServerModel.cs" />
+    <Compile Include="Managers\Models\TreeNode.cs" />
+    <Compile Include="Managers\Models\TreeNodeType.cs" />
+    <Compile Include="Managers\MongoContext.cs" />
+    <Compile Include="Managers\MongoInfoFactory.cs" />
+    <Compile Include="Managers\MongoManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Conventions\MongoDbMoneyFieldSerializer.cs" />
+    <Compile Include="Repositories\Conventions\UseLocalDateTimeConvention.cs" />
+    <Compile Include="Repositories\IdGenerators\LongIdGenerator.cs" />
+    <Compile Include="Repositories\IMongoRepository.cs" />
+    <Compile Include="Repositories\MongoInitHelper.cs" />
+    <Compile Include="Repositories\MongoRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
+      <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
+      <Name>ZSharp.Framework.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
