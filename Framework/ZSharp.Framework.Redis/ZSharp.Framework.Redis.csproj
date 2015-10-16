@@ -38,10 +38,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRedisWrapper.cs" />
+    <Compile Include="Locking\IDistributedLock.cs" />
+    <Compile Include="Locking\DistributedLockManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedisWrapperFactory.cs" />
-    <Compile Include="StackExchangeRedisFactory.cs" />
-    <Compile Include="StackExchangeRedisWrapper.cs" />
+    <Compile Include="StackExchange\StackExchangeRedisFactory.cs" />
+    <Compile Include="StackExchange\StackExchangeRedisLock.cs" />
+    <Compile Include="StackExchange\StackExchangeRedisWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZSharp.Framework.Configurations\ZSharp.Framework.Configurations.csproj">
@@ -53,6 +56,7 @@
       <Name>ZSharp.Framework.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
