@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq.Expressions;
 using ZSharp.Framework.Extensions;
 
 namespace ZSharp.Framework.Utils
@@ -52,7 +50,10 @@ namespace ZSharp.Framework.Utils
         public static void Implements<TInterface>(Type type, string message = ImplementsMessage)
         {
             if (!typeof(TInterface).IsAssignableFrom(type))
-                throw new InvalidOperationException(message.FormatInvariant(type.FullName, typeof(TInterface).FullName));
+            {
+                var msg = message.FormatInvariant(type.FullName, typeof(TInterface).FullName);
+                throw new InvalidOperationException(msg);
+            }
         }
 
         [DebuggerStepThrough]

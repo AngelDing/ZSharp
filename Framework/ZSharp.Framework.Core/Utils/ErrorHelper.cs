@@ -23,9 +23,7 @@ namespace ZSharp.Framework.Utils
         //public static Exception Application(Exception innerException, string message, params object[] args)
         //{
         //    return new ApplicationException(message.FormatCurrent(args), innerException);
-        //}
-
-       
+        //}       
 
         //[DebuggerStepThrough]
         //public static Exception ArgumentNull(string argName)

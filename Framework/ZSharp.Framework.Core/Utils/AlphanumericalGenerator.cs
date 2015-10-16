@@ -3,9 +3,9 @@
 namespace ZSharp.Framework.Utils
 {
     /// <summary>
-    /// Generates random alphnumerical strings.
+    /// Generates random alphanumerical strings.
     /// </summary>
-    public static class HandleGenerator
+    public static class AlphanumericalGenerator
     {
         private static readonly Random rnd = new Random(DateTime.UtcNow.Millisecond);
         private static readonly char[] allowableChars = "ABCDEFGHJKMNPQRSTUVWXYZ123456789".ToCharArray();

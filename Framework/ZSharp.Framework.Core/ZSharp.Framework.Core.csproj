@@ -52,6 +52,10 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />
     <Compile Include="FrameworkException.cs" />
+    <Compile Include="ValueObjects\IPaging.cs" />
+    <Compile Include="Results\IPagingResult.cs" />
+    <Compile Include="ValueObjects\BasePaging.cs" />
+    <Compile Include="Results\PagingResult.cs" />
     <Compile Include="QueryParamCollection.cs" />
     <Compile Include="Repositories\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +64,13 @@
     <Compile Include="Repositories\IRepositoryContext.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\RepositoryContext.cs" />
+    <Compile Include="Results\BaseResult.cs" />
+    <Compile Include="Results\BaseResult`1.cs" />
+    <Compile Include="Results\IResult.cs" />
+    <Compile Include="Results\ResultException.cs" />
+    <Compile Include="Results\ResultExtensions.cs" />
+    <Compile Include="Results\ResultStatusType.cs" />
+    <Compile Include="Results\SuccessfullyResult.cs" />
     <Compile Include="Specifications\AndSpecification.cs" />
     <Compile Include="Specifications\Common\ExpressionBuilder.cs" />
     <Compile Include="Specifications\Common\ParameterRebinder.cs" />
@@ -76,7 +87,7 @@
     <Compile Include="Utils\FileHelper.cs" />
     <Compile Include="Utils\GuardHelper.cs" />
     <Compile Include="Utils\GuidHelper.cs" />
-    <Compile Include="Utils\HandleGenerator.cs" />
+    <Compile Include="Utils\AlphanumericalGenerator.cs" />
     <Compile Include="Utils\ObjectCopierHelper.cs" />
     <Compile Include="Utils\RandomHelper.cs" />
     <Compile Include="Utils\TimerTaskFactory.cs" />
@@ -84,6 +95,9 @@
     <Compile Include="ValidationException.cs" />
     <Compile Include="Validator\EntityValidator.cs" />
     <Compile Include="Validator\IValidator.cs" />
+    <Compile Include="ValueObjects\BaseValueObject.cs" />
+    <Compile Include="ValueObjects\DateRange.cs" />
+    <Compile Include="ValueObjects\Money.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

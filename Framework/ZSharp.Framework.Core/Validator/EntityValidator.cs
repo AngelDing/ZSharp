@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.Validator
 {
@@ -15,7 +16,7 @@ namespace ZSharp.Framework.Validator
     {
         private List<string> validationErrors;
         
-        public bool IsValid<TEntity>(TEntity item) where TEntity : class
+        public bool IsValid<T>(T item) where T : class
         {
             if (item == null)
             {
@@ -40,11 +41,11 @@ namespace ZSharp.Framework.Validator
         /// <summary>
         /// Get erros if object implement IValidatableObject
         /// </summary>
-        /// <typeparam name="TEntity">The typeof entity</typeparam>
+        /// <typeparam name="T">The typeof entity</typeparam>
         /// <param name="item">The item to validate</param>
-        private void SetValidatableObjectErrors<TEntity>(TEntity item) where TEntity : class
+        private void SetValidatableObjectErrors<T>(T item) where T : class
         {
-            if (typeof(IValidatableObject).IsAssignableFrom(typeof(TEntity)))
+            if (typeof(IValidatableObject).IsAssignableFrom(typeof(T)))
             {
                 var validationContext = new ValidationContext(item, null, null);
 
@@ -62,9 +63,9 @@ namespace ZSharp.Framework.Validator
         /// <summary>
         /// Get errors on ValidationAttribute
         /// </summary>
-        /// <typeparam name="TEntity">The type of entity</typeparam>
+        /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="item">The entity to validate</param>
-        private void SetValidationAttributeErrors<TEntity>(TEntity item) where TEntity : class
+        private void SetValidationAttributeErrors<T>(T item) where T : class
         {
             var result = from property in TypeDescriptor.GetProperties(item).Cast<PropertyDescriptor>()
                          from attribute in property.Attributes.OfType<ValidationAttribute>()
@@ -78,7 +79,5 @@ namespace ZSharp.Framework.Validator
         }
 
         #endregion
-
-
     }
 }

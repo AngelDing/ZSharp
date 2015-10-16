@@ -7,8 +7,11 @@ namespace ZSharp.Framework.Utils
 {
     public static class AsyncHelper
     {
-        private static readonly TaskFactory myTaskFactory = 
-            new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
+        private static readonly TaskFactory myTaskFactory =  new TaskFactory(
+            CancellationToken.None, 
+            TaskCreationOptions.None, 
+            TaskContinuationOptions.None,
+            TaskScheduler.Default);
 
         public static TResult RunSync<TResult>(Func<Task<TResult>> func)
         {

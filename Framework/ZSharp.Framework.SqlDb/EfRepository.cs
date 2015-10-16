@@ -103,27 +103,11 @@ namespace ZSharp.Framework.SqlDb
             return GetSet().Where(spec.SatisfiedBy()).AsNoTracking();
         }
 
-        #endregion
-
-        #region IEFRepository
-
-        public DbContext DbContext
-        {
-            get
-            {
-                if (db == null)
-                {
-                    throw new ArgumentException("DbContext should not be null!");
-                }
-                return db;
-            }
-        }
-
-        #endregion 
+        #endregion     
 
         private IDbSet<T> GetSet()
         {
-            return efContext.DbContext.Set<T>();
+            return db.Set<T>();
         }
     }
 }

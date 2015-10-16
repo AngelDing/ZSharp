@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace ZSharp.Framework.Utils
 {
@@ -30,7 +29,9 @@ namespace ZSharp.Framework.Utils
             finally
             {
                 if (fs != null)
+                {
                     fs.Close();
+                }
             }
         }
 
@@ -54,7 +55,9 @@ namespace ZSharp.Framework.Utils
             finally
             {
                 if (fs != null)
+                {
                     fs.Close();
+                }
             }
             return true;
         }
