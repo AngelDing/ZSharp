@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.SqlDb", "F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.MongoDb", "Framework\ZSharp.Framework.MongoDb\ZSharp.Framework.MongoDb.csproj", "{4C2972BC-EA18-44E9-85F7-FC76CD5EDC27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.Redis", "Framework\ZSharp.Framework.Redis\ZSharp.Framework.Redis.csproj", "{F3EB0AA8-68A7-4B38-8708-8558143B1283}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.Configurations", "Framework\ZSharp.Framework.Configurations\ZSharp.Framework.Configurations.csproj", "{91437B74-1818-4727-B189-B1CF2CFB2F09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{4C2972BC-EA18-44E9-85F7-FC76CD5EDC27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C2972BC-EA18-44E9-85F7-FC76CD5EDC27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C2972BC-EA18-44E9-85F7-FC76CD5EDC27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3EB0AA8-68A7-4B38-8708-8558143B1283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3EB0AA8-68A7-4B38-8708-8558143B1283}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3EB0AA8-68A7-4B38-8708-8558143B1283}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3EB0AA8-68A7-4B38-8708-8558143B1283}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91437B74-1818-4727-B189-B1CF2CFB2F09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91437B74-1818-4727-B189-B1CF2CFB2F09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91437B74-1818-4727-B189-B1CF2CFB2F09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91437B74-1818-4727-B189-B1CF2CFB2F09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -52,6 +52,12 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />
     <Compile Include="FrameworkException.cs" />
+    <Compile Include="Threading\ActionDisposable.cs" />
+    <Compile Include="Threading\LockExtensions.cs" />
+    <Compile Include="Threading\ReadLockDisposable.cs" />
+    <Compile Include="Utils\TaskHelper.cs" />
+    <Compile Include="Threading\UpgradeableReadLockDisposable.cs" />
+    <Compile Include="Threading\WriteLockDisposable.cs" />
     <Compile Include="ValueObjects\IPaging.cs" />
     <Compile Include="Results\IPagingResult.cs" />
     <Compile Include="ValueObjects\BasePaging.cs" />
