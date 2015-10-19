@@ -73,9 +73,19 @@ namespace ZSharp.Framework.Redis
             return data;
         }
 
+        public object GetAndSet(string key, string dataStr)
+        {
+            return db.StringGetSet(key, dataStr);
+        }
+
         public void Set(string key, string dataStr, TimeSpan? expiry = null)
         {
             db.StringSet(key, dataStr, expiry);
+        }
+
+        public bool SetIfNotExists(string key, string dataStr, TimeSpan? expiry = null)
+        {
+            return db.StringSet(key, dataStr, expiry, When.NotExists);
         }
 
         public bool Exists(string key)

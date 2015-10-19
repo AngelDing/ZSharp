@@ -52,6 +52,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />
     <Compile Include="FrameworkException.cs" />
+    <Compile Include="IDto.cs" />
     <Compile Include="Threading\ActionDisposable.cs" />
     <Compile Include="Threading\LockExtensions.cs" />
     <Compile Include="Threading\ReadLockDisposable.cs" />

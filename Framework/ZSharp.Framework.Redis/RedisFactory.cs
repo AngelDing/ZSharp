@@ -3,7 +3,7 @@ using ZSharp.Framework.Extensions;
 
 namespace ZSharp.Framework.Redis
 {
-    public static class RedisWrapperFactory
+    public static class RedisFactory
     {
         public static IRedisWrapper GetRedisWrapper(string redisConfigName = null)
         {
@@ -13,6 +13,11 @@ namespace ZSharp.Framework.Redis
             }
 
             return new StackExchangeRedisWrapper(redisConfigName);
+        }
+
+        public static IRedisLock GetRedisLock()
+        {
+            return new RedisLock();
         }
     }
 }
