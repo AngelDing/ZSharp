@@ -1,9 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ZSharp.Framework.Redis
 {
     public class RedisLock : IRedisLock
     {
+        /// <summary>
+        /// String containing the Lua unlock script.
+        /// </summary>
+        const string UnlockScript = @"
+            if redis.call(""get"",KEYS[1]) == ARGV[1] then
+                return redis.call(""del"",KEYS[1])
+            else
+                return 0
+            end";
+
         private readonly IRedisWrapper redisWrapper;
 
         public RedisLock()
@@ -11,11 +22,9 @@ namespace ZSharp.Framework.Redis
             this.redisWrapper = RedisFactory.GetRedisWrapper();
         }
 
-        public bool Lock(string key, TimeSpan timeOut)
+        public bool Lock(string key, long lockExpireTime, TimeSpan timeOut)
         {
-            var expireTime = DateTimeOffset.UtcNow.Add((TimeSpan)timeOut);
-            string lockString = (expireTime.ToUnixTimeMilliseconds() + 1).ToString();
-
+            var lockString = lockExpireTime.ToString();
             //當沒有正常釋放時，在原來過期時間基礎上加30天讓其會自動釋放；
             var autoReleaseSpan = timeOut.Add(TimeSpan.FromDays(30));  
 
@@ -30,7 +39,7 @@ namespace ZSharp.Framework.Redis
             //correctly acquired or it could be because a client that had acquired the lock crashed (or didn't release it properly).
             //Therefore we need to get the value of the lock to see when it should expire
             string lockExpireString = redisWrapper.Get(key).ToString();
-            long lockExpireTime;
+            lockExpireTime = 0;
             if (!long.TryParse(lockExpireString, out lockExpireTime))
             {
                 return false;
@@ -46,11 +55,11 @@ namespace ZSharp.Framework.Redis
             //that what is returned is the old timeout string in order to account for a possible race condition.
             var oldString = redisWrapper.GetAndSet(key, lockString).ToString();
             return oldString == lockExpireString;
-        }
+        }     
 
-        public void UnLock(string key)
+        public void UnLock(string key, string value)
         {
-            redisWrapper.Remove(key);
+            redisWrapper.ScriptEvaluate(UnlockScript, new List<string> { key }, new List<string> { value });
         }
     }
 }

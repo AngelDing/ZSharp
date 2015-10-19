@@ -6,20 +6,28 @@ namespace ZSharp.Framework.Redis
     public class Redlock : DisposableObject
     {
         private readonly IRedisLock redisLock;
-        private readonly string key;
+        private string key;
+        private long lockExpireTime;
 
         public Redlock(string key, TimeSpan timeOut)
         {
             this.redisLock = RedisFactory.GetRedisLock();
             this.key = key;
-            ExecHelper.RetryUntilTrue(() => { return redisLock.Lock(key, timeOut); }, timeOut);
-        }      
-         
+            CreateLockString(timeOut);
+            ExecHelper.RetryUntilTrue(() => { return redisLock.Lock(key, lockExpireTime, timeOut); }, timeOut);
+        }
+
+        private void CreateLockString(TimeSpan timeOut)
+        {
+            var expireTime = DateTimeOffset.UtcNow.Add(timeOut);
+            this.lockExpireTime = expireTime.ToUnixTimeMilliseconds() + 1;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                redisLock.UnLock(key);
+                redisLock.UnLock(key, lockExpireTime.ToString());
             }
         }
     }

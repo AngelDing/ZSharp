@@ -4,8 +4,8 @@ namespace ZSharp.Framework.Redis
 {
     public interface IRedisLock
     {
-        bool Lock(string key, TimeSpan timeOut);
+        bool Lock(string key, long lockExpireTime, TimeSpan timeOut);
 
-        void UnLock(string key);
+        void UnLock(string key, string value);
     }
 }

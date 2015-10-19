@@ -27,6 +27,8 @@ namespace ZSharp.Framework.Redis
 
         void HashSet(string key, IList<KeyValuePair<string, string>> hashItems);
 
-        void HashDelete(string key, IList<string> dataItems);        
+        void HashDelete(string key, IList<string> dataItems);
+
+        object ScriptEvaluate(string script, IEnumerable<string> keys = null, IEnumerable<string> values = null);
     }
 }

@@ -174,5 +174,41 @@ namespace ZSharp.Framework.Redis
             }
             db.HashDelete(key, delItems.ToArray(), CommandFlags.FireAndForget);
         }
+
+        public object ScriptEvaluate(string script, IEnumerable<string> keyList = null, IEnumerable<string> valueList = null)
+        {
+            var keys = GetRedisKeys(keyList);
+            var values = GetRedisValues(valueList);
+            return db.ScriptEvaluate(script, keys, values);
+        }
+
+        private RedisKey[] GetRedisKeys(IEnumerable<string> keyList = null)
+        {
+            if (keyList == null)
+            {
+                return null;
+            }
+            var redisKeys = new List<RedisKey>();
+            foreach (var k in keyList)
+            {
+                redisKeys.Add(k);
+            }
+            return redisKeys.ToArray();
+        }
+
+        private RedisValue[] GetRedisValues(IEnumerable<string> valueList = null)
+        {
+            if (valueList == null)
+            {
+                return null;
+            }
+
+            var redisValues = new List<RedisValue>();
+            foreach (var v in valueList)
+            {
+                redisValues.Add(v);
+            }
+            return redisValues.ToArray();
+        }
     }
 }
