@@ -55,6 +55,10 @@ namespace ZSharp.Framework.Redis
             //that what is returned is the old timeout string in order to account for a possible race condition.
             var oldString = redisWrapper.GetAndSet(key, lockString).ToString();
             return oldString == lockExpireString;
+
+            ////另一種實現方式是：直接Remove，返回false，然後重新走一遍之前的流程
+            //this.redisWrapper.Remove(key);
+            //return false;
         }     
 
         public void UnLock(string key, string value)
