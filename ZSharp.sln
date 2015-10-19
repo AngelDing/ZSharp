@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.Configurat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.Infrastructure", "Framework\ZSharp.Framework.Infrastructure\ZSharp.Framework.Infrastructure.csproj", "{66B2F2CC-DA8F-4615-9933-6EDCDFC52A6C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D95C6325-E447-4C95-B400-9445516275C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.ConsoleTest", "Tests\Framework.ConsoleTest\Framework.ConsoleTest.csproj", "{8DA8CC96-F765-4364-96F2-D05FBE558185}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,8 +49,15 @@ Global
 		{66B2F2CC-DA8F-4615-9933-6EDCDFC52A6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66B2F2CC-DA8F-4615-9933-6EDCDFC52A6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66B2F2CC-DA8F-4615-9933-6EDCDFC52A6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DA8CC96-F765-4364-96F2-D05FBE558185}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DA8CC96-F765-4364-96F2-D05FBE558185}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DA8CC96-F765-4364-96F2-D05FBE558185}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DA8CC96-F765-4364-96F2-D05FBE558185}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8DA8CC96-F765-4364-96F2-D05FBE558185} = {D95C6325-E447-4C95-B400-9445516275C7}
 	EndGlobalSection
 EndGlobal

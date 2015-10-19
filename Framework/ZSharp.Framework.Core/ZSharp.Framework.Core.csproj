@@ -43,6 +43,7 @@
     <Compile Include="Entities\IPartialUpdateEntity.cs" />
     <Compile Include="Entities\IAggregateRoot.cs" />
     <Compile Include="Entities\IEntity.cs" />
+    <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\CommonExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
