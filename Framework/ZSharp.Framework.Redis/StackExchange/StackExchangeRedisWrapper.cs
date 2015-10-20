@@ -73,7 +73,7 @@ namespace ZSharp.Framework.Redis
             return data;
         }
 
-        public object GetAndSet(string key, string dataStr)
+        public object GetSet(string key, string dataStr)
         {
             return db.StringGetSet(key, dataStr);
         }
@@ -179,7 +179,8 @@ namespace ZSharp.Framework.Redis
         {
             var keys = GetRedisKeys(keyList);
             var values = GetRedisValues(valueList);
-            return db.ScriptEvaluate(script, keys, values);
+            var result = db.ScriptEvaluate(script, keys, values);
+            return result;
         }
 
         private RedisKey[] GetRedisKeys(IEnumerable<string> keyList = null)
@@ -209,6 +210,11 @@ namespace ZSharp.Framework.Redis
                 redisValues.Add(v);
             }
             return redisValues.ToArray();
+        }
+
+        public long Increment(string key)
+        {
+            return db.StringIncrement(key);
         }
     }
 }

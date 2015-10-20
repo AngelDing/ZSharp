@@ -7,17 +7,23 @@ namespace ZSharp.Framework.Redis
     {
         public static IRedisWrapper GetRedisWrapper(string redisConfigName = null)
         {
+            redisConfigName = GetRedisConfigName(redisConfigName);
+            return new StackExchangeRedisWrapper(redisConfigName);
+        }
+
+        public static IRedisLock GetRedisLock(string redisConfigName = null)
+        {
+            return new RedisLock(redisConfigName);
+        }
+
+        private static string GetRedisConfigName(string redisConfigName = null)
+        {
             if (redisConfigName.IsNullOrEmpty())
             {
                 redisConfigName = CommonConfig.RedisConfigName;
             }
 
-            return new StackExchangeRedisWrapper(redisConfigName);
-        }
-
-        public static IRedisLock GetRedisLock()
-        {
-            return new RedisLock();
+            return redisConfigName;
         }
     }
 }

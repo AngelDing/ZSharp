@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D95C6325
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.ConsoleTest", "Tests\Framework.ConsoleTest\Framework.ConsoleTest.csproj", "{8DA8CC96-F765-4364-96F2-D05FBE558185}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Redis.Test", "Tests\Framework.Redis.Test\Framework.Redis.Test.csproj", "{118FAE29-B4B1-4DBB-BD20-5DD3B821CCF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Infrastructure.Test", "Tests\Framework.Infrastructure.Test\Framework.Infrastructure.Test.csproj", "{E2D3D3A0-20BB-4AE3-B051-50B54C66B414}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,11 +57,21 @@ Global
 		{8DA8CC96-F765-4364-96F2-D05FBE558185}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DA8CC96-F765-4364-96F2-D05FBE558185}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DA8CC96-F765-4364-96F2-D05FBE558185}.Release|Any CPU.Build.0 = Release|Any CPU
+		{118FAE29-B4B1-4DBB-BD20-5DD3B821CCF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{118FAE29-B4B1-4DBB-BD20-5DD3B821CCF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{118FAE29-B4B1-4DBB-BD20-5DD3B821CCF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{118FAE29-B4B1-4DBB-BD20-5DD3B821CCF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2D3D3A0-20BB-4AE3-B051-50B54C66B414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2D3D3A0-20BB-4AE3-B051-50B54C66B414}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2D3D3A0-20BB-4AE3-B051-50B54C66B414}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2D3D3A0-20BB-4AE3-B051-50B54C66B414}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8DA8CC96-F765-4364-96F2-D05FBE558185} = {D95C6325-E447-4C95-B400-9445516275C7}
+		{118FAE29-B4B1-4DBB-BD20-5DD3B821CCF7} = {D95C6325-E447-4C95-B400-9445516275C7}
+		{E2D3D3A0-20BB-4AE3-B051-50B54C66B414} = {D95C6325-E447-4C95-B400-9445516275C7}
 	EndGlobalSection
 EndGlobal

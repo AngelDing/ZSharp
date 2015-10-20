@@ -7,7 +7,7 @@ namespace ZSharp.Framework.Redis
     {
         object Get(string key);
 
-        object GetAndSet(string key, string dataStr);
+        object GetSet(string key, string dataStr);
 
         void Set(string key, string dataStr, TimeSpan? expiry = null);
 
@@ -30,5 +30,7 @@ namespace ZSharp.Framework.Redis
         void HashDelete(string key, IList<string> dataItems);
 
         object ScriptEvaluate(string script, IEnumerable<string> keys = null, IEnumerable<string> values = null);
+
+        long Increment(string key);
     }
 }

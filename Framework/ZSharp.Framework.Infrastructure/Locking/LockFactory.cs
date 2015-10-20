@@ -2,7 +2,7 @@
 
 namespace ZSharp.Framework.Infrastructure
 {
-    public class DistributedLockFactory
+    public class LockFactory
     {
         public static IDisposable GetLock(string key, TimeSpan? timeOut)
         {

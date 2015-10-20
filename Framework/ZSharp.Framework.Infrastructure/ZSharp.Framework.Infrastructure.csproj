@@ -45,7 +45,7 @@
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Locking\DistributedLockFactory.cs" />
+    <Compile Include="Locking\LockFactory.cs" />
     <Compile Include="Locking\IDistributedLock.cs" />
     <Compile Include="Locking\DistributedLock.cs" />
     <Compile Include="MappingExtensions.cs" />
