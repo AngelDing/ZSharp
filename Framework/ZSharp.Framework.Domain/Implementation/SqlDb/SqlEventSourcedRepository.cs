@@ -18,10 +18,10 @@ namespace ZSharp.Framework.Domain
         private static readonly string sourceType = typeof(T).Name;
         private readonly IEventBus eventBus;
         private readonly ISerializer serializer;
-        private readonly Func<EventStoreDbContext> contextFactory;
+        private readonly Func<DomainDbContext> contextFactory;
         private readonly Func<Guid, IEnumerable<IVersionedEvent>, T> entityFactory;
 
-        public SqlEventSourcedRepository(IEventBus eventBus, ISerializer serializer, Func<EventStoreDbContext> contextFactory)
+        public SqlEventSourcedRepository(IEventBus eventBus, ISerializer serializer, Func<DomainDbContext> contextFactory)
         {
             this.eventBus = eventBus;
             this.serializer = serializer;
@@ -40,7 +40,7 @@ namespace ZSharp.Framework.Domain
         {
             using (var context = this.contextFactory.Invoke())
             {
-                var deserialized = context.Set<EventEntity>()
+                var deserialized = context.Set<EventSourcedEntity>()
                     .Where(x => x.AggregateId == id && x.AggregateType == sourceType)
                     .OrderBy(x => x.Version)
                     .AsEnumerable()
@@ -73,7 +73,7 @@ namespace ZSharp.Framework.Domain
             var events = eventSourced.Events.ToArray();
             using (var context = this.contextFactory.Invoke())
             {
-                var eventsSet = context.Set<EventEntity>();
+                var eventsSet = context.Set<EventSourcedEntity>();
                 foreach (var e in events)
                 {
                     eventsSet.Add(this.Serialize(e, correlationId));
@@ -86,11 +86,11 @@ namespace ZSharp.Framework.Domain
             this.eventBus.Publish(events.Select(e => new Envelope<IEvent>(e) { CorrelationId = correlationId }));
         }
 
-        private EventEntity Serialize(IVersionedEvent e, string correlationId)
+        private EventSourcedEntity Serialize(IVersionedEvent e, string correlationId)
         {
             var versionedEventType = e.GetType().AssemblyQualifiedName;
             var payload = this.serializer.Serialize<string>(e);
-            var serialized = new EventEntity
+            var serialized = new EventSourcedEntity
             {
                 AggregateId = e.SourceId,
                 AggregateType = sourceType,
@@ -103,7 +103,7 @@ namespace ZSharp.Framework.Domain
             return serialized;
         }
 
-        private IVersionedEvent Deserialize(EventEntity @event)
+        private IVersionedEvent Deserialize(EventSourcedEntity @event)
         {
             var type = Type.GetType(@event.VersionedEventType);
             var result = this.serializer.Deserialize(@event.Payload, type);

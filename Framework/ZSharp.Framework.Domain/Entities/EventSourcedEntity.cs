@@ -3,7 +3,7 @@ using ZSharp.Framework.SqlDb;
 
 namespace ZSharp.Framework.Domain
 {
-    public class EventEntity : EfEntity<long>
+    public class EventSourcedEntity : EfEntity<Guid>
     {
         public Guid AggregateId { get; set; }
 
