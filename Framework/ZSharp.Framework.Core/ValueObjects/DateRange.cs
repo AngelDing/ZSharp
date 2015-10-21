@@ -41,5 +41,11 @@ namespace ZSharp.Framework.ValueObjects
 
             return validationResults;
         }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return this.StartDate;
+            yield return this.EndDate;
+        }
     }
 }

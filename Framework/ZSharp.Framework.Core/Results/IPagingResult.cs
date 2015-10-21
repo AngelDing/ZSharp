@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ZSharp.Framework.ValueObjects;
+using ZSharp.Framework.Common;
 
 namespace ZSharp.Framework.Results
 {

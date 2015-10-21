@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{427EC224-50F3-4BA2-8434-518C6FEA28D9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZSharp.Framework.Domain</RootNamespace>
+    <AssemblyName>ZSharp.Framework.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\EntityFramework\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Transactions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CacheAnyEnumerableExtensions.cs" />
+    <Compile Include="Commands\CommandBus.cs" />
+    <Compile Include="Commands\CommandBusExtensions.cs" />
+    <Compile Include="Entities\ProcessEntity.cs" />
+    <Compile Include="Entities\UndispatchedMessageEntity.cs" />
+    <Compile Include="EntityNotFoundException.cs" />
+    <Compile Include="Events\EventBus.cs" />
+    <Compile Include="Events\EventBusExtensions.cs" />
+    <Compile Include="Commands\ICommandBus.cs" />
+    <Compile Include="Events\IEventBus.cs" />
+    <Compile Include="DomainException.cs" />
+    <Compile Include="Entities\EventEntity.cs" />
+    <Compile Include="EventSourcing\EventSourced.cs" />
+    <Compile Include="Implementation\SqlDb\EventStoreDbContext.cs" />
+    <Compile Include="EventSourcing\IEventSourced.cs" />
+    <Compile Include="EventSourcing\IEventSourcedRepository.cs" />
+    <Compile Include="EventSourcing\IMementoOriginator.cs" />
+    <Compile Include="EventSourcing\IVersionedEvent.cs" />
+    <Compile Include="Implementation\SqlDb\MessageReceiver.cs" />
+    <Compile Include="Implementation\SqlDb\MessageSender.cs" />
+    <Compile Include="Implementation\SqlDb\MessagingDbInitializer.cs" />
+    <Compile Include="Implementation\SqlDb\SqlEventSourcedRepository.cs" />
+    <Compile Include="EventSourcing\VersionedEvent.cs" />
+    <Compile Include="Commands\CommandProcessor.cs" />
+    <Compile Include="Events\EventDispatcher.cs" />
+    <Compile Include="Events\EventProcessor.cs" />
+    <Compile Include="Commands\ICommandHandler.cs" />
+    <Compile Include="Commands\ICommandHandlerRegistry.cs" />
+    <Compile Include="Events\IEventHandler.cs" />
+    <Compile Include="Events\IEventHandlerRegistry.cs" />
+    <Compile Include="Processors\MessageProcessor.cs" />
+    <Compile Include="MessageLog\EventLogExtensions.cs" />
+    <Compile Include="MessageLog\IEventLogReader.cs" />
+    <Compile Include="Implementation\SqlDb\MessageLogDbContext.cs" />
+    <Compile Include="Entities\MessageLogEntity.cs" />
+    <Compile Include="MessageLog\QueryCriteria.cs" />
+    <Compile Include="MessageLog\QueryCriteriaExtensions.cs" />
+    <Compile Include="Implementation\SqlDb\SqlMessageLog.cs" />
+    <Compile Include="Implementation\SqlDb\SqlMessageLogHandler.cs" />
+    <Compile Include="Messaging\Envelope.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\IEventPublisher.cs" />
+    <Compile Include="Messaging\IMessageReceiver.cs" />
+    <Compile Include="Messaging\IMessageSender.cs" />
+    <Compile Include="Messaging\IMessageSessionProvider.cs" />
+    <Compile Include="Messaging\Message.cs" />
+    <Compile Include="Messaging\MessageReceivedEventArgs.cs" />
+    <Compile Include="Metadata\IMetadataProvider.cs" />
+    <Compile Include="Metadata\StandardMetadata.cs" />
+    <Compile Include="Metadata\StandardMetadataProvider.cs" />
+    <Compile Include="Processors\IProcessManager.cs" />
+    <Compile Include="Processors\IProcessor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
+      <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
+      <Name>ZSharp.Framework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.Logging\ZSharp.Framework.Logging.csproj">
+      <Project>{2d8850ae-67c7-4448-87b2-f3f084f36b55}</Project>
+      <Name>ZSharp.Framework.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.Serializations\ZSharp.Framework.Serializations.csproj">
+      <Project>{b4594b5f-676e-47b4-9f1a-d9d695a95457}</Project>
+      <Name>ZSharp.Framework.Serializations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.SqlDb\ZSharp.Framework.SqlDb.csproj">
+      <Project>{33c02d28-af0c-4bbd-ba22-3acb43391347}</Project>
+      <Name>ZSharp.Framework.SqlDb</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Snapshots\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Implementation\SqlDb\Infrustructure.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

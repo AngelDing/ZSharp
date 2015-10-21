@@ -16,7 +16,7 @@ namespace ZSharp.Framework.Redis
         public string Value { get; private set; }
 
         /// <summary>
-        /// 生成时间值：Time To Live 
+        /// 生存时间值：Time To Live 
         /// </summary>
         public TimeSpan TTL { get; private set; }
     }

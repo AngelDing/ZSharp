@@ -38,5 +38,10 @@ namespace ZSharp.Framework.Utils
 
             return new Guid(guidBytes);
         }
+
+        public static Guid NewGuid()
+        {
+            return Guid.NewGuid();
+        }
     }
 }

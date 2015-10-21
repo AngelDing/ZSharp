@@ -1,5 +1,5 @@
 ﻿
-namespace ZSharp.Framework.ValueObjects
+namespace ZSharp.Framework.Common
 {
     public class BasePaging : IPaging
     {
