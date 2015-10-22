@@ -30,11 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EasyNetQ">
+      <HintPath>..\..\Dll\RabbitMq\EasyNetQ.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dll\EntityFramework\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RabbitMQ.Client">
+      <HintPath>..\..\Dll\RabbitMq\RabbitMQ.Client.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -57,18 +63,20 @@
     <Compile Include="DomainException.cs" />
     <Compile Include="Entities\EventSourcedEntity.cs" />
     <Compile Include="EventSourcing\EventSourced.cs" />
+    <Compile Include="Implementation\RabbitMq\RabbitMqMessageReceiver.cs" />
+    <Compile Include="Implementation\RabbitMq\RabbitMqMessageSender.cs" />
     <Compile Include="Implementation\SqlDb\DomainDbContext.cs" />
     <Compile Include="EventSourcing\IEventSourced.cs" />
     <Compile Include="Implementation\SqlDb\SqlMessageLogRepository.cs" />
+    <Compile Include="Implementation\SqlDb\SqlMessageReceiver.cs" />
     <Compile Include="Implementation\SqlDb\SqlMessageRepository.cs" />
+    <Compile Include="Implementation\SqlDb\SqlMessageSender.cs" />
     <Compile Include="Messaging\MessageReceiver.cs" />
     <Compile Include="Messaging\MessageSender.cs" />
     <Compile Include="Repositories\IMessageRepository.cs" />
     <Compile Include="Repositories\IEventSourcedRepository.cs" />
     <Compile Include="EventSourcing\IMementoOriginator.cs" />
     <Compile Include="EventSourcing\IVersionedEvent.cs" />
-    <Compile Include="Implementation\SqlDb\SqlMessageReceiver.cs" />
-    <Compile Include="Implementation\SqlDb\SqlMessageSender.cs" />
     <Compile Include="Implementation\SqlDb\SqlEventSourcedRepository.cs" />
     <Compile Include="EventSourcing\VersionedEvent.cs" />
     <Compile Include="Commands\CommandProcessor.cs" />
@@ -126,9 +134,12 @@
       <Name>ZSharp.Framework.SqlDb</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Implementation\SqlDb\Infrustructure.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\Dll\RabbitMq\EasyNetQ.dll" />
+    <Analyzer Include="..\..\Dll\RabbitMq\RabbitMQ.Client.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
