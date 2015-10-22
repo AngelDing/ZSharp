@@ -30,7 +30,7 @@ namespace ZSharp.Framework.Domain
             var e = payload as IEvent;
             if (e != null)
             {
-                metadata[StandardMetadata.SourceId] = e.SourceId.ToString();
+                metadata[StandardMetadata.SourceId] = e.Id.ToString();
                 metadata[StandardMetadata.Kind] = StandardMetadata.EventKind;
             }
 

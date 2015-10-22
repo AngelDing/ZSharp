@@ -1,26 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.Domain
 {   
     /// <summary>
     /// Represents an identifiable entity that is event sourced.
     /// </summary>
-    public interface IEventSourced
+    public interface IEventSourced : IVersionedEvent, ISnapshotOrignator, IAggregateRoot<Guid>
     {
-        /// <summary>
-        /// Gets the entity identifier.
-        /// </summary>
-        Guid Id { get; }
-
-        /// <summary>
-        /// Gets the entity's version. As the entity is being updated and events being generated, the version is incremented.
-        /// </summary>
-        int Version { get; }
-
         /// <summary>
         /// Gets the collection of new events since the entity was loaded, as a consequence of command handling.
         /// </summary>
         IEnumerable<IVersionedEvent> Events { get; }
+
+        /// <summary>
+        /// Load the aggreate from the historial events.
+        /// </summary>
+        /// <param name="pastEvents">The historical events from which the aggregate is built.</param>
+        void LoadFromHistory(IEnumerable<IVersionedEvent> pastEvents);
     }
 }

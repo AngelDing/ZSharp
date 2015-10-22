@@ -92,7 +92,7 @@ namespace ZSharp.Framework.Domain
             var payload = this.serializer.Serialize<string>(e);
             var serialized = new EventSourcedEntity
             {
-                AggregateId = e.SourceId,
+                AggregateId = e.Id,
                 AggregateType = sourceType,
                 Version = e.Version,
                 VersionedEventType = versionedEventType,

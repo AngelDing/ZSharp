@@ -50,12 +50,15 @@
     <Compile Include="CacheAnyEnumerableExtensions.cs" />
     <Compile Include="Commands\CommandBus.cs" />
     <Compile Include="Commands\CommandBusExtensions.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Entities\MessageEntity.cs" />
     <Compile Include="Entities\CommandMessageEntity.cs" />
     <Compile Include="Entities\EventMessageEntity.cs" />
     <Compile Include="Entities\ProcessEntity.cs" />
+    <Compile Include="Entities\SnapshotEntity.cs" />
     <Compile Include="Entities\UndispatchedMessageEntity.cs" />
     <Compile Include="EntityNotFoundException.cs" />
+    <Compile Include="EventSourcing\Snapshots\Snapshot.cs" />
     <Compile Include="Events\EventBus.cs" />
     <Compile Include="Events\EventBusExtensions.cs" />
     <Compile Include="Commands\ICommandBus.cs" />
@@ -75,7 +78,6 @@
     <Compile Include="Messaging\MessageSender.cs" />
     <Compile Include="Repositories\IMessageRepository.cs" />
     <Compile Include="Repositories\IEventSourcedRepository.cs" />
-    <Compile Include="EventSourcing\IMementoOriginator.cs" />
     <Compile Include="EventSourcing\IVersionedEvent.cs" />
     <Compile Include="Implementation\SqlDb\SqlEventSourcedRepository.cs" />
     <Compile Include="EventSourcing\VersionedEvent.cs" />
@@ -109,8 +111,9 @@
     <Compile Include="Processors\IProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IMessageLogRepository.cs" />
-    <Compile Include="Snapshots\ISnapshot.cs" />
-    <Compile Include="Snapshots\ISnapshotOrignator.cs" />
+    <Compile Include="EventSourcing\Snapshots\ISnapshot.cs" />
+    <Compile Include="EventSourcing\Snapshots\ISnapshotOrignator.cs" />
+    <Compile Include="Repositories\ISnapshotRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">

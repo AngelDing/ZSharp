@@ -1,75 +1,85 @@
 ﻿using System;
 using System.Collections.Generic;
+using ZSharp.Framework.Entities;
+using ZSharp.Framework.Utils;
 
 namespace ZSharp.Framework.Domain
 {
     /// <summary>
-    /// Base class for event sourced entities that implements <see cref="IEventSourced"/>. 
+    /// Base class for event sourced entities that implements.
     /// </summary>
-    /// <remarks>
-    /// <see cref="IEventSourced"/> entities do not require the use of <see cref="EventSourced"/>, but this class contains some common 
-    /// useful functionality related to versions and rehydration from past events.
-    /// </remarks>
     public abstract class EventSourced : IEventSourced
     {
         private readonly Dictionary<Type, Action<IVersionedEvent>> handlers = new Dictionary<Type, Action<IVersionedEvent>>();
         private readonly List<IVersionedEvent> pendingEvents = new List<IVersionedEvent>();
 
-        private readonly Guid id;
-        private int version = -1;
+        public EventSourced()
+            : this(GuidHelper.NewSequentialId())
+        {
+        }
 
         protected EventSourced(Guid id)
         {
-            this.id = id;
+            this.Id = id;
+            this.Version = Constants.ApplicationRuntime.DefaultVersion;
         }
 
-        public Guid Id
-        {
-            get { return this.id; }
-        }
+        public Guid Id { get; set; }
 
-        /// <summary>
-        /// Gets the entity's version. As the entity is being updated and events being generated, the version is incremented.
-        /// </summary>
-        public int Version
-        {
-            get { return this.version; }
-            protected set { this.version = value; }
-        }
+        public int Version { get; private set; }
 
-        /// <summary>
-        /// Gets the collection of new events since the entity was loaded, as a consequence of command handling.
-        /// </summary>
         public IEnumerable<IVersionedEvent> Events
         {
             get { return this.pendingEvents; }
         }
 
-        /// <summary>
-        /// Configures a handler for an event. 
-        /// </summary>
         protected void Handles<TEvent>(Action<TEvent> handler)
             where TEvent : IEvent
         {
             this.handlers.Add(typeof(TEvent), @event => handler((TEvent)@event));
         }
 
-        protected void LoadFrom(IEnumerable<IVersionedEvent> pastEvents)
+        public void LoadFromHistory(IEnumerable<IVersionedEvent> pastEvents)
         {
             foreach (var e in pastEvents)
             {
                 this.handlers[e.GetType()].Invoke(e);
-                this.version = e.Version;
+                this.Version = e.Version;
             }
         }
 
         protected void Update(VersionedEvent e)
         {
-            e.SourceId = this.Id;
-            e.Version = this.version + 1;
+            e.Id = this.Id;
+            e.Version = this.Version + 1;
             this.handlers[e.GetType()].Invoke(e);
-            this.version = e.Version;
+            this.Version = e.Version;
             this.pendingEvents.Add(e);
         }
+
+        protected abstract void DoLoadFromSnapshot(ISnapshot snapshot);
+
+        protected abstract ISnapshot DoCreateSnapshot();
+
+        #region IOrignator Members
+
+        public virtual void LoadFromSnapshot(ISnapshot snapshot)
+        {
+            this.Version = snapshot.Version;
+            this.Id = snapshot.AggregateId;
+            DoLoadFromSnapshot(snapshot);
+            this.pendingEvents.Clear();
+        }
+
+        public virtual ISnapshot CreateSnapshot()
+        {
+            ISnapshot snapshot = this.DoCreateSnapshot();
+
+            snapshot.Version = this.Version;
+            snapshot.Timestamp = DateTimeOffset.UtcNow;
+            snapshot.AggregateId = this.Id;
+            return snapshot;
+        }
+        #endregion
     }
 }

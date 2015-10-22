@@ -3,7 +3,7 @@ namespace ZSharp.Framework.Domain
 {
     public interface ISnapshotOrignator
     {
-        void BuildFromSnapshot(ISnapshot snapshot);
+        void LoadFromSnapshot(ISnapshot snapshot);
 
         ISnapshot CreateSnapshot();
     }

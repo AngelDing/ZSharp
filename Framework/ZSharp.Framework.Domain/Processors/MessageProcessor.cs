@@ -70,6 +70,8 @@ namespace ZSharp.Framework.Domain
 
             try
             {
+                //TODO：一條消息可能會引發多個Handler處理相關數據，如果其中有一個出現錯誤，則這條消息不會刪除，
+                //下次會再次處理，此時的數據一致性如何解決？需要保證每個Handler都是冥等的？
                 var body = Deserialize(args.Message);
 
                 Logger.Trace(this.Serialize(body));
