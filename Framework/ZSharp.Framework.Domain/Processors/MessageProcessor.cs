@@ -38,7 +38,7 @@ namespace ZSharp.Framework.Domain
             {
                 if (!this.started)
                 {
-                    this.receiver.MessageReceived += OnMessageReceived;
+                    this.receiver.OnMessageReceived += OnMessageReceived;
                     this.receiver.Start();
                     this.started = true;
                 }
@@ -55,7 +55,7 @@ namespace ZSharp.Framework.Domain
                 if (this.started)
                 {
                     this.receiver.Stop();
-                    this.receiver.MessageReceived -= OnMessageReceived;
+                    this.receiver.OnMessageReceived -= OnMessageReceived;
                     this.started = false;
                 }
             }

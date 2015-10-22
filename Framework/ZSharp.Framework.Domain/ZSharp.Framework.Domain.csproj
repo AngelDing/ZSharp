@@ -61,12 +61,14 @@
     <Compile Include="EventSourcing\IEventSourced.cs" />
     <Compile Include="Implementation\SqlDb\SqlMessageLogRepository.cs" />
     <Compile Include="Implementation\SqlDb\SqlMessageRepository.cs" />
+    <Compile Include="Messaging\MessageReceiver.cs" />
+    <Compile Include="Messaging\MessageSender.cs" />
     <Compile Include="Repositories\IMessageRepository.cs" />
     <Compile Include="Repositories\IEventSourcedRepository.cs" />
     <Compile Include="EventSourcing\IMementoOriginator.cs" />
     <Compile Include="EventSourcing\IVersionedEvent.cs" />
-    <Compile Include="Messaging\MessageReceiver.cs" />
-    <Compile Include="Messaging\MessageSender.cs" />
+    <Compile Include="Implementation\SqlDb\SqlMessageReceiver.cs" />
+    <Compile Include="Implementation\SqlDb\SqlMessageSender.cs" />
     <Compile Include="Implementation\SqlDb\SqlEventSourcedRepository.cs" />
     <Compile Include="EventSourcing\VersionedEvent.cs" />
     <Compile Include="Commands\CommandProcessor.cs" />

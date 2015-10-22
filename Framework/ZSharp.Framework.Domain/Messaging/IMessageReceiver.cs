@@ -13,7 +13,7 @@ namespace ZSharp.Framework.Domain
         /// the event is responsible for disposing the message when 
         /// appropriate.
         /// </summary>
-        event EventHandler<MessageReceivedEventArgs> MessageReceived;
+        event EventHandler<MessageReceivedEventArgs> OnMessageReceived;
 
         /// <summary>
         /// Starts the listener.
