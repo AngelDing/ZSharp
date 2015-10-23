@@ -50,6 +50,7 @@
     <Compile Include="CacheAnyEnumerableExtensions.cs" />
     <Compile Include="Commands\CommandBus.cs" />
     <Compile Include="Commands\CommandBusExtensions.cs" />
+    <Compile Include="Commands\CommandConsumer.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Entities\MessageEntity.cs" />
     <Compile Include="Entities\CommandMessageEntity.cs" />
@@ -66,6 +67,8 @@
     <Compile Include="DomainException.cs" />
     <Compile Include="Entities\EventSourcedEntity.cs" />
     <Compile Include="EventSourcing\EventSourced.cs" />
+    <Compile Include="IHandler.cs" />
+    <Compile Include="IHandlerRegistry.cs" />
     <Compile Include="Implementation\RabbitMq\RabbitMqMessageReceiver.cs" />
     <Compile Include="Implementation\RabbitMq\RabbitMqMessageSender.cs" />
     <Compile Include="Implementation\SqlDb\DomainDbContext.cs" />
@@ -74,6 +77,9 @@
     <Compile Include="Implementation\SqlDb\SqlMessageReceiver.cs" />
     <Compile Include="Implementation\SqlDb\SqlMessageRepository.cs" />
     <Compile Include="Implementation\SqlDb\SqlMessageSender.cs" />
+    <Compile Include="Messaging\IMessage.cs" />
+    <Compile Include="Messaging\IMessageDispatcher.cs" />
+    <Compile Include="Messaging\MessageDispatcher.cs" />
     <Compile Include="Messaging\MessageReceiver.cs" />
     <Compile Include="Messaging\MessageSender.cs" />
     <Compile Include="Repositories\IMessageRepository.cs" />
@@ -116,6 +122,10 @@
     <Compile Include="Repositories\ISnapshotRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ZSharp.Framework.Configurations\ZSharp.Framework.Configurations.csproj">
+      <Project>{91437b74-1818-4727-b189-b1cf2cfb2f09}</Project>
+      <Name>ZSharp.Framework.Configurations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
       <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
       <Name>ZSharp.Framework.Core</Name>
@@ -139,10 +149,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Implementation\SqlDb\Infrustructure.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\..\Dll\RabbitMq\EasyNetQ.dll" />
-    <Analyzer Include="..\..\Dll\RabbitMq\RabbitMQ.Client.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

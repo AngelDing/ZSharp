@@ -50,9 +50,13 @@ namespace ZSharp.Framework.Domain
         public string CorrelationId { get; set; }
 
         /// <summary>
-        /// Gets the correlation id.
+        /// Gets the MessageId id.
         /// </summary>
         public string MessageId { get; set; }
+
+        public string SysCode { get; set; }
+
+        public string Topic { get; set; }
 
         public static implicit operator Envelope<T>(T body)
         {

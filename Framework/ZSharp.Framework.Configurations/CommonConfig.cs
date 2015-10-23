@@ -33,15 +33,15 @@ namespace ZSharp.Framework.Configurations
                 return ConfigurationManager.AppSettings["SerializationFormatType"];
             }
         }
-
+   
         /// <summary>
-        /// 所屬程序代碼
+        /// 所屬程序系統代碼
         /// </summary>
-        public static string AppCodeType
+        public static string SystemCode
         {
             get
             {
-                return ConfigurationManager.AppSettings["AppCodeType"];
+                return ConfigurationManager.AppSettings["SystemCode"];
             }
         }
 

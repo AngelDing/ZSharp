@@ -107,14 +107,8 @@ namespace ZSharp.Framework.Domain
                     .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEventHandler<>))
                     .Select(i => new { HandlerInterface = i, EventType = i.GetGenericArguments()[0] })
                     .Select(e => new Tuple<Type, Action<Envelope>>(e.EventType, this.BuildHandlerInvocation(handler, e.HandlerInterface, e.EventType)));
-
-            var envelopedEventHandlerInvocations =
-                interfaces
-                    .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnvelopedEventHandler<>))
-                    .Select(i => new { HandlerInterface = i, EventType = i.GetGenericArguments()[0] })
-                    .Select(e => new Tuple<Type, Action<Envelope>>(e.EventType, this.BuildEnvelopeHandlerInvocation(handler, e.HandlerInterface, e.EventType)));
-
-            return eventHandlerInvocations.Union(envelopedEventHandlerInvocations);
+      
+            return eventHandlerInvocations;
         }
 
         private Action<Envelope> BuildHandlerInvocation(IEventHandler handler, Type handlerType, Type messageType)

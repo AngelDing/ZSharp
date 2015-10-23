@@ -10,6 +10,8 @@ namespace ZSharp.Framework.Domain
             /// Represents the default version number.
             /// </summary>
             public static readonly int DefaultVersion = 0;
+
+            public static readonly string DefaultTopic = "CommonTopic";
         }
     }
 }

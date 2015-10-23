@@ -5,11 +5,6 @@ using ZSharp.Framework.Serializations;
 
 namespace ZSharp.Framework.Domain
 {
-    /// <summary>
-    /// This is an extremely basic implementation of <see cref="ICommandBus"/> that is used only for running the sample
-    /// application without the dependency to the Windows Azure Service Bus when using the DebugLocal solution configuration.
-    /// It should not be used in production systems.
-    /// </summary>
     public class CommandBus : ICommandBus
     {
         private readonly IMessageSender sender;

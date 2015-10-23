@@ -1,9 +1,7 @@
-﻿using System;
-
+﻿
 namespace ZSharp.Framework.Domain
 {
-	public interface ICommand
+	public interface ICommand : IMessage
     {
-		Guid Id { get; }
     }
 }

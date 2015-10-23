@@ -16,5 +16,9 @@ namespace ZSharp.Framework.Domain
         /// Sends a batch of messages.
         /// </summary>
         void Send(IEnumerable<Message> messages);
+
+        void Send(Envelope<IMessage> message);
+
+        void Send(IEnumerable<Envelope<IMessage>> message);
     }
 }
