@@ -8,4 +8,10 @@
         where T : IEvent
     {
     }
+
+    public interface IEnvelopedEventHandler<T> : IEventHandler
+        where T : IEvent
+    {
+        void Handle(Envelope<T> envelope);
+    }
 }

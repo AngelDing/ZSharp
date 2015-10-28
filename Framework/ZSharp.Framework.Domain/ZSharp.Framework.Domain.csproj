@@ -76,7 +76,6 @@
     <Compile Include="Implementation\SqlDb\SqlMessageReceiver.cs" />
     <Compile Include="Implementation\SqlDb\SqlMessageRepository.cs" />
     <Compile Include="Implementation\SqlDb\SqlMessageSender.cs" />
-    <Compile Include="Handlers\IEnvelopedHandler.cs" />
     <Compile Include="Messaging\IMessage.cs" />
     <Compile Include="Messaging\MessageDispatcher.cs" />
     <Compile Include="Messaging\MessageReceiver.cs" />
