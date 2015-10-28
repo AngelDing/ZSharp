@@ -68,7 +68,6 @@
     <Compile Include="EventSourcing\EventSourced.cs" />
     <Compile Include="Bus\IBus.cs" />
     <Compile Include="Handlers\IHandler.cs" />
-    <Compile Include="Handlers\IHandlerRegistry.cs" />
     <Compile Include="Implementation\RabbitMq\RabbitMqMessageReceiver.cs" />
     <Compile Include="Implementation\RabbitMq\RabbitMqMessageSender.cs" />
     <Compile Include="Implementation\SqlDb\DomainDbContext.cs" />
@@ -82,6 +81,8 @@
     <Compile Include="Messaging\MessageDispatcher.cs" />
     <Compile Include="Messaging\MessageReceiver.cs" />
     <Compile Include="Messaging\MessageSender.cs" />
+    <Compile Include="Processors\CommandProcessor.cs" />
+    <Compile Include="Processors\EventProcessor.cs" />
     <Compile Include="Repositories\IMessageRepository.cs" />
     <Compile Include="Repositories\IEventSourcedRepository.cs" />
     <Compile Include="EventSourcing\IVersionedEvent.cs" />
