@@ -5,7 +5,7 @@ namespace ZSharp.Framework.Domain
     public class RabbitMqMessageReceiver : MessageReceiver
     {
         public RabbitMqMessageReceiver()
-            : base(TimeSpan.FromMilliseconds(100))
+            : base()
         {
         }
 

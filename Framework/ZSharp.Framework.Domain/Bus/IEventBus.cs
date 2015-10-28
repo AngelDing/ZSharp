@@ -2,7 +2,7 @@
 
 namespace ZSharp.Framework.Domain
 {
-    public interface IEventBus
+    public interface IEventBus : IBus
     {
         void Publish(Envelope<IEvent> @event);
 

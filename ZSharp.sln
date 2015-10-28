@@ -29,6 +29,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.Serializat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.Logging", "Framework\ZSharp.Framework.Logging\ZSharp.Framework.Logging.csproj", "{2D8850AE-67C7-4448-87B2-F3F084F36B55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Test.Core", "Tests\Framework.Test.Core\Framework.Test.Core.csproj", "{C39C2567-5A34-4988-BB00-D5F99D50F14A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Domain.Test", "Tests\Framework.Domain.Test\Framework.Domain.Test.csproj", "{1FCE796E-87E8-40CF-BE0F-4E06E90ABB96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +87,14 @@ Global
 		{2D8850AE-67C7-4448-87B2-F3F084F36B55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D8850AE-67C7-4448-87B2-F3F084F36B55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D8850AE-67C7-4448-87B2-F3F084F36B55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C39C2567-5A34-4988-BB00-D5F99D50F14A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C39C2567-5A34-4988-BB00-D5F99D50F14A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C39C2567-5A34-4988-BB00-D5F99D50F14A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C39C2567-5A34-4988-BB00-D5F99D50F14A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FCE796E-87E8-40CF-BE0F-4E06E90ABB96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FCE796E-87E8-40CF-BE0F-4E06E90ABB96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FCE796E-87E8-40CF-BE0F-4E06E90ABB96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FCE796E-87E8-40CF-BE0F-4E06E90ABB96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,5 +103,7 @@ Global
 		{8DA8CC96-F765-4364-96F2-D05FBE558185} = {D95C6325-E447-4C95-B400-9445516275C7}
 		{118FAE29-B4B1-4DBB-BD20-5DD3B821CCF7} = {D95C6325-E447-4C95-B400-9445516275C7}
 		{E2D3D3A0-20BB-4AE3-B051-50B54C66B414} = {D95C6325-E447-4C95-B400-9445516275C7}
+		{C39C2567-5A34-4988-BB00-D5F99D50F14A} = {D95C6325-E447-4C95-B400-9445516275C7}
+		{1FCE796E-87E8-40CF-BE0F-4E06E90ABB96} = {D95C6325-E447-4C95-B400-9445516275C7}
 	EndGlobalSection
 EndGlobal

@@ -7,4 +7,12 @@ namespace ZSharp.Framework.Domain
     {
         Guid Id { get; }
     }
+
+    public interface ICommand : IMessage
+    {
+    }
+
+    public interface IEvent : IMessage
+    {
+    }
 }

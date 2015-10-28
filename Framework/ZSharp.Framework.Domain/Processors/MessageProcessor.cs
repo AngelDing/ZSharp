@@ -1,30 +1,22 @@
 ﻿using System;
-using ZSharp.Framework.Serializations;
 using ZSharp.Framework.Logging;
 
 namespace ZSharp.Framework.Domain
 {
-    /// <summary>
-    /// Provides basic common processing code for components that handle 
-    /// incoming messages from a receiver.
-    /// </summary>
-    public abstract class MessageProcessor : DisposableObject, IProcessor
+    public class MessageProcessor : DisposableObject, IProcessor, IHandlerRegistry
     {
+        private readonly MessageDispatcher msgDispatcher;
         private readonly IMessageReceiver receiver;
-        private readonly ISerializer serializer;
         private readonly object lockObject = new object();
         private bool disposed;
         private bool started = false;
 
         internal ILogger Logger { get; private set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MessageProcessor"/> class.
-        /// </summary>
-        protected MessageProcessor(IMessageReceiver receiver, ISerializer serializer)
+        protected MessageProcessor(IMessageReceiver receiver)
         {
             this.receiver = receiver;
-            this.serializer = serializer;
+            this.msgDispatcher = new MessageDispatcher();
             this.Logger = LogManager.GetLogger(this.GetType());
         }
 
@@ -33,7 +25,6 @@ namespace ZSharp.Framework.Domain
         /// </summary>
         public virtual void Start()
         {
-            ThrowIfDisposed();
             lock (this.lockObject)
             {
                 if (!this.started)
@@ -61,9 +52,6 @@ namespace ZSharp.Framework.Domain
             }
         }
 
-
-        protected abstract void ProcessMessage(object payload, string correlationId);
-
         private void OnMessageReceived(object sender, MessageReceivedEventArgs args)
         {
             Logger.Trace(new string('-', 100));
@@ -72,14 +60,11 @@ namespace ZSharp.Framework.Domain
             {
                 //TODO：一條消息可能會引發多個Handler處理相關數據，如果其中有一個出現錯誤，則這條消息不會刪除，
                 //下次會再次處理，此時的數據一致性如何解決？需要保證每個Handler都是冥等的？
-                var body = Deserialize(args.Message);
+                //Logger.Trace(this.Serialize(body));
 
-                Logger.Trace(this.Serialize(body));
-                Logger.Trace("");
+                this.msgDispatcher.DispatchMessage(args.Message.Body, args.Message.CorrelationId);
 
-                ProcessMessage(body, args.Message.CorrelationId);
-
-                Logger.Trace(new string('-', 100));
+                //Logger.Trace(new string('-', 100));
             }
             catch (Exception e)
             {
@@ -89,26 +74,6 @@ namespace ZSharp.Framework.Domain
                 // be totally overkill for this alternative debug-only implementation.
                 Logger.Error("An exception happened while processing message through handler/s:\r\n{0}", e, this.GetType().FullName);
                 Logger.Warn("Error will be ignored and message receiving will continue.");
-            }
-        }
-
-        protected object Deserialize(Message msg)
-        {
-            var serializedPayload = msg.Body;
-            var type = Type.GetType(msg.MessageType);
-            return this.serializer.Deserialize(serializedPayload, type);
-        }
-
-        protected string Serialize(object payload)
-        {
-            return this.serializer.Serialize<string>(payload);
-        }
-
-        private void ThrowIfDisposed()
-        {
-            if (this.disposed)
-            {
-                throw new ObjectDisposedException("MessageProcessor");
             }
         }
 
@@ -127,6 +92,11 @@ namespace ZSharp.Framework.Domain
                     }
                 }
             }
+        }
+
+        public void Register(IHandler handler)
+        {
+            this.msgDispatcher.Register(handler);
         }
     }
 }

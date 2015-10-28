@@ -10,9 +10,9 @@ namespace ZSharp.Framework.Domain
         private readonly object lockObject = new object();
         private CancellationTokenSource cancellationSource;
 
-        public MessageReceiver(TimeSpan pollDelay)
+        public MessageReceiver()
         {
-            this.pollDelay = pollDelay;
+            this.pollDelay = TimeSpan.FromMilliseconds(100);
         }
 
         public event EventHandler<MessageReceivedEventArgs> OnMessageReceived = (sender, args) => { };

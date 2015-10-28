@@ -4,11 +4,11 @@ namespace ZSharp.Framework.Domain
 {
     public class MessageReceivedEventArgs : EventArgs
     {
-        public MessageReceivedEventArgs(Message message)
+        public MessageReceivedEventArgs(Envelope<IMessage> message)
         {
             this.Message = message;
         }
 
-        public Message Message { get; private set; }
+        public Envelope<IMessage> Message { get; private set; }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace ZSharp.Framework.Domain
 {  
-    public interface ICommandBus
+    public interface ICommandBus : IBus
     {
         void Send(Envelope<ICommand> command);
 

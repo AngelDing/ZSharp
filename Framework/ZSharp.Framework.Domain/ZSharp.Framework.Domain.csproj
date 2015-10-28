@@ -48,9 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheAnyEnumerableExtensions.cs" />
-    <Compile Include="Commands\CommandBus.cs" />
-    <Compile Include="Commands\CommandBusExtensions.cs" />
-    <Compile Include="Commands\CommandConsumer.cs" />
+    <Compile Include="Bus\CommandBus.cs" />
+    <Compile Include="Bus\CommandBusExtensions.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Entities\MessageEntity.cs" />
     <Compile Include="Entities\CommandMessageEntity.cs" />
@@ -60,15 +59,16 @@
     <Compile Include="Entities\UndispatchedMessageEntity.cs" />
     <Compile Include="EntityNotFoundException.cs" />
     <Compile Include="EventSourcing\Snapshots\Snapshot.cs" />
-    <Compile Include="Events\EventBus.cs" />
-    <Compile Include="Events\EventBusExtensions.cs" />
-    <Compile Include="Commands\ICommandBus.cs" />
-    <Compile Include="Events\IEventBus.cs" />
+    <Compile Include="Bus\EventBus.cs" />
+    <Compile Include="Bus\EventBusExtensions.cs" />
+    <Compile Include="Bus\ICommandBus.cs" />
+    <Compile Include="Bus\IEventBus.cs" />
     <Compile Include="DomainException.cs" />
     <Compile Include="Entities\EventSourcedEntity.cs" />
     <Compile Include="EventSourcing\EventSourced.cs" />
-    <Compile Include="IHandler.cs" />
-    <Compile Include="IHandlerRegistry.cs" />
+    <Compile Include="Bus\IBus.cs" />
+    <Compile Include="Handlers\IHandler.cs" />
+    <Compile Include="Handlers\IHandlerRegistry.cs" />
     <Compile Include="Implementation\RabbitMq\RabbitMqMessageReceiver.cs" />
     <Compile Include="Implementation\RabbitMq\RabbitMqMessageSender.cs" />
     <Compile Include="Implementation\SqlDb\DomainDbContext.cs" />
@@ -77,8 +77,8 @@
     <Compile Include="Implementation\SqlDb\SqlMessageReceiver.cs" />
     <Compile Include="Implementation\SqlDb\SqlMessageRepository.cs" />
     <Compile Include="Implementation\SqlDb\SqlMessageSender.cs" />
+    <Compile Include="Handlers\IEnvelopedHandler.cs" />
     <Compile Include="Messaging\IMessage.cs" />
-    <Compile Include="Messaging\IMessageDispatcher.cs" />
     <Compile Include="Messaging\MessageDispatcher.cs" />
     <Compile Include="Messaging\MessageReceiver.cs" />
     <Compile Include="Messaging\MessageSender.cs" />
@@ -87,13 +87,8 @@
     <Compile Include="EventSourcing\IVersionedEvent.cs" />
     <Compile Include="Implementation\SqlDb\SqlEventSourcedRepository.cs" />
     <Compile Include="EventSourcing\VersionedEvent.cs" />
-    <Compile Include="Commands\CommandProcessor.cs" />
-    <Compile Include="Events\EventDispatcher.cs" />
-    <Compile Include="Events\EventProcessor.cs" />
-    <Compile Include="Commands\ICommandHandler.cs" />
-    <Compile Include="Commands\ICommandHandlerRegistry.cs" />
-    <Compile Include="Events\IEventHandler.cs" />
-    <Compile Include="Events\IEventHandlerRegistry.cs" />
+    <Compile Include="Handlers\ICommandHandler.cs" />
+    <Compile Include="Handlers\IEventHandler.cs" />
     <Compile Include="Processors\MessageProcessor.cs" />
     <Compile Include="MessageLog\EventLogExtensions.cs" />
     <Compile Include="MessageLog\IEventLogReader.cs" />
@@ -102,12 +97,8 @@
     <Compile Include="MessageLog\QueryCriteriaExtensions.cs" />
     <Compile Include="MessageLog\MessageLogHandler.cs" />
     <Compile Include="Messaging\Envelope.cs" />
-    <Compile Include="Commands\ICommand.cs" />
-    <Compile Include="Events\IEvent.cs" />
-    <Compile Include="Events\IEventPublisher.cs" />
     <Compile Include="Messaging\IMessageReceiver.cs" />
     <Compile Include="Messaging\IMessageSender.cs" />
-    <Compile Include="Messaging\IMessageSessionProvider.cs" />
     <Compile Include="Messaging\Message.cs" />
     <Compile Include="Messaging\MessageReceivedEventArgs.cs" />
     <Compile Include="Metadata\IMetadataProvider.cs" />

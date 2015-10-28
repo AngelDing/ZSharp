@@ -8,7 +8,7 @@ namespace ZSharp.Framework.Domain
         private readonly IMessageRepository<MessageEntity> msgRepo;
 
         public SqlMessageReceiver(IMessageRepository<MessageEntity> msgRepo)
-            : base(TimeSpan.FromMilliseconds(100))
+            : base()
         {
             this.msgRepo = msgRepo;
         }      
@@ -20,7 +20,7 @@ namespace ZSharp.Framework.Domain
                 try
                 {
                     var msgEntity = this.msgRepo.GetFirstMessage();
-                    var message = msgEntity.Map<Message>();
+                    var message = msgEntity.Map<Envelope<IMessage>>();
                     var messageId = msgEntity.Id;
                     this.MessageReceived(new MessageReceivedEventArgs(message));
                     this.msgRepo.Delete(messageId);                   
