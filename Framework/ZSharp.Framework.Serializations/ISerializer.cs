@@ -7,7 +7,7 @@ namespace ZSharp.Framework.Serializations
     public interface ISerializer
     {
         SerializationFormat Format { get; }
-
+        
         /// <summary>
         /// 按指定類型，返回序列化結果
         /// </summary>
@@ -15,7 +15,7 @@ namespace ZSharp.Framework.Serializations
         /// <param name="item">需要序列化的對象</param>
         /// <returns>序列化結果</returns>
         T Serialize<T>(object item);
-
+        
         Task<T> SerializeAsync<T>(object item);
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace ZSharp.Framework.Serializations
         /// <param name="serializedObject">經過序列化的數據</param>
         /// <param name="type">需要返回的數據類型</param>
         /// <returns>object對象</returns>
-        object Deserialize(object serializedObject, Type type);
+        object Deserialize(object serializedObject, Type type); 
 
         Task<object> DeserializeAsync(object serializedObject, Type type);
     }

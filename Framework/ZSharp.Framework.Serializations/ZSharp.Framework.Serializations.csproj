@@ -30,12 +30,56 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Jil">
+      <HintPath>..\..\Dll\Serializations\Jil\Jil.dll</HintPath>
+    </Reference>
+    <Reference Include="MsgPack, Version=0.5.0.0, Culture=neutral, PublicKeyToken=a2625990d5dc0167, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Serializations\MsgPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Serializations\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>..\..\Dll\Serializations\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="Sigil">
+      <HintPath>..\..\Dll\Serializations\Jil\Sigil.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ISerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerializationExtensions.cs" />
     <Compile Include="SerializationFormat.cs" />
+    <Compile Include="SerializationHelper.cs" />
+    <Compile Include="SerializerLocator.cs" />
+    <Compile Include="Serializers\BaseSerializer.cs" />
+    <Compile Include="Serializers\BinarySerializer.cs" />
+    <Compile Include="Serializers\JilSerializer.cs" />
+    <Compile Include="Serializers\JsonSerializer.cs" />
+    <Compile Include="Serializers\MsgPackSerializer.cs" />
+    <Compile Include="Serializers\NullSerializer.cs" />
+    <Compile Include="Serializers\ProtoBufSerializer.cs" />
+    <Compile Include="Serializers\XmlSerializer.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ZSharp.Framework.Configurations\ZSharp.Framework.Configurations.csproj">
+      <Project>{91437b74-1818-4727-b189-b1cf2cfb2f09}</Project>
+      <Name>ZSharp.Framework.Configurations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
+      <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
+      <Name>ZSharp.Framework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.Logging\ZSharp.Framework.Logging.csproj">
+      <Project>{2d8850ae-67c7-4448-87b2-f3f084f36b55}</Project>
+      <Name>ZSharp.Framework.Logging</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

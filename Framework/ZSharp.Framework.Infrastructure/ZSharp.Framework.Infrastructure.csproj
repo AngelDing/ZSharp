@@ -45,6 +45,7 @@
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseService.cs" />
     <Compile Include="Locking\LockFactory.cs" />
     <Compile Include="Locking\IDistributedLock.cs" />
     <Compile Include="Locking\DistributedLock.cs" />
@@ -55,9 +56,29 @@
     <Compile Include="TransactionScopeFactory.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ZSharp.Framework.Caching\ZSharp.Framework.Caching.csproj">
+      <Project>{4e6380c9-050b-4177-bb04-bf74c132e564}</Project>
+      <Name>ZSharp.Framework.Caching</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.Configurations\ZSharp.Framework.Configurations.csproj">
+      <Project>{91437b74-1818-4727-b189-b1cf2cfb2f09}</Project>
+      <Name>ZSharp.Framework.Configurations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
       <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
       <Name>ZSharp.Framework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.EfExtensions\ZSharp.Framework.EfExtensions.csproj">
+      <Project>{500f07ef-fc30-4968-a330-479276ac1124}</Project>
+      <Name>ZSharp.Framework.EfExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.Logging\ZSharp.Framework.Logging.csproj">
+      <Project>{2d8850ae-67c7-4448-87b2-f3f084f36b55}</Project>
+      <Name>ZSharp.Framework.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.MongoDb\ZSharp.Framework.MongoDb.csproj">
+      <Project>{4c2972bc-ea18-44e9-85f7-fc76cd5edc27}</Project>
+      <Name>ZSharp.Framework.MongoDb</Name>
     </ProjectReference>
     <ProjectReference Include="..\ZSharp.Framework.Redis\ZSharp.Framework.Redis.csproj">
       <Project>{f3eb0aa8-68a7-4b38-8708-8558143b1283}</Project>
