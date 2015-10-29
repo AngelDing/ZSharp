@@ -2,6 +2,7 @@
 using ZSharp.Framework.Entities;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Collections.Generic;
 
 namespace ZSharp.Framework.SqlDb
 {
@@ -12,12 +13,20 @@ namespace ZSharp.Framework.SqlDb
         /// </summary>
         /// <typeparam name="TEntity">要操作的实体</typeparam>
         /// <param name="root">根实体</param>
-        public static void ApplyChanges<TEntity>(this DbContext context, TEntity root)
+        public static void ApplyChanges<TEntity>(this DbContext context, IEnumerable<TEntity> entities)
             where TEntity : BaseEntity
+        {
+            foreach (var entity in entities)
+            {
+                ApplyChange(context, entity);
+            }
+        }
+
+        private static void ApplyChange<TEntity>(DbContext context, TEntity root)
         {
             context.Set(root.GetType()).Attach(root);
 
-            var entries = context.ChangeTracker.Entries<BaseEntity>();
+            var entries = context.ChangeTracker.Entries<BaseEntity>().ToList();
             foreach (var entry in entries)
             {
                 var entity = entry.Entity;

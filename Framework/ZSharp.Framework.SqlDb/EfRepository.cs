@@ -43,6 +43,7 @@ namespace ZSharp.Framework.SqlDb
         public override void Update(T entity)
         {
             efContext.RegisterModified(entity);
+            efContext.DbContext.ApplyChanges(new List<T> { entity });
         }
 
         public override void Update(IEnumerable<T> entities)
@@ -51,6 +52,8 @@ namespace ZSharp.Framework.SqlDb
             {
                 efContext.RegisterModified(e);
             }
+
+            efContext.DbContext.ApplyChanges(entities);
         }
 
         public override void Delete(Tkey key)

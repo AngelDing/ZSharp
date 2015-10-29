@@ -69,36 +69,7 @@ namespace Framework.SqlDb.Test
         [Fact]
         public void ef_batch_test()
         {
-            List<EFCustomer> customers = new List<EFCustomer>{new EFCustomer
-            {
-                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
-                UserName = "daxnet",
-                Password = "123456"
-            },
-            new EFCustomer
-            {
-                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
-                UserName = "aa",
-                Password = "aa"
-            },
-            new EFCustomer
-            {
-                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
-                UserName = "bb",
-                Password = "bb"
-            },
-            new EFCustomer
-            {
-                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
-                UserName = "cc",
-                Password = "cc"
-            },
-            new EFCustomer
-            {
-                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
-                UserName = "dd",
-                Password = "dd"
-            }};
+            var customers = GetCustomerList();
 
             var getByList = new List<EFCustomer>();
             var allList = new List<EFCustomer>();
@@ -311,6 +282,8 @@ namespace Framework.SqlDb.Test
 
         #endregion
 
+        #region Private Methods
+
         private EFCustomer GetCustomerInfo()
         {
             var customer = new EFCustomer
@@ -332,5 +305,42 @@ namespace Framework.SqlDb.Test
                 custRepo.RepoContext.Commit();
             }
         }
+
+        private List<EFCustomer> GetCustomerList()
+        {
+            List<EFCustomer> customers = new List<EFCustomer>{new EFCustomer
+            {
+                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                UserName = "daxnet",
+                Password = "123456"
+            },
+            new EFCustomer
+            {
+                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                UserName = "aa",
+                Password = "aa"
+            },
+            new EFCustomer
+            {
+                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                UserName = "bb",
+                Password = "bb"
+            },
+            new EFCustomer
+            {
+                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                UserName = "cc",
+                Password = "cc"
+            },
+            new EFCustomer
+            {
+                Address = new EFAddress("China", "SH", "SH", "A street", "12345"),
+                UserName = "dd",
+                Password = "dd"
+            }};
+            return customers;
+        }
+
+        #endregion
     }
 }
