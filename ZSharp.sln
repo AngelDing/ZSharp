@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.EfExtensio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.Caching", "Framework\ZSharp.Framework.Caching\ZSharp.Framework.Caching.csproj", "{4E6380C9-050B-4177-BB04-BF74C132E564}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.WebApi", "Framework\ZSharp.Framework.WebApi\ZSharp.Framework.WebApi.csproj", "{2FA56706-0BDC-4F32-967B-0848A0E34CE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,10 @@ Global
 		{4E6380C9-050B-4177-BB04-BF74C132E564}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E6380C9-050B-4177-BB04-BF74C132E564}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E6380C9-050B-4177-BB04-BF74C132E564}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FA56706-0BDC-4F32-967B-0848A0E34CE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FA56706-0BDC-4F32-967B-0848A0E34CE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FA56706-0BDC-4F32-967B-0848A0E34CE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FA56706-0BDC-4F32-967B-0848A0E34CE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
