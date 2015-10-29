@@ -8,11 +8,11 @@ namespace ZSharp.Framework.ValueObjects
     {
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy/MM/dd}")]
         [Display(Name = "Start Date")]
-        public DateTime StartDate { get; set; }
+        public DateTimeOffset StartDate { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy/MM/dd}")]
         [Display(Name = "End Date")]
-        public DateTime EndDate { get; set; }
+        public DateTimeOffset EndDate { get; set; }
 
         /// <summary>
         /// 用於EF的數據構造
@@ -21,7 +21,7 @@ namespace ZSharp.Framework.ValueObjects
         {
         }
 
-        public DateRange(DateTime start, DateTime end)
+        public DateRange(DateTimeOffset start, DateTimeOffset end)
         {
             StartDate = start;
             EndDate = end;
@@ -35,7 +35,7 @@ namespace ZSharp.Framework.ValueObjects
             if (StartDate > EndDate)
             {
                 //TODO: Message可放入資源文件中維護
-                validationResults.Add(new ValidationResult("StartDateTime must be before EndDateTime.",
+                validationResults.Add(new ValidationResult("StartDateTime must be before EndDateTimeOffset.",
                                                          new string[] { "StartDateTime" }));
             }
 

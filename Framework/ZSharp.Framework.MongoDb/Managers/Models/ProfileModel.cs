@@ -12,7 +12,7 @@ namespace ZSharp.Framework.MongoDb.Managers
 
         public string Command { get; set; }
 
-        public DateTime Timestamp { get; set; }
+        public DateTimeOffset Timestamp { get; set; }
 
         public double Duration { get; set; }
 

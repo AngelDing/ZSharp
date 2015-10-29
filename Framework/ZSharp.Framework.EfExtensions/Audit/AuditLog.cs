@@ -17,7 +17,7 @@ namespace ZSharp.Framework.EfExtensions.Audit
 
         public string Username { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTimeOffset Date { get; set; }
 
         public List<AuditEntity> Entities { get; set; }
 

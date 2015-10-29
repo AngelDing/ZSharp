@@ -21,14 +21,14 @@ namespace ZSharp.Framework.Utils
         {
             Timer timer = null;
             TaskCompletionSource<T> taskCompletionSource = null;
-            DateTime expirationTime = DateTime.UtcNow.Add(timeout);
+            DateTimeOffset expirationTime = DateTimeOffset.UtcNow.Add(timeout);
 
             timer =
                 new Timer(_ =>
                 {
                     try
                     {
-                        if (DateTime.UtcNow > expirationTime)
+                        if (DateTimeOffset.UtcNow > expirationTime)
                         {
                             timer.Dispose();
                             taskCompletionSource.SetResult(default(T));

@@ -113,7 +113,7 @@ namespace Framework.Infrastructure.Test
             LockFactory.GetLock("testlock");
 
             var waitFor = TimeSpan.FromSeconds(2);
-            var now = DateTime.Now;
+            var now = DateTimeOffset.Now;
 
             try
             {
@@ -126,7 +126,7 @@ namespace Framework.Infrastructure.Test
             }
             catch (TimeoutException tex)
             {
-                var timeTaken = DateTime.Now - now;
+                var timeTaken = DateTimeOffset.Now - now;
                 testOutput.WriteLine(String.Format("After '{0}', Received TimeoutException: '{1}'", timeTaken, tex.Message));
 
                 var counter = redisWrapper.Get("atomic-counter").ToString().ToInt();

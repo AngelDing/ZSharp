@@ -6,7 +6,7 @@ namespace ZSharp.Framework.Extensions
     {
         private static long EpochMilliseconds = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).Ticks / 10000L;
 
-        public static long ToEpochMilliseconds(this DateTime? time)
+        public static long ToEpochMilliseconds(this DateTimeOffset? time)
         {
             if (time.HasValue)
             {

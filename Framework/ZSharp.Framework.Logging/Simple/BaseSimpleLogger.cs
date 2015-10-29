@@ -28,11 +28,11 @@ namespace ZSharp.Framework.Logging.Simple
             {
                 if (ArgumentEntity.HasDateTimeFormat)
                 {
-                    stringBuilder.Append(DateTime.Now.ToString(ArgumentEntity.DateTimeFormat, CultureInfo.InvariantCulture));
+                    stringBuilder.Append(DateTimeOffset.Now.ToString(ArgumentEntity.DateTimeFormat, CultureInfo.InvariantCulture));
                 }
                 else
                 {
-                    stringBuilder.Append(DateTime.Now);
+                    stringBuilder.Append(DateTimeOffset.Now);
                 }
 
                 stringBuilder.Append(" ");

@@ -18,7 +18,7 @@ namespace ZSharp.Framework.Utils
             var guidBytes = Guid.NewGuid().ToByteArray();
 
             // get the milliseconds since Jan 1 1970
-            byte[] sequential = BitConverter.GetBytes((DateTime.Now.Ticks / 10000L) - EpochMilliseconds);
+            byte[] sequential = BitConverter.GetBytes((DateTimeOffset.Now.Ticks / 10000L) - EpochMilliseconds);
 
             // discard the 2 most significant bytes, as we only care about the milliseconds increasing,
             // but the highest ones should be 0 for several thousand years to come (non-issue).

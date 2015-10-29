@@ -7,7 +7,7 @@ namespace ZSharp.Framework.Utils
     /// </summary>
     public static class AlphanumericalGenerator
     {
-        private static readonly Random rnd = new Random(DateTime.UtcNow.Millisecond);
+        private static readonly Random rnd = new Random(DateTimeOffset.UtcNow.Millisecond);
         private static readonly char[] allowableChars = "ABCDEFGHJKMNPQRSTUVWXYZ123456789".ToCharArray();
 
         public static string Generate(int length)

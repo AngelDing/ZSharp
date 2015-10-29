@@ -8,7 +8,7 @@ namespace ZSharp.Framework.Entities
 
         TOperator CreatedBy { get; set; }
 
-        DateTimeOffset UpdatedDate { get; set; }
+        DateTimeOffset? UpdatedDate { get; set; }
 
         TOperator UpdatedBy { get; set; }
     }

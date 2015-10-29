@@ -30,6 +30,6 @@ namespace ZSharp.Framework.Domain
 
         public ICollection<string> TypeNames { get; private set; }
 
-        public DateTime? EndDate { get; set; }
+        public DateTimeOffset? EndDate { get; set; }
     }
 }

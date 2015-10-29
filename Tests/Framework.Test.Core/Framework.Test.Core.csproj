@@ -30,14 +30,35 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="protobuf-net">
+      <HintPath>..\..\Dll\Serializations\protobuf-net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="xunit.abstractions">
+      <HintPath>..\..\Dll\xunit\xunit.abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.core">
+      <HintPath>..\..\Dll\xunit\xunit.core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandTestMsg.cs" />
-    <Compile Include="CommonHandler.cs" />
-    <Compile Include="EventTestMsg.cs" />
+    <Compile Include="AlphabeticalOrderer.cs" />
+    <Compile Include="CodeTimer.cs" />
+    <Compile Include="Domain\CommandTestMsg.cs" />
+    <Compile Include="Domain\CommonHandler.cs" />
+    <Compile Include="Domain\EventTestMsg.cs" />
+    <Compile Include="Entities\TestEntity.cs" />
+    <Compile Include="Entities\TestEvent.cs" />
+    <Compile Include="Models\TestModel.cs" />
+    <Compile Include="PriorityOrderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestHandler.cs" />
+    <Compile Include="Domain\TestHandler.cs" />
+    <Compile Include="Serialization\BaseSerializerTest.cs" />
+    <Compile Include="Serialization\ComplexObjects.cs" />
+    <Compile Include="Serialization\GenericsObject.cs" />
+    <Compile Include="Serialization\LoopObjects.cs" />
+    <Compile Include="Serialization\SimpleObjects.cs" />
+    <Compile Include="TestPriorityAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
@@ -47,6 +68,10 @@
     <ProjectReference Include="..\..\Framework\ZSharp.Framework.Domain\ZSharp.Framework.Domain.csproj">
       <Project>{427ec224-50f3-4ba2-8434-518c6fea28d9}</Project>
       <Name>ZSharp.Framework.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\ZSharp.Framework.Serializations\ZSharp.Framework.Serializations.csproj">
+      <Project>{b4594b5f-676e-47b4-9f1a-d9d695a95457}</Project>
+      <Name>ZSharp.Framework.Serializations</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

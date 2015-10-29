@@ -18,7 +18,7 @@ namespace ZSharp.Framework.Caching
         /// </summary>
         Sliding,
         /// <summary>
-        /// The cache item will expire on the AbsoluteExpiration DateTime.
+        /// The cache item will expire on the AbsoluteExpiration DateTimeOffset.
         /// </summary>
         Absolute
     } 

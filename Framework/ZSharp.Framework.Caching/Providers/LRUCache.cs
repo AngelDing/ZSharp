@@ -112,7 +112,7 @@ namespace ZSharp.Framework.Caching
 
         private class TrackValue
         {
-            public DateTime CreateTime { get; private set; }
+            public DateTimeOffset CreateTime { get; private set; }
             public TimeSpan ExpireTime { get; private set; }
             public readonly object Value;
             public long Age;
@@ -130,7 +130,7 @@ namespace ZSharp.Framework.Caching
                     ExpireTime = TimeSpan.FromMinutes(5);
                 }
 
-                CreateTime = DateTime.Now;
+                CreateTime = DateTimeOffset.Now;
             }
         }
 
@@ -170,7 +170,7 @@ namespace ZSharp.Framework.Caching
 
             if (cache.TryGetValue(key, out result))
             {
-                var age = DateTime.Now.Subtract(result.CreateTime);
+                var age = DateTimeOffset.Now.Subtract(result.CreateTime);
                 if (age >= maxExpireTime || age >= result.ExpireTime)
                 {
                     TrackValue old;

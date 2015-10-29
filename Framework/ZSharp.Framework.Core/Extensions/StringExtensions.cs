@@ -129,14 +129,14 @@ namespace ZSharp.Framework.Extensions
         /// <param name="str"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static DateTime? ToDateTimeOrNull(this string str, DateTime? defaultValue = null)
+        public static DateTimeOffset? ToDateTimeOrNull(this string str, DateTimeOffset? defaultValue = null)
         {
-            DateTime d;
-            if (DateTime.TryParse(str, out d))
+            DateTimeOffset d;
+            if (DateTimeOffset.TryParse(str, out d))
                 return d;
             else
             {
-                if (DateTime.TryParseExact(str, new string[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMdd", "yyyyMMdd HH:mm:ss", "yyyy/MM/dd", "yyyy'/'MM'/'dd HH:mm:ss", "MM'/'dd'/'yyyy HH:mm:ss", "yyyy-M-d", "yyy-M-d hh:mm:ss" }, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
+                if (DateTimeOffset.TryParseExact(str, new string[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMdd", "yyyyMMdd HH:mm:ss", "yyyy/MM/dd", "yyyy'/'MM'/'dd HH:mm:ss", "MM'/'dd'/'yyyy HH:mm:ss", "yyyy-M-d", "yyy-M-d hh:mm:ss" }, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
                     return d;
                 else
                     return defaultValue;
@@ -150,20 +150,20 @@ namespace ZSharp.Framework.Extensions
         /// <param name="dateFmt"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static DateTime? ToDateTimeOrNull(this string str, string dateFmt, DateTime? defaultValue = null)
+        public static DateTimeOffset? ToDateTimeOrNull(this string str, string dateFmt, DateTimeOffset? defaultValue = null)
         {
-            DateTime d;
-            //if (DateTime.TryParse(str, out d))
+            DateTimeOffset d;
+            //if (DateTimeOffset.TryParse(str, out d))
             //    return d;
             //else {
-            if (DateTime.TryParseExact(str, dateFmt, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
+            if (DateTimeOffset.TryParseExact(str, dateFmt, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
                 return d;
             else
                 return defaultValue;
             //}        
         }
 
-        private static readonly DateTime MinDate = new DateTime(1900, 1, 1);
+        private static readonly DateTimeOffset MinDate = new DateTime(1900, 1, 1);
 
         /// <summary>
         /// 轉換日期，轉換失敗時，返回 defaultValue
@@ -171,14 +171,14 @@ namespace ZSharp.Framework.Extensions
         /// <param name="str"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static DateTime ToDateTime(this string str, DateTime defaultValue = default(DateTime))
+        public static DateTimeOffset ToDateTime(this string str, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
-            DateTime d;
-            if (DateTime.TryParse(str, out d))
+            DateTimeOffset d;
+            if (DateTimeOffset.TryParse(str, out d))
                 return d;
             else
             {
-                if (DateTime.TryParseExact(str, new string[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMdd", "yyyyMMdd HH:mm:ss", "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "MM/dd/yyyy HH:mm:ss" }, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
+                if (DateTimeOffset.TryParseExact(str, new string[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMdd", "yyyyMMdd HH:mm:ss", "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "MM/dd/yyyy HH:mm:ss" }, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
                     return d;
                 else
                     if (default(DateTime) == defaultValue)
@@ -195,13 +195,13 @@ namespace ZSharp.Framework.Extensions
         /// <param name="dateFmt"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static DateTime ToDateTime(this string str, string dateFmt, DateTime defaultValue)
+        public static DateTimeOffset ToDateTime(this string str, string dateFmt, DateTimeOffset defaultValue)
         {
-            DateTime d;
-            //if (DateTime.TryParse(str, out d))
+            DateTimeOffset d;
+            //if (DateTimeOffset.TryParse(str, out d))
             //    return d;
             //else {
-            if (DateTime.TryParseExact(str, dateFmt, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
+            if (DateTimeOffset.TryParseExact(str, dateFmt, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
                 return d;
             else
                 return defaultValue;
@@ -213,7 +213,7 @@ namespace ZSharp.Framework.Extensions
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static DateTime? ToDateTimeOrNull(this string str)
+        public static DateTimeOffset? ToDateTimeOrNull(this string str)
         {
             return str.ToDateTimeOrNull(null);
         }
@@ -223,9 +223,9 @@ namespace ZSharp.Framework.Extensions
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static DateTime ToDateTime(this string str)
+        public static DateTimeOffset ToDateTime(this string str)
         {
-            return str.ToDateTime(DateTime.Now);
+            return str.ToDateTime(DateTimeOffset.Now);
         }
 
         /// <summary>
@@ -236,8 +236,8 @@ namespace ZSharp.Framework.Extensions
         public static bool IsDateTime(this string str)
         {
             //return Regex.IsMatch(str, @"^(((((1[6-9]|[2-9]\d)\d{2})-(0?[13578]|1[02])-(0?[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})-(0?[13456789]|1[012])-(0?[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))-0?2-29-)) (20|21|22|23|[0-1]?\d):[0-5]?\d:[0-5]?\d)$ ");
-            DateTime d;
-            if (DateTime.TryParseExact(str, new string[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMdd", "yyyyMMdd HH:mm:ss", "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "MM/dd/yyyy", "MM/dd/yyyy HH:mm:ss" }, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
+            DateTimeOffset d;
+            if (DateTimeOffset.TryParseExact(str, new string[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMdd", "yyyyMMdd HH:mm:ss", "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "MM/dd/yyyy", "MM/dd/yyyy HH:mm:ss" }, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
                 return true;
             else
                 return false;

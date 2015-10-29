@@ -71,7 +71,7 @@ namespace ZSharp.Framework.EfExtensions.Audit
         {
             var auditLog = new AuditLog
             {
-                Date = DateTime.Now,
+                Date = DateTimeOffset.Now,
                 Username = Environment.UserName
             };
 
