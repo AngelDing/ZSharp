@@ -61,59 +61,8 @@ namespace ZSharp.Framework.Redis
             //        }
             //    }
             //}
-        }
-
-        public object Get<T>(string key)
-        {
-            object result = null;
-            var data = db.StringGet(key);
-            if (data.IsNull == false)
-            {
-                if (TypeHelper.IsCommonBasicType<T>())
-                {
-                    result = ChangeRedisTypeToBaseType<T>(data);
-                }
-                else
-                {
-                    result = data;
-                }
-            }
-            return result;
-        }
-
-        private object ChangeRedisTypeToBaseType<T>(RedisValue data)
-        {
-            var type = typeof(T);
-            object result = default(T);
-
-            if (type == typeof(string))
-            {
-                result = (string)data;
-            }
-            if (type == typeof(int))
-            {
-                result = (int)data;
-            }
-            if (type == typeof(long))
-            {
-                result = (long)data;
-            }
-            if (type == typeof(double))
-            {
-                result = (double)data;
-            }
-            if (type == typeof(byte[]))
-            {
-                result = (byte[])data;
-            }
-            if (type == typeof(bool))
-            {
-                result = (bool)data;
-            }
-
-            return (T)result;
-        }
-
+        }     
+       
         public object Get(string key)
         {
             var data = db.StringGet(key);
@@ -127,59 +76,6 @@ namespace ZSharp.Framework.Redis
         public object GetSet(string key, string dataStr)
         {
             return db.StringGetSet(key, dataStr);
-        }
-
-        public void Set(string key, object data, TimeSpan? expiry = null)
-        {
-            var type = data.GetType();
-            RedisValue redisValue = RedisValue.Null;
-            if (TypeHelper.IsCommonBasicType(type))
-            {
-                redisValue = ChangeCommonBasicTypeToRedisValue(data);
-            }
-            else
-            {
-                throw new ArgumentException("data不是可接受的RedisValue的類型！");
-            }
-
-            db.StringSet(key, redisValue, expiry);
-        }
-
-        private RedisValue ChangeCommonBasicTypeToRedisValue(object data)
-        {
-            RedisValue redisValue = RedisValue.Null;
-            if (data == null)
-            {
-                return redisValue;
-            }
-            var t = data.GetType();
-
-            if (t == typeof(string))
-            {
-                redisValue = (string)data;
-            }
-            if (t == typeof(long))
-            {
-                redisValue = (long)data;
-            }
-            if (t == typeof(double))
-            {
-                redisValue = (double)data;
-            }
-            if (t == typeof(int))
-            {
-                redisValue = (int)data;
-            }
-            if (t == typeof(byte[]))
-            {
-                redisValue = (byte[])data;
-            }
-            if (t == typeof(bool))
-            {
-                redisValue = (bool)data;
-            }
-
-            return redisValue;
         }
 
         public void Set(string key, string dataStr, TimeSpan? expiry = null)

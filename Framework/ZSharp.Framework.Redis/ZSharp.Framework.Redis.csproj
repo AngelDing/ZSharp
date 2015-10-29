@@ -47,7 +47,6 @@
     <Compile Include="StackExchange\StackExchangeRedisFactory.cs" />
     <Compile Include="Locking\RedisLock.cs" />
     <Compile Include="StackExchange\StackExchangeRedisWrapper.cs" />
-    <Compile Include="TypeHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZSharp.Framework.Configurations\ZSharp.Framework.Configurations.csproj">

@@ -37,57 +37,21 @@ namespace ZSharp.Framework.Caching
 
         public override T Get<T>(string key) 
         {
-            var result = default(T);
-
-            if (Redis.TypeHelper.IsCommonBasicType<T>())
+            var data = redisWrapper.Get(key);
+            if (data != null)
             {
-                var data = redisWrapper.Get<T>(key);
-
-                if (data == null)
-                {
-                    return result;
-                }
-
-                result = (T)data;
-            }
-            else
-            {
-                object redisValue = null;
-                var format = serializer.Format;
-                if (format == SerializationFormat.Json 
-                    || format == SerializationFormat.Xml
-                    || format == SerializationFormat.Jil)
-                {
-                    redisValue = redisWrapper.Get<string>(key);
-                }
-                else
-                {
-                    redisValue = redisWrapper.Get<byte[]>(key);
-                }
-
-                if (redisValue == null)
-                {
-                    return result;
-                }
-
-                result = serializer.Deserialize<T>(redisValue);
+                var deserialisedObject = serializer.Deserialize<T>(data);
+                return deserialisedObject;
             }
 
-            return result;
+            return default(T);
         }
 
         public override void Set(CacheKey key, object value, CachePolicy cachePolicy)
         {
+            var dataStr = serializer.Serialize<string>(value);
             var expiry = ComputeExpiryTimeSpan(cachePolicy);
-            var type = value.GetType();
-
-            var setValue = value;
-            if (Redis.TypeHelper.IsCommonBasicType(type) == false)
-            {
-                setValue = serializer.Serialize<byte[]>(value);
-            }
-            redisWrapper.Set(key.Key, setValue, expiry);
-
+            redisWrapper.Set(key.Key, dataStr, expiry);
             ManageCacheDependencies(key);
         }
 
