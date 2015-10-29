@@ -44,7 +44,7 @@ namespace Framework.SqlDb.Test
 
             modelBuilder.Entity<ChildNote>().HasRequired(c => c.EFNote)
             .WithMany(t => t.ChildNote).HasForeignKey(p => p.NoteId);
-            modelBuilder.Entity<ChildNote>().HasKey(p => p.ChildNoteId);
+            modelBuilder.Entity<ChildNote>().HasKey(p => p.Id);
      
             base.OnModelCreating(modelBuilder);
         }

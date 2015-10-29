@@ -90,7 +90,8 @@ namespace Framework.SqlDb.Test
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            throw new NotImplementedException();
+            return null;
+            //throw new NotImplementedException();
         }
 
         public static bool operator ==(EFAddress a, EFAddress b)

@@ -24,11 +24,9 @@ namespace Framework.SqlDb.Test
     [Serializable]
     public class ChildNote : EfEntity<int>
     {
-        public long ChildNoteId { get; set; }
-
         public string Title { get; set; }
 
-        public long NoteId { get; set; }
+        public int NoteId { get; set; }
 
         public virtual EFNote EFNote { get; set; }
     }
