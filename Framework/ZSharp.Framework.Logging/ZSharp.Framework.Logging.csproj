@@ -31,11 +31,43 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseLogger.cs" />
+    <Compile Include="BaseLoggerAdapter.cs" />
+    <Compile Include="Configuration\ConfigurationException.cs" />
+    <Compile Include="Configuration\ConfigurationSectionHandler.cs" />
+    <Compile Include="Configuration\DefaultConfigurationReader.cs" />
+    <Compile Include="Configuration\IConfigurationReader.cs" />
+    <Compile Include="Configuration\LogSetting.cs" />
     <Compile Include="ILogger.cs" />
+    <Compile Include="ILoggerAdapter.cs" />
+    <Compile Include="LogArgumentEntity.cs" />
+    <Compile Include="LogCategoryType.cs" />
+    <Compile Include="LogLevelType.cs" />
     <Compile Include="LogManager.cs" />
+    <Compile Include="LogModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Simple\BaseSimpleLogger.cs" />
+    <Compile Include="Simple\BaseSimpleLoggerAdapter.cs" />
+    <Compile Include="Simple\ConsoleOutLogger.cs" />
+    <Compile Include="Simple\ConsoleOutLoggerAdapter.cs" />
+    <Compile Include="Simple\DebugLoggerAdapter.cs" />
+    <Compile Include="Simple\DebugOutLogger.cs" />
+    <Compile Include="Simple\ExceptionFormatter.cs" />
+    <Compile Include="Simple\LoggingTraceListener.cs" />
+    <Compile Include="Simple\NoOpLogger.cs" />
+    <Compile Include="Simple\NoOpLoggerAdapter.cs" />
+    <Compile Include="Simple\TraceLogger.cs" />
+    <Compile Include="Simple\TraceLoggerAdapter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
+      <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
+      <Name>ZSharp.Framework.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
