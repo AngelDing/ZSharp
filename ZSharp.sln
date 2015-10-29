@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.Caching", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.WebApi", "Framework\ZSharp.Framework.WebApi\ZSharp.Framework.WebApi.csproj", "{2FA56706-0BDC-4F32-967B-0848A0E34CE2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.WebApi.Test", "Tests\Framework.WebApi.Test\Framework.WebApi.Test.csproj", "{1AE65647-C03C-4D1A-A68E-31704969874C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +115,10 @@ Global
 		{2FA56706-0BDC-4F32-967B-0848A0E34CE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FA56706-0BDC-4F32-967B-0848A0E34CE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FA56706-0BDC-4F32-967B-0848A0E34CE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AE65647-C03C-4D1A-A68E-31704969874C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AE65647-C03C-4D1A-A68E-31704969874C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AE65647-C03C-4D1A-A68E-31704969874C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AE65647-C03C-4D1A-A68E-31704969874C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,5 +129,6 @@ Global
 		{E2D3D3A0-20BB-4AE3-B051-50B54C66B414} = {D95C6325-E447-4C95-B400-9445516275C7}
 		{C39C2567-5A34-4988-BB00-D5F99D50F14A} = {D95C6325-E447-4C95-B400-9445516275C7}
 		{1FCE796E-87E8-40CF-BE0F-4E06E90ABB96} = {D95C6325-E447-4C95-B400-9445516275C7}
+		{1AE65647-C03C-4D1A-A68E-31704969874C} = {D95C6325-E447-4C95-B400-9445516275C7}
 	EndGlobalSection
 EndGlobal
