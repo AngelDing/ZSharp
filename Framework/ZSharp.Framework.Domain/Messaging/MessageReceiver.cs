@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using ZSharp.Framework.Utils;
 
 namespace ZSharp.Framework.Domain
 {  
@@ -9,9 +10,16 @@ namespace ZSharp.Framework.Domain
         private readonly TimeSpan pollDelay;
         private readonly object lockObject = new object();
         private CancellationTokenSource cancellationSource;
+        internal string SysCode { get; private set; }
+        internal string Topic { get; private set; }
 
-        public MessageReceiver()
+        public MessageReceiver(string sysCode, string topic)
         {
+            GuardHelper.ArgumentNotEmpty(() => sysCode);
+            GuardHelper.ArgumentNotEmpty(() => topic);
+
+            this.SysCode = sysCode;
+            this.Topic = topic;
             this.pollDelay = TimeSpan.FromMilliseconds(100);
         }
 

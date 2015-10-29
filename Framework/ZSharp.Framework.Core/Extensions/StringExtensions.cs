@@ -264,7 +264,6 @@ namespace ZSharp.Framework.Extensions
         [DebuggerStepThrough]
         public static bool IsEmpty(this string value)
         {
-
             if (value == null || value.Length == 0)
                 return true;
 

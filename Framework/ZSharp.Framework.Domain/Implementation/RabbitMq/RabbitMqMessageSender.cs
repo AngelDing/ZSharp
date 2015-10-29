@@ -5,12 +5,12 @@ namespace ZSharp.Framework.Domain
 {
     public class RabbitMqMessageSender : MessageSender
     {
-        public override void Send(IEnumerable<Message> messages)
+        public override void Send<T>(Envelope<T> message)
         {
             throw new NotImplementedException();
         }
 
-        public override void Send(Message message)
+        public override void Send<T>(IEnumerable<Envelope<T>> messages)
         {
             throw new NotImplementedException();
         }

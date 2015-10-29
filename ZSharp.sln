@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Test.Core", "Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Domain.Test", "Tests\Framework.Domain.Test\Framework.Domain.Test.csproj", "{1FCE796E-87E8-40CF-BE0F-4E06E90ABB96}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.EfExtensions", "Framework\ZSharp.Framework.EfExtensions\ZSharp.Framework.EfExtensions.csproj", "{500F07EF-FC30-4968-A330-479276AC1124}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{1FCE796E-87E8-40CF-BE0F-4E06E90ABB96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FCE796E-87E8-40CF-BE0F-4E06E90ABB96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FCE796E-87E8-40CF-BE0F-4E06E90ABB96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{500F07EF-FC30-4968-A330-479276AC1124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{500F07EF-FC30-4968-A330-479276AC1124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{500F07EF-FC30-4968-A330-479276AC1124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{500F07EF-FC30-4968-A330-479276AC1124}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

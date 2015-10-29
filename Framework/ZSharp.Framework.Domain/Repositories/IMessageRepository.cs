@@ -11,6 +11,6 @@ namespace ZSharp.Framework.Domain
 
         void Delete(long id);
 
-        T GetFirstMessage();
+        T GetFirstMessage(string sysCode, string topic);
     }
 }

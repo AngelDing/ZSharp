@@ -4,8 +4,8 @@ namespace ZSharp.Framework.Domain
 {
     public class RabbitMqMessageReceiver : MessageReceiver
     {
-        public RabbitMqMessageReceiver()
-            : base()
+        public RabbitMqMessageReceiver(string sysCode, string topic)
+            : base(sysCode, topic)
         {
         }
 

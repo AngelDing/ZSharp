@@ -34,6 +34,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dependency\IContainer.cs" />
+    <Compile Include="Dependency\SimpleContainer.cs" />
+    <Compile Include="Dependency\SimpleLocator.cs" />
     <Compile Include="DisposableObject.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\IBusinessEntity.cs" />

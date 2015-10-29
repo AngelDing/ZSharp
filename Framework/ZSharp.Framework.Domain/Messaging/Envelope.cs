@@ -19,9 +19,9 @@ namespace ZSharp.Framework.Domain
 
         public T Body { get; private set; }
 
-        public TimeSpan Delay { get; set; }
+        public TimeSpan? Delay { get; set; }
 
-        public TimeSpan TimeToLive { get; set; }
+        public TimeSpan? TimeToLive { get; set; }
 
         public string CorrelationId { get; set; }
 

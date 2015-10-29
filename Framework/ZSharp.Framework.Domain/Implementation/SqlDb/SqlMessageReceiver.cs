@@ -7,8 +7,8 @@ namespace ZSharp.Framework.Domain
     {
         private readonly IMessageRepository<MessageEntity> msgRepo;
 
-        public SqlMessageReceiver(IMessageRepository<MessageEntity> msgRepo)
-            : base()
+        public SqlMessageReceiver(IMessageRepository<MessageEntity> msgRepo, string sysCode, string topic)
+            : base(sysCode, topic)
         {
             this.msgRepo = msgRepo;
         }      
@@ -19,7 +19,7 @@ namespace ZSharp.Framework.Domain
             {
                 try
                 {
-                    var msgEntity = this.msgRepo.GetFirstMessage();
+                    var msgEntity = this.msgRepo.GetFirstMessage(this.SysCode, this.Topic);
                     var message = msgEntity.Map<Envelope<IMessage>>();
                     var messageId = msgEntity.Id;
                     this.MessageReceived(new MessageReceivedEventArgs(message));
