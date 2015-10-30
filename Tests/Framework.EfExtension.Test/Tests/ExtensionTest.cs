@@ -12,17 +12,17 @@ namespace Framework.EfExtension.Test
     {
         [Fact, TestPriority(0)]
         public void ef_batch_begin_transaction_test()
-        { 
+        {
             using (var db = new TrackerContext())
             using (var tx = db.Database.BeginTransaction())
             {
                 string emailDomain = "@test.com";
 
-                var query =  db.Users.Where(u => u.EmailAddress.Contains(emailDomain));
-                int count = query.Update(u => new User { IsApproved = false, LastActivityDate = DateTime.Now });
+                var query = db.Users.Where(u => u.EmailAddress.Contains(emailDomain));
+                int count = query.Update(u => new User { IsApproved = false });
 
                 count = db.Users
-                    .Where(u => u.EmailAddress.EndsWith(emailDomain))
+                    .Where(u => u.IsApproved == false)
                     .Delete();
 
                 tx.Commit();
@@ -38,7 +38,7 @@ namespace Framework.EfExtension.Test
 
                 int count = db.Users
                     .Where(u => u.EmailAddress.EndsWith(emailDomain))
-                    .Update(u => new User { IsApproved = false, LastActivityDate = DateTime.Now });
+                    .Update(u => new User { LastActivityDate = DateTime.Now });
 
                 count = db.Users
                     .Where(u => u.EmailAddress.EndsWith(emailDomain))
@@ -59,7 +59,7 @@ namespace Framework.EfExtension.Test
                     .Update(u => new User { IsApproved = false, LastActivityDate = DateTime.Now });
 
                 count = db.Users
-                    .Where(u => u.EmailAddress.EndsWith(emailDomain))
+                    .Where(u => u.EmailAddress.EndsWith(emailDomain) && u.IsApproved == false)
                     .Delete();
 
                 tx.Complete();
