@@ -63,7 +63,7 @@ namespace ZSharp.Framework.Redis
             //}
         }     
        
-        public object Get(string key)
+        public string Get(string key)
         {
             var data = db.StringGet(key);
             if (data.IsNull)
@@ -73,7 +73,7 @@ namespace ZSharp.Framework.Redis
             return data;
         }
 
-        public object GetSet(string key, string dataStr)
+        public string GetSet(string key, string dataStr)
         {
             return db.StringGetSet(key, dataStr);
         }

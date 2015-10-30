@@ -34,10 +34,12 @@ namespace Framework.Caching.Test
             var testobject = new TestClass<DateTime>();
             testobject.Key = "Jacky";
             testobject.Value = DateTime.Now;
-            CacheManager.Set("my Key", testobject, new CachePolicy() {
-             Duration = TimeSpan.FromSeconds(20),
-              ExpirationType = CacheExpirationType.Absolute
-            });
+            CacheManager.Set("my Key", testobject, 
+                new CachePolicy()
+                {
+                    Duration = TimeSpan.FromSeconds(20),
+                    ExpirationType = CacheExpirationType.Absolute
+                });
             var result = CacheManager.Get<TestClass<DateTime>>("my Key");
 
             result.Should().NotBeNull();

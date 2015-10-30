@@ -5,9 +5,9 @@ namespace ZSharp.Framework.Redis
 {
     public interface IRedisWrapper
     {
-        object Get(string key);
+        string Get(string key);
 
-        object GetSet(string key, string dataStr);
+        string GetSet(string key, string dataStr);
 
         void Set(string key, string dataStr, TimeSpan? expiry = null);
 
