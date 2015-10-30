@@ -35,7 +35,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentAssertions">
+      <HintPath>..\..\Dll\FluentAssertions\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions.Core">
+      <HintPath>..\..\Dll\FluentAssertions\FluentAssertions.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\..\Dll\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
       <Private>True</Private>
@@ -62,10 +74,39 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="BaseSimpleLoggerTests.cs" />
+    <Compile Include="CapturingLoggerTests.cs" />
+    <Compile Include="ConfigurationSectionHandlerTests.cs" />
+    <Compile Include="DefaultConfigurationReaderTests.cs" />
+    <Compile Include="LoggingTraceListenerTests.cs" />
+    <Compile Include="LogManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestUtil\CapturingLogger.cs" />
+    <Compile Include="TestUtil\CapturingLoggerAdapter.cs" />
+    <Compile Include="TestUtil\CapturingLoggerEvent.cs" />
+    <Compile Include="TestUtil\CapturingTraceListener.cs" />
+    <Compile Include="TestUtil\MissingCtorFactoryAdapter.cs" />
+    <Compile Include="TestUtil\StandaloneConfigurationReader.cs" />
+    <Compile Include="TestUtil\TraceEventArgs.cs" />
+    <Compile Include="TraceLoggerTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
+      <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
+      <Name>ZSharp.Framework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\ZSharp.Framework.Logging\ZSharp.Framework.Logging.csproj">
+      <Project>{2d8850ae-67c7-4448-87b2-f3f084f36b55}</Project>
+      <Name>ZSharp.Framework.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework.Test.Core\Framework.Test.Core.csproj">
+      <Project>{c39c2567-5a34-4988-bb00-d5f99d50f14a}</Project>
+      <Name>Framework.Test.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
