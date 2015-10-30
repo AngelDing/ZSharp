@@ -44,34 +44,16 @@ namespace ZSharp.Framework.SqlDb
         }
 
         public override void RegisterModified<T>(T obj)
-        {
+        {            
+            this.dbContext.Detach(obj);
             obj.ObjectState = ObjectStateType.Modified;
-            RemoveHoldingEntityInContext(obj);
         }
 
         public override void RegisterDeleted<T>(T obj)
         {
-            RemoveHoldingEntityInContext(obj);
+            this.dbContext.Detach(obj);
             this.dbContext.Entry(obj).State = EntityState.Deleted;
-        }
-
-        /// <summary>
-        /// 用于监测Context中的Entity是否存在，如果存在，将其Detach，防止出现问题。
-        /// </summary>
-        private void RemoveHoldingEntityInContext<T>(T obj) where T : class
-        {
-            var objContext = ((IObjectContextAdapter)dbContext).ObjectContext;
-            var objSet = objContext.CreateObjectSet<T>();
-            var entityKey = objContext.CreateEntityKey(objSet.EntitySet.Name, obj);
-
-            Object foundEntity;
-            var exists = objContext.TryGetObjectByKey(entityKey, out foundEntity);
-
-            if (exists)
-            {
-                objContext.Detach(foundEntity);
-            }
-        }
+        }       
 
         #endregion
 

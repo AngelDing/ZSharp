@@ -280,6 +280,35 @@ namespace Framework.SqlDb.Test
             }
         }
 
+
+        [Fact]
+        public void ef_test()
+        {
+            var customer = GetCustomerInfo();
+            InsertNewCustomer(customer);
+
+            EFCustomer newCustomer;
+            using (var repo = new CustomerRepository())
+            {
+                newCustomer = repo.GetCustomFullInfo(1);
+                newCustomer.Should().NotBeNull();
+
+                newCustomer.SetUpdate(() => newCustomer.UserName, "Jacky");
+                var note = newCustomer.EFNote.FirstOrDefault();
+                note.SetUpdate(() => note.NoteText, "XXX");
+                repo.Update(newCustomer);
+                repo.RepoContext.Commit();
+            }
+
+            using (var repo = new CustomerRepository())
+            {
+                newCustomer = repo.GetCustomFullInfo(1);
+                newCustomer.Should().NotBeNull();
+                newCustomer.UserName.Should().Be("Jacky");
+                newCustomer.EFNote.FirstOrDefault().NoteText.Should().Be("XXX");
+            }
+        }
+
         #endregion
 
         #region Private Methods
