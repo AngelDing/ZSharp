@@ -7,10 +7,10 @@ namespace Framework.ConsoleTest
     class Program
     {
         static void Main(string[] args)
-        {
-            InitUnityConfig();
-
+        {            
             DistributedLockTest();
+            //LoggerTest.Test();
+            //new StringTest().Test();
 
             Console.ReadLine();
         }
@@ -22,6 +22,7 @@ namespace Framework.ConsoleTest
 
         private static void DistributedLockTest()
         {
+            InitUnityConfig();
             var lockTest = new LockTest();
             lockTest.MultipleClientsGetSameLock();
         }
