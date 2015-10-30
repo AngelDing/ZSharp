@@ -35,6 +35,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=3.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\AutoMapper.4.0.4\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EmitMapper">
+      <HintPath>..\..\packages\EmitMapper.1.0.0\lib\EmitMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="NLite">
+      <HintPath>..\..\packages\NLite.0.9.6\lib\net40\NLite.dll</HintPath>
+    </Reference>
+    <Reference Include="ObjectMapper">
+      <HintPath>..\..\Dll\ObjectMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
@@ -43,6 +56,9 @@
     <Reference Include="xunit.assert, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\xunit.assert.2.1.0\lib\dotnet\xunit.assert.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="xunit.benchmark">
+      <HintPath>..\..\Dll\xunit\xunit.benchmark.dll</HintPath>
     </Reference>
     <Reference Include="xunit.core, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\xunit.extensibility.core.2.1.0\lib\dotnet\xunit.core.dll</HintPath>
@@ -62,10 +78,38 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ObjectsMapper\Data\ModelDto.cs" />
+    <Compile Include="ObjectsMapper\Data\ModelObject.cs" />
+    <Compile Include="ObjectsMapper\FlatteringConfig.cs" />
+    <Compile Include="ObjectsMapper\IObjectToObjectMapper.cs" />
+    <Compile Include="ObjectsMapper\MapperBase.cs" />
+    <Compile Include="ObjectsMapper\MapperPerformaceTest.cs" />
+    <Compile Include="ObjectsMapper\Spec\FlatterPerformaceSpec.cs" />
+    <Compile Include="ObjectsMapper\Spec\PerformanceSpecBase.cs" />
+    <Compile Include="ObjectsMapper\Spec\SimplePerformanceSpec.cs" />
+    <Compile Include="ObjectsMapper\Spec\SpecBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\BinarySerializerTest.cs" />
+    <Compile Include="Serialization\CommonSerializerTest.cs" />
+    <Compile Include="Serialization\JilSerializerTest.cs" />
+    <Compile Include="Serialization\JsonSerializerTest.cs" />
+    <Compile Include="Serialization\MsgPackSerializerTest.cs" />
+    <Compile Include="Serialization\ProtoBufSerializerTest.cs" />
+    <Compile Include="Serialization\XmlSerializerTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\ZSharp.Framework.Serializations\ZSharp.Framework.Serializations.csproj">
+      <Project>{b4594b5f-676e-47b4-9f1a-d9d695a95457}</Project>
+      <Name>ZSharp.Framework.Serializations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework.Test.Core\Framework.Test.Core.csproj">
+      <Project>{c39c2567-5a34-4988-bb00-d5f99d50f14a}</Project>
+      <Name>Framework.Test.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
