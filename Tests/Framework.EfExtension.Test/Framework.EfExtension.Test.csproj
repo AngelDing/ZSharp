@@ -35,7 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\EntityFramework\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\Dll\EntityFramework\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Transactions" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
       <Private>True</Private>
@@ -62,10 +72,48 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Entities\AuditData.cs" />
+    <Compile Include="Entities\Priority.cs" />
+    <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\Status.cs" />
+    <Compile Include="Entities\Task.cs" />
+    <Compile Include="Entities\TaskExtended.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Mappings\AuditMap.cs" />
+    <Compile Include="Mappings\PriorityMap.cs" />
+    <Compile Include="Mappings\RoleMap.cs" />
+    <Compile Include="Mappings\StatusMap.cs" />
+    <Compile Include="Mappings\TaskExtendedMap.cs" />
+    <Compile Include="Mappings\TaskMap.cs" />
+    <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\AuditTest.cs" />
+    <Compile Include="Tests\BatchTest.cs" />
+    <Compile Include="Tests\EntityMapTest.cs" />
+    <Compile Include="Tests\ExtensionTest.cs" />
+    <Compile Include="Tests\FutureTest.cs" />
+    <Compile Include="TrackerContext.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Tracker.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
+      <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
+      <Name>ZSharp.Framework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\ZSharp.Framework.EfExtensions\ZSharp.Framework.EfExtensions.csproj">
+      <Project>{500f07ef-fc30-4968-a330-479276ac1124}</Project>
+      <Name>ZSharp.Framework.EfExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework.Test.Core\Framework.Test.Core.csproj">
+      <Project>{c39c2567-5a34-4988-bb00-d5f99d50f14a}</Project>
+      <Name>Framework.Test.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

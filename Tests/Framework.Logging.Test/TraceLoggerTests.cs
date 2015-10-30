@@ -2,8 +2,6 @@
 using FluentAssertions;
 using ZSharp.Framework.Logging.Simple;
 using ZSharp.Framework.Logging;
-using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Collections.Specialized;
 using Framework.Test.Core;
