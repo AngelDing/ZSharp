@@ -56,6 +56,7 @@ namespace ZSharp.Framework.EfExtensions.Batch
             }
             selector.Append(")");
 
+            //DynamicQueryable.Select¥Ê‘⁄ÅK∞lÜñÓ}£∫System.Linq.Dynamic.ClassFactory.GetDynamicClass
             var selectQuery = DynamicQueryable.Select(query, selector.ToString());
             var objectQuery = selectQuery as ObjectQuery;
 
