@@ -19,6 +19,6 @@ namespace Framework.Test.Core.Entities
         [ProtoMember(3)]
         public decimal Price { get; set; }
         [ProtoMember(4)]
-        public DateTimeOffset? CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
     }
 }

@@ -11,6 +11,8 @@ namespace ZSharp.Framework.SqlDb
     {
         /// <summary>
         /// 通用的转换实体状态方法
+        /// Repository模式中，Update总是失败及其解析:
+        /// http://www.cnblogs.com/scy251147/p/3688844.html
         /// </summary>
         /// <typeparam name="TEntity">要操作的实体</typeparam>
         /// <param name="root">根实体</param>

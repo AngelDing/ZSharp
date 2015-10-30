@@ -18,7 +18,7 @@ namespace Framework.Test.Core.Serialization
         public OrderItem OrderItem { get; set; }      
 
         [ProtoMember(4)]
-        public DateTimeOffset? NullableDateTime { get; set; }
+        public DateTime? NullableDateTime { get; set; }
 
         [ProtoMember(5)]
         public decimal? NetPrice { get; set; }

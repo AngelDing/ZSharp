@@ -13,5 +13,15 @@ namespace ZSharp.Framework.Serializations
         {
             return serializer.Deserialize<T>(serializedObject);
         }
+
+        public static string ToJson(this object input)
+        {
+            return SerializationHelper.Jil.Serialize<string>(input);
+        }
+
+        public static T FromJson<T>(this string input)
+        {
+            return SerializationHelper.Jil.Deserialize<T>(input);
+        }
     }
 }

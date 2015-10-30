@@ -8,6 +8,7 @@ namespace ZSharp.Framework.Serializations
     /// 1.不支持循環引用;
     /// 2.不支持DateTimeOffset數據類型;
     /// 3.不支持泛型；
+    /// 4.不支持DateTimeOffset數據類型;
     /// </summary>
     public class ProtoBufSerializer : BaseSerializer, ISerializer
     {

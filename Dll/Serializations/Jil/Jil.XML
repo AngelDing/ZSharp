@@ -350,7 +350,7 @@
               unspecifiedDateTimeKindBehavior - how to treat DateTime's with a DateTimeKind of Unspecified (Jil converts all DateTimes to Utc for serialization, use DateTimeOffset to preserve time zone information)
             </summary>
         </member>
-        <member name="M:Jil.Options.#ctor(System.Boolean,System.Boolean,System.Boolean,Jil.DateTimeFormat,System.Boolean,Jil.UnspecifiedDateTimeKindBehavior,Jil.SerializationNameFormat,System.Boolean)">
+        <member name="M:Jil.Options.#ctor(System.Boolean,System.Boolean,System.Boolean,Jil.DateTimeFormat,System.Boolean,Jil.UnspecifiedDateTimeKindBehavior,Jil.SerializationNameFormat)">
             <summary>
             Configuration for Jil serialization options.
             
@@ -379,11 +379,6 @@
         <member name="M:Jil.Options.Equals(System.Object)">
             <summary>
             Returns true if two Options are equal, and false otherwise
-            </summary>
-        </member>
-        <member name="P:Jil.Options.DateTimeUtcToLocal">
-            <summary>
-            if true will auto invoke the ToLocalTime Method
             </summary>
         </member>
         <member name="T:Jil.SerializationNameFormat">

@@ -9,6 +9,7 @@ namespace ZSharp.Framework.Serializations
     /// 1.不支持循環引用；
     /// 2.不支持IList,ICollection等接口，但支持List；
     /// 3.不支持TimeSpan數據類型；
+    /// 4.不支持DateTimeOffset數據類型
     /// </summary>
     public class XmlSerializer : BaseSerializer, ISerializer
     {      

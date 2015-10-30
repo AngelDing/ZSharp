@@ -36,19 +36,22 @@ namespace Framework.Test.Core.Serialization
             return result;
         }
 
-        public object GetSerializedGenericsObject()
+        public object GetSerializedGenericsObject(object genericsObj = null)
         {
-            var genericsObj = CreateGenericsObject();
+            if (genericsObj == null)
+            {
+                genericsObj = CreateGenericsObject();
+            }
             var result = Serializer.Serialize<byte[]>(genericsObj);
             return result;
         }
 
         private object CreateGenericsObject()
         {
-            var obj = new GenericsObject<DateTimeOffset>
+            var obj = new GenericsObject<DateTime>
             {
                 Key = "Jacky",
-                Value = DateTimeOffset.Now
+                Value = DateTime.Now
             };
 
             return obj;
@@ -62,7 +65,7 @@ namespace Framework.Test.Core.Serialization
                 Name = "Complex Object",
                 Price = 1000,
                 TimeSpan = new TimeSpan(1, 1, 1),
-                CreatedDate = DateTimeOffset.Now,
+                CreatedDate = DateTime.Now,
                 //UpdatedDate = DateTimeOffset.Now.UtcDateTime,
                 OrderItem = new OrderItem
                 {
@@ -90,7 +93,7 @@ namespace Framework.Test.Core.Serialization
                 Id = 1,
                 Name = "Test Name",
                 Price = 100,
-                CreatedDate = DateTimeOffset.Now
+                CreatedDate = DateTime.Now
             };
             return obj;
         }
