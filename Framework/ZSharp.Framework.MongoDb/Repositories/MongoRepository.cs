@@ -13,7 +13,7 @@ using ZSharp.Framework.Utils;
 namespace ZSharp.Framework.MongoDb
 {
     public class MongoRepository<T, TKey> : BaseMongoDB<T>, IMongoRepository<T, TKey>
-      where T : BaseMongoEntity, IAggregateRoot<TKey>
+      where T : MongoEntity, IAggregateRoot<TKey>
     {
         public MongoRepository(string connectionStringOrName)
             : base(connectionStringOrName)
@@ -133,7 +133,7 @@ namespace ZSharp.Framework.MongoDb
 
         public bool Exists(Expression<Func<T, bool>> predicate)
         {
-            var obj = this.Collection.Find<T>(predicate).SingleOrDefaultAsync().Result;
+            var obj = this.Collection.Find<T>(predicate).FirstOrDefaultAsync().Result;
             return obj != null;
         }
 
@@ -194,7 +194,7 @@ namespace ZSharp.Framework.MongoDb
 
         public void RemoveAll()
         {
-            this.Collection.DeleteManyAsync(p => true);
+            AsyncHelper.RunSync(() => this.Collection.DeleteManyAsync(p => true));
         }
 
         #endregion             

@@ -35,7 +35,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentAssertions">
+      <HintPath>..\..\Dll\FluentAssertions\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions.Core">
+      <HintPath>..\..\Dll\FluentAssertions\FluentAssertions.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\..\Dll\MongoDb\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\..\Dll\MongoDb\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core">
+      <HintPath>..\..\Dll\MongoDb\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
       <Private>True</Private>
@@ -62,10 +81,42 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Common\BaseMongoTest.cs" />
+    <Compile Include="Common\MongoTestDB.cs" />
+    <Compile Include="Entities\CustomEntityTest.cs" />
+    <Compile Include="Entities\Customer.cs" />
+    <Compile Include="Entities\MongoTaskEntity.cs" />
+    <Compile Include="Entities\Order.cs" />
+    <Compile Include="Entities\OrderLog.cs" />
+    <Compile Include="Entities\Product.cs" />
+    <Compile Include="IndexManagerTest.cs" />
+    <Compile Include="MongoIdTest.cs" />
+    <Compile Include="MongoManagerTest.cs" />
+    <Compile Include="MongoRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\servers.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
+      <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
+      <Name>ZSharp.Framework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\ZSharp.Framework.Infrastructure\ZSharp.Framework.Infrastructure.csproj">
+      <Project>{66b2f2cc-da8f-4615-9933-6edcdfc52a6c}</Project>
+      <Name>ZSharp.Framework.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\ZSharp.Framework.MongoDb\ZSharp.Framework.MongoDb.csproj">
+      <Project>{4c2972bc-ea18-44e9-85f7-fc76cd5edc27}</Project>
+      <Name>ZSharp.Framework.MongoDb</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -33,7 +33,7 @@ namespace ZSharp.Framework.MongoDb
             }
             else
             {
-                if (typeof(T).IsSubclassOf(typeof(BaseMongoEntity)))
+                if (typeof(T).IsSubclassOf(typeof(MongoEntity)))
                 {
                     this.collection = db.GetCollection<T>(GetCollectionName());
                 }

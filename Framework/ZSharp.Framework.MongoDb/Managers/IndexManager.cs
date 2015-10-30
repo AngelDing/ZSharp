@@ -71,7 +71,7 @@ namespace ZSharp.Framework.MongoDb.Managers
         /// <param name="indexName">索引名稱</param>
         public void DropIndexByName(string indexName)
         {
-            this.Collection.Indexes.DropOneAsync(indexName);
+            AsyncHelper.RunSync(() => this.Collection.Indexes.DropOneAsync(indexName));
         }
 
         /// <summary>

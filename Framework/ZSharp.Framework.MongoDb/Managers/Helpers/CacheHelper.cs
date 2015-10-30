@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-//using ZSharp.Framework.Caching;
+using ZSharp.Framework.Caching;
 
 namespace ZSharp.Framework.MongoDb.Managers
 {
@@ -10,12 +11,11 @@ namespace ZSharp.Framework.MongoDb.Managers
 
         public static List<TreeNode> GetTreeNodes()
         {
-            return null;
-            //var expDate = DateTimeOffset.Now.AddHours(2);
-            //var cachePolicy = CachePolicy.WithAbsoluteExpiration(expDate);
-            //var cacheManager = ZSharp.Framework.Caching.CacheHelper.MemoryCache;
-            //var nodes = cacheManager.Get<List<TreeNode>>(NodeKey, () => RealGetTreeNodes(), cachePolicy);
-            //return nodes;
+            var expDate = DateTimeOffset.Now.AddHours(2);
+            var cachePolicy = CachePolicy.WithAbsoluteExpiration(expDate);
+            var cacheManager = Caching.CacheHelper.MemoryCache;
+            var nodes = cacheManager.Get<List<TreeNode>>(NodeKey, () => RealGetTreeNodes(), cachePolicy);
+            return nodes;
         }
 
         private static List<TreeNode> RealGetTreeNodes()
@@ -50,7 +50,7 @@ namespace ZSharp.Framework.MongoDb.Managers
 
         public static void Clear()
         {
-            //ZSharp.Framework.Caching.CacheHelper.MemoryCache.Remove(NodeKey);
+            Caching.CacheHelper.MemoryCache.Remove(NodeKey);
         }
     }
 }

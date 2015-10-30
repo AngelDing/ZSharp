@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseMongoDB.cs" />
-    <Compile Include="Entities\BaseMongoEntity.cs" />
+    <Compile Include="Entities\MongoEntity.cs" />
     <Compile Include="Entities\CollectionNameAttribute.cs" />
     <Compile Include="Entities\GuidKeyMongoEntity.cs" />
     <Compile Include="Entities\IdentityEntity.cs" />
@@ -96,6 +96,10 @@
     <Compile Include="Repositories\MongoRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ZSharp.Framework.Caching\ZSharp.Framework.Caching.csproj">
+      <Project>{4e6380c9-050b-4177-bb04-bf74c132e564}</Project>
+      <Name>ZSharp.Framework.Caching</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
       <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
       <Name>ZSharp.Framework.Core</Name>

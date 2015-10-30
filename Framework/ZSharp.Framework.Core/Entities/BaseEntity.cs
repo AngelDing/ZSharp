@@ -83,7 +83,35 @@ namespace ZSharp.Framework.Entities
             return Enumerable.Empty<ValidationResult>();
         }
 
-        public abstract string GetUpdateKey(LambdaExpression expression);
+        private string GetUpdateKey(LambdaExpression expression)
+        {
+            var keys = new List<string>();
+            var body = expression.Body;
+            var baseType = this.GetType().BaseType;
+            while (body.NodeType == ExpressionType.MemberAccess)
+            {
+                MemberExpression memberExpression = (MemberExpression)body;
+                var type = memberExpression.Type.BaseType;
+                if (baseType == type)
+                {
+                    break;
+                }
+                keys.Add(memberExpression.Member.Name);
+
+                var insideExpress = memberExpression.Expression;
+                if (insideExpress != null && insideExpress.NodeType == ExpressionType.MemberAccess)
+                {
+                    body = insideExpress;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            keys.Reverse();
+            return string.Join(".", keys.ToArray());
+        }
         
     }
 

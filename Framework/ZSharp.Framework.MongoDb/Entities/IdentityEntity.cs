@@ -1,7 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using System;
-
+﻿
 namespace ZSharp.Framework.MongoDb
 {
     [CollectionName("IdentityEntity")]
