@@ -1,6 +1,6 @@
 ﻿namespace ZSharp.Framework.Domain
 {
-    public interface IProcessor
+    public interface IProcessor : IHandlerRegistry
     {
         void Start();
 

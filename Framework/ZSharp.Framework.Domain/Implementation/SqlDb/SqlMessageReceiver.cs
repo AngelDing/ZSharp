@@ -3,11 +3,11 @@ using ZSharp.Framework.Infrastructure;
 
 namespace ZSharp.Framework.Domain
 {  
-    public class SqlMessageReceiver : MessageReceiver
+    public class SqlMessageReceiver<TEntity> : MessageReceiver where TEntity : MessageEntity
     {
-        private readonly IMessageRepository<MessageEntity> msgRepo;
+        private readonly IMessageRepository<TEntity> msgRepo;
 
-        public SqlMessageReceiver(IMessageRepository<MessageEntity> msgRepo, string sysCode, string topic)
+        public SqlMessageReceiver(IMessageRepository<TEntity> msgRepo, string sysCode, string topic)
             : base(sysCode, topic)
         {
             this.msgRepo = msgRepo;

@@ -3,7 +3,7 @@ using ZSharp.Framework.Logging;
 
 namespace ZSharp.Framework.Domain
 {
-    public abstract class MessageProcessor : DisposableObject, IProcessor
+    public class MessageProcessor : DisposableObject, IProcessor
     {
         private readonly MessageDispatcher msgDispatcher;
         private readonly IMessageReceiver receiver;
@@ -13,7 +13,7 @@ namespace ZSharp.Framework.Domain
 
         internal ILogger Logger { get; private set; }
 
-        protected MessageProcessor(IMessageReceiver receiver)
+        public MessageProcessor(IMessageReceiver receiver)
         {
             this.receiver = receiver;
             this.msgDispatcher = new MessageDispatcher();
@@ -94,7 +94,7 @@ namespace ZSharp.Framework.Domain
             }
         }
 
-        internal void RegisterHandler(IHandler handler)
+        public void Register(IHandler handler)
         {
             this.msgDispatcher.Register(handler);
         }

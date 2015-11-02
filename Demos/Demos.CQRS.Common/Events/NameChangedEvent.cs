@@ -2,7 +2,7 @@
 
 namespace Demos.CQRS.Common
 {
-    public class ChangeCustomerNameEvent : Event
+    public class NameChangedEvent : Event
     {
         public string FirstName { get; set; }
 

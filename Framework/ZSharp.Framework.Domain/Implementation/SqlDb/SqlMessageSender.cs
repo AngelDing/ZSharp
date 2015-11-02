@@ -4,15 +4,15 @@ using ZSharp.Framework.Serializations;
 
 namespace ZSharp.Framework.Domain
 {
-    public class SqlMessageSender : MessageSender
+    public class SqlMessageSender<TEntity> : MessageSender where TEntity : MessageEntity
     {
-        private readonly IMessageRepository<MessageEntity> msgRepo;
+        private readonly IMessageRepository<TEntity> msgRepo;
         private readonly ISerializer serializer;
 
-        public SqlMessageSender(IMessageRepository<MessageEntity> msgRepo)
+        public SqlMessageSender(IMessageRepository<TEntity> msgRepo, ISerializer serializer)
         {
             this.msgRepo = msgRepo;
-            this.serializer = ServiceLocator.GetInstance<ISerializer>();
+            this.serializer = serializer;
         }
 
         public override void Send<T>(Envelope<T> message)
@@ -23,7 +23,7 @@ namespace ZSharp.Framework.Domain
 
         public override void Send<T>(IEnumerable<Envelope<T>> messages)
         {
-            var msgEntities = new List<MessageEntity>();
+            var msgEntities = new List<TEntity>();
             foreach (var msg in messages)
             {
                 msgEntities.Add(CreateMessageEntity(msg));
@@ -31,9 +31,9 @@ namespace ZSharp.Framework.Domain
             msgRepo.Insert(msgEntities);
         }
 
-        private MessageEntity CreateMessageEntity<T>(Envelope<T> message)
+        private TEntity CreateMessageEntity<T>(Envelope<T> message)
         {
-            var msgEntity = message.Map<MessageEntity>();
+            var msgEntity = message.Map<TEntity>();
             msgEntity.BodyTypeName = typeof(T).AssemblyQualifiedName;
             msgEntity.Body = this.serializer.Serialize<string>(message.Body);
             return msgEntity;

@@ -40,14 +40,19 @@
   <ItemGroup>
     <Compile Include="Commands\CreateCustomerCommand.cs" />
     <Compile Include="Domains\Customer.cs" />
-    <Compile Include="EfContexts\CustomerContext.cs" />
+    <Compile Include="Domains\CustomerInfo.cs" />
+    <Compile Include="EfContexts\CqrsDemoContext.cs" />
+    <Compile Include="Events\CustomerCreatedEvent.cs" />
+    <Compile Include="Handlers\CustomerViewGenerator.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\ICustomerRepository.cs" />
     <Compile Include="Entities\CustomerEntity.cs" />
-    <Compile Include="Events\ChangeCustomerNameEvent.cs" />
-    <Compile Include="Events\ChangeEmailEvent.cs" />
+    <Compile Include="Events\NameChangedEvent.cs" />
+    <Compile Include="Events\EmailChangedEvent.cs" />
     <Compile Include="Handlers\CustomerHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\ICustomerService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
@@ -57,6 +62,10 @@
     <ProjectReference Include="..\..\Framework\ZSharp.Framework.Domain\ZSharp.Framework.Domain.csproj">
       <Project>{427ec224-50f3-4ba2-8434-518c6fea28d9}</Project>
       <Name>ZSharp.Framework.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\ZSharp.Framework.Infrastructure\ZSharp.Framework.Infrastructure.csproj">
+      <Project>{66b2f2cc-da8f-4615-9933-6edcdfc52a6c}</Project>
+      <Name>ZSharp.Framework.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Framework\ZSharp.Framework.SqlDb\ZSharp.Framework.SqlDb.csproj">
       <Project>{33c02d28-af0c-4bbd-ba22-3acb43391347}</Project>

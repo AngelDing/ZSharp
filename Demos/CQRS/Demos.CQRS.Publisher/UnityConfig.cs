@@ -37,7 +37,7 @@ namespace Demos.CQRS.Publisher
         /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.</remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
-            container.RegisterType<DbContext, CustomerContext>()
+            container.RegisterType<DbContext, CqrsDemoContext>()
                .RegisterType<IRepositoryContext, EfRepositoryContext>()
                .RegisterType<ICustomerRepository, CustomerRepository>();
         }

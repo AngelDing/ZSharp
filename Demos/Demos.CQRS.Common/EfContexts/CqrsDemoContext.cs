@@ -3,10 +3,10 @@ using System.Data.Entity;
 
 namespace Demos.CQRS.Common
 {
-    public class CustomerContext : DbContext
+    public class CqrsDemoContext : DbContext
     {
-        public CustomerContext()
-            : base("CustomerDb")
+        public CqrsDemoContext()
+            : base("CqrsDemoDb")
         { }
 
         public DbSet<CustomerEntity> Customers

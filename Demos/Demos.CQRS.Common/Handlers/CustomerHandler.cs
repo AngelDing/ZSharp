@@ -1,25 +1,16 @@
 ﻿using System;
 using ZSharp.Framework.Domain;
+using ZSharp.Framework.Infrastructure;
 
 namespace Demos.CQRS.Common
 {
     public class CustomerHandler :
-        ICommandHandler<CreateCustomerCommand>,
-        IEventHandler<ChangeCustomerNameEvent>,
-        IEventHandler<ChangeEmailEvent>
-    {
-        public void Handle(ChangeEmailEvent message)
-        {
-            Console.WriteLine("Change Email To : " + message.Email);
-        }
-
-        public void Handle(ChangeCustomerNameEvent message)
-        {
-            Console.WriteLine("Change Customer Name To : " + message.FirstName + message.LastName);
-        }
-
+        ICommandHandler<CreateCustomerCommand>        
+    {       
         public void Handle(CreateCustomerCommand message)
         {
+            var info = message.Map<CustomerInfo>();
+            new Customer(info).Create();
             Console.WriteLine("Create Custome : " + message.FirstName);
         }
     }
