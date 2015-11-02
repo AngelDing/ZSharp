@@ -1,8 +1,8 @@
-﻿
-using StackExchange.Redis;
+﻿using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Timers;
+
 namespace ZSharp.Framework.Redis
 {
     public sealed class StackExchangeRedisWrapper : IRedisWrapper

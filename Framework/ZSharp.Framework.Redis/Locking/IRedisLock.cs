@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ZSharp.Framework.Redis
+﻿namespace ZSharp.Framework.Redis
 {
     public interface IRedisLock
     {

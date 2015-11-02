@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ZSharp.Framework.Extensions;
+﻿using System.Collections.Generic;
 
 namespace ZSharp.Framework.Redis
 {
