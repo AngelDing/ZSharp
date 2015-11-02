@@ -8,7 +8,6 @@ using ZSharp.Framework.Entities;
 using System.Threading.Tasks;
 using System.Threading;
 using ZSharp.Framework.Repositories;
-using System.Data.Entity.Infrastructure;
 
 namespace ZSharp.Framework.SqlDb
 {
@@ -112,7 +111,6 @@ namespace ZSharp.Framework.SqlDb
         {
             get { return true; }
         }
-
 
         public override async Task CommitAsync(CancellationToken cancellationToken)
         {

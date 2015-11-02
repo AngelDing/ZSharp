@@ -1,23 +1,23 @@
 ﻿using System;
+using ZSharp.Framework.Utils;
 
 namespace ZSharp.Framework.Domain
 {
-    public class Message
+    public class Message : IMessage
     {
-        public Message(string body, string msgType, DateTimeOffset? deliveryDate = null, string correlationId = null)
+        public Message()
         {
-            this.Body = body;
-            this.DeliveryDate = deliveryDate;
-            this.CorrelationId = correlationId;
-            this.MessageType = msgType;
+            this.Id = GuidHelper.NewSequentialId();
         }
 
-        public string Body { get; private set; }
+        public Guid Id { get; private set; }
+    }
 
-        public string CorrelationId { get; private set; }
+    public class Command : Message, ICommand
+    {
+    }
 
-        public DateTimeOffset? DeliveryDate { get; private set; }
-
-        public string MessageType { get; private set; }
+    public class Event : Message, IEvent
+    {
     }
 }
