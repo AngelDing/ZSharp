@@ -5,7 +5,6 @@ namespace ZSharp.Framework.WebApi
 {
     /// <summary>
     /// 指定具體的action，採用壓縮方法，減少帶寬流量
-    /// TODO：GZip壓縮
     /// </summary>
     public class DeflateCompressionAttribute : ActionFilterAttribute
     {

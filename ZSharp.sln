@@ -55,6 +55,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Caching.Test", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Benchmark.Test", "Tests\Framework.Benchmark.Test\Framework.Benchmark.Test.csproj", "{3FE2E5F1-E795-4574-AC9C-21A7C42A8BA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xunit.benchmark", "Labs\xunit.benchmark\xunit.benchmark.csproj", "{6BC220FB-25B9-4EB6-B47D-16454EB0F0BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -161,6 +163,10 @@ Global
 		{3FE2E5F1-E795-4574-AC9C-21A7C42A8BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FE2E5F1-E795-4574-AC9C-21A7C42A8BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FE2E5F1-E795-4574-AC9C-21A7C42A8BA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BC220FB-25B9-4EB6-B47D-16454EB0F0BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BC220FB-25B9-4EB6-B47D-16454EB0F0BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BC220FB-25B9-4EB6-B47D-16454EB0F0BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BC220FB-25B9-4EB6-B47D-16454EB0F0BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
