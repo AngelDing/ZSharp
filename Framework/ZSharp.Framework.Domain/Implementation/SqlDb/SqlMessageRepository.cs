@@ -26,7 +26,7 @@ namespace ZSharp.Framework.Domain
 
         public T GetFirstMessage(string sysCode, string topic)
         {
-            var currentDate = DateTimeOffset.UtcNow;
+            var currentDate = DateTimeOffset.Now;
             var msg = db.Set<T>().Where(p => p.DeliveryDate <= currentDate && p.SysCode == sysCode && p.Topic == topic)
                 .OrderBy(p => p.Id)
                 .FirstOrDefault();

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ZSharp.Framework.Entities;
 using ZSharp.Framework.Utils;
 
 namespace ZSharp.Framework.Domain
@@ -76,7 +75,7 @@ namespace ZSharp.Framework.Domain
             ISnapshot snapshot = this.DoCreateSnapshot();
 
             snapshot.Version = this.Version;
-            snapshot.Timestamp = DateTimeOffset.UtcNow;
+            snapshot.Timestamp = DateTimeOffset.Now;
             snapshot.AggregateId = this.Id;
             return snapshot;
         }
