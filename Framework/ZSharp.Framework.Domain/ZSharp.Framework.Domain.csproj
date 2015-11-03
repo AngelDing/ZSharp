@@ -86,7 +86,6 @@
     <Compile Include="Repositories\IMessageRepository.cs" />
     <Compile Include="Repositories\IEventSourcedRepository.cs" />
     <Compile Include="EventSourcing\IDomainEvent.cs" />
-    <Compile Include="Implementation\SqlDb\SqlEventSourcedRepository.cs" />
     <Compile Include="EventSourcing\DomainEvent.cs" />
     <Compile Include="Handlers\ICommandHandler.cs" />
     <Compile Include="Handlers\IEventHandler.cs" />

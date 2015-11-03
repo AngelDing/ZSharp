@@ -17,14 +17,30 @@ namespace ZSharp.Framework.Domain
             this.serializer = serializer;
         }
 
-        public IEnumerable<IDomainEvent> LoadEvents(Type eventSourcedType, Guid id)
+        public IEnumerable<IDomainEvent> LoadEvents(string sourcedTypeName, Guid id)
         {
-            throw new NotImplementedException();
+            var entities = db.DomainEvents
+                .Where(p => p.AggregateType == sourcedTypeName && p.Id == id)
+                .OrderBy(p => p.Version)
+                .ToList();
+
+            var eventList = new List<IDomainEvent>();
+            entities.ForEach(p => eventList.Add(this.Deserialize(p)));
+
+            return eventList;
         }
 
-        public IEnumerable<IDomainEvent> LoadEvents(Type eventSourcedType, Guid id, int version)
+        public IEnumerable<IDomainEvent> LoadEvents(string sourcedTypeName, Guid id, int version)
         {
-            throw new NotImplementedException();
+            var entities = db.DomainEvents
+               .Where(p => p.AggregateType == sourcedTypeName && p.Id == id && p.Version > version)
+               .OrderBy(p => p.Version)
+               .ToList();
+
+            var eventList = new List<IDomainEvent>();
+            entities.ForEach(p => eventList.Add(this.Deserialize(p)));
+
+            return eventList;
         }
 
         public void SaveEvents(IEnumerable<IDomainEvent> domainEvents, string sourcedTypeName)
@@ -57,6 +73,13 @@ namespace ZSharp.Framework.Domain
             };
 
             return serialized;
+        }
+
+        private IDomainEvent Deserialize(DomainEventEntity @event)
+        {
+            var type = Type.GetType(@event.DomainEventTypeName);
+            var result = this.serializer.Deserialize(@event.Payload, type);
+            return result as IDomainEvent;
         }
     }
 }

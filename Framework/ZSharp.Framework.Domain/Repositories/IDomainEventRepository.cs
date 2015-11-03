@@ -7,8 +7,8 @@ namespace ZSharp.Framework.Domain
     {
         void SaveEvents(IEnumerable<IDomainEvent> domainEvents, string sourcedTypeName);
 
-        IEnumerable<IDomainEvent> LoadEvents(Type eventSourcedType, Guid id);
+        IEnumerable<IDomainEvent> LoadEvents(string sourcedTypeName, Guid id);
 
-        IEnumerable<IDomainEvent> LoadEvents(Type eventSourcedType, Guid id, int version);
+        IEnumerable<IDomainEvent> LoadEvents(string sourcedTypeName, Guid id, int version);
     }
 }

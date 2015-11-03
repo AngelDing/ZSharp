@@ -28,7 +28,7 @@ namespace ZSharp.Framework.Domain
             {
                 ISnapshot snapshot = snapshotRepo.GetSnapshot(sourcedType, id);
                 eventSourced.LoadFromSnapshot(snapshot);
-                var eventsAfterSnapshot = this.domainEventRepo.LoadEvents(sourcedType, id, snapshot.Version);
+                var eventsAfterSnapshot = this.domainEventRepo.LoadEvents(sourcedTypeName, id, snapshot.Version);
                 if (eventsAfterSnapshot != null && eventsAfterSnapshot.Count() > 0)
                 {
                     eventSourced.LoadFromHistory(eventsAfterSnapshot);
@@ -36,7 +36,7 @@ namespace ZSharp.Framework.Domain
             }
             else
             {
-                var domainEvents = domainEventRepo.LoadEvents(sourcedType, id);
+                var domainEvents = domainEventRepo.LoadEvents(sourcedTypeName, id);
                 eventSourced.LoadFromHistory(domainEvents);
             }
             return eventSourced;
