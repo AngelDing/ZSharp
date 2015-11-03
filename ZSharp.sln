@@ -67,6 +67,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demos.CQRS.Subscriber", "De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demos.CQRS.Common", "Demos\Demos.CQRS.Common\Demos.CQRS.Common.csproj", "{BBCC219B-2C28-46C1-A287-11918FC024B5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.RabbitMq", "Framework\ZSharp.Framework.RabbitMq\ZSharp.Framework.RabbitMq.csproj", "{87495542-303C-40CD-85B4-4CF4D5C91542}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -189,6 +191,10 @@ Global
 		{BBCC219B-2C28-46C1-A287-11918FC024B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBCC219B-2C28-46C1-A287-11918FC024B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBCC219B-2C28-46C1-A287-11918FC024B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87495542-303C-40CD-85B4-4CF4D5C91542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87495542-303C-40CD-85B4-4CF4D5C91542}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87495542-303C-40CD-85B4-4CF4D5C91542}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87495542-303C-40CD-85B4-4CF4D5C91542}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
