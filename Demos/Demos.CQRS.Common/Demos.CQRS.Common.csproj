@@ -49,7 +49,7 @@
     <Compile Include="Entities\CustomerEntity.cs" />
     <Compile Include="Events\NameChangedEvent.cs" />
     <Compile Include="Events\EmailChangedEvent.cs" />
-    <Compile Include="Handlers\CustomerHandler.cs" />
+    <Compile Include="Handlers\CustomerCommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\ICustomerService.cs" />

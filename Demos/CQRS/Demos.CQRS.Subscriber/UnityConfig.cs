@@ -74,15 +74,20 @@ namespace Demos.CQRS.Subscriber
             // Event log database and handler.
             container.RegisterType<IMessageLogRepository, SqlMessageLogRepository>();
 
-            RegisterHandlers(container, eventProcessor);
-            RegisterHandlers(container, commandProcessor);
+            RegisterCommandHandlers(container, commandProcessor);
+            RegisterEventHandlers(container, eventProcessor);
         }
 
-        private static void RegisterHandlers(IUnityContainer container, IHandlerRegistry registry)
+        private static void RegisterCommandHandlers(IUnityContainer container, IHandlerRegistry registry)
+        {
+            registry.Register(container.Resolve<CustomerCommandHandler>());
+            registry.Register(container.Resolve<MessageLogHandler>());
+        }
+
+        private static void RegisterEventHandlers(IUnityContainer container, IHandlerRegistry registry)
         {
             registry.Register(container.Resolve<CustomerViewGenerator>());
             registry.Register(container.Resolve<MessageLogHandler>());
-            registry.Register(container.Resolve<CustomerHandler>());
         }
     }
 }

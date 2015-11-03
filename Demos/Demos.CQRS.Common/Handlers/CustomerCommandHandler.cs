@@ -4,7 +4,7 @@ using ZSharp.Framework.Infrastructure;
 
 namespace Demos.CQRS.Common
 {
-    public class CustomerHandler :
+    public class CustomerCommandHandler :
         ICommandHandler<CreateCustomerCommand>        
     {       
         public void Handle(CreateCustomerCommand message)

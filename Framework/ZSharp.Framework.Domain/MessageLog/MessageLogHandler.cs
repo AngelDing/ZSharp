@@ -1,11 +1,6 @@
 ﻿namespace ZSharp.Framework.Domain
 {
-
-    /// <summary>
-    /// The event log runs directly in-proc and is implemented as an event
-    /// and command handler instead of a raw message listener.
-    /// </summary>
-    public class MessageLogHandler : IEventHandler<IEvent>, ICommandHandler<ICommand>
+    public class MessageLogHandler : IHandler<IMessage>
     {
         private readonly IMessageLogRepository logRepo;
 
@@ -14,14 +9,9 @@
             this.logRepo = logRepo;
         }
 
-        public void Handle(IEvent @event)
+        public void Handle(IMessage msg)
         {
-            this.logRepo.Save(@event);
-        }
-
-        public void Handle(ICommand command)
-        {
-            this.logRepo.Save(command);
+            this.logRepo.Save(msg);
         }
     }
 }
