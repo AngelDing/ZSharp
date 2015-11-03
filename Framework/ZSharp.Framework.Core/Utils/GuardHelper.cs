@@ -19,11 +19,18 @@ namespace ZSharp.Framework.Utils
         }
 
         [DebuggerStepThrough]
-        public static void ArgumentNotNull<T>(Func<T> arg)
+        public static void ArgumentNotNull<T>(Func<T> arg, string msg = null)
         {
             if (arg() == null)
             {
-                throw new ArgumentNullException(GetParamName(arg));
+                if (msg.IsNullOrEmpty())
+                {
+                    throw new ArgumentNullException(GetParamName(arg));
+                }
+                else
+                {
+                    throw new ArgumentNullException(GetParamName(arg), msg);
+                }
             }
         }
 

@@ -4,20 +4,12 @@ using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.Domain
 {   
-    /// <summary>
-    /// Represents an identifiable entity that is event sourced.
-    /// </summary>
-    public interface IEventSourced : IVersionedEvent, ISnapshotOrignator, IAggregateRoot<Guid>
+    public interface IEventSourced : IEvent, ISnapshotOrignator, IAggregateRoot
     {
-        /// <summary>
-        /// Gets the collection of new events since the entity was loaded, as a consequence of command handling.
-        /// </summary>
-        IEnumerable<IVersionedEvent> Events { get; }
+        int Version { get; }
 
-        /// <summary>
-        /// Load the aggreate from the historial events.
-        /// </summary>
-        /// <param name="pastEvents">The historical events from which the aggregate is built.</param>
-        void LoadFromHistory(IEnumerable<IVersionedEvent> pastEvents);
+        IEnumerable<IDomainEvent> Events { get; }
+
+        void LoadFromHistory(IEnumerable<IDomainEvent> historyEvents);
     }
 }

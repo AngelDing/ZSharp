@@ -47,7 +47,6 @@
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CacheAnyEnumerableExtensions.cs" />
     <Compile Include="Bus\CommandBus.cs" />
     <Compile Include="Bus\CommandBusExtensions.cs" />
     <Compile Include="Constants.cs" />
@@ -64,7 +63,7 @@
     <Compile Include="Bus\ICommandBus.cs" />
     <Compile Include="Bus\IEventBus.cs" />
     <Compile Include="DomainException.cs" />
-    <Compile Include="Entities\EventSourcedEntity.cs" />
+    <Compile Include="Entities\DomainEventEntity.cs" />
     <Compile Include="EventSourcing\EventSourced.cs" />
     <Compile Include="Bus\IBus.cs" />
     <Compile Include="Handlers\IHandler.cs" />
@@ -73,6 +72,7 @@
     <Compile Include="Implementation\RabbitMq\RabbitMqMessageSender.cs" />
     <Compile Include="Implementation\SqlDb\DomainDbContext.cs" />
     <Compile Include="EventSourcing\IEventSourced.cs" />
+    <Compile Include="Implementation\SqlDb\SqlDomainEventRepository.cs" />
     <Compile Include="Implementation\SqlDb\SqlMessageLogRepository.cs" />
     <Compile Include="Implementation\SqlDb\SqlMessageReceiver.cs" />
     <Compile Include="Implementation\SqlDb\SqlMessageRepository.cs" />
@@ -81,11 +81,13 @@
     <Compile Include="Messaging\MessageDispatcher.cs" />
     <Compile Include="Messaging\MessageReceiver.cs" />
     <Compile Include="Messaging\MessageSender.cs" />
+    <Compile Include="Repositories\EventSourcedRepository.cs" />
+    <Compile Include="Repositories\IDomainEventRepository.cs" />
     <Compile Include="Repositories\IMessageRepository.cs" />
     <Compile Include="Repositories\IEventSourcedRepository.cs" />
-    <Compile Include="EventSourcing\IVersionedEvent.cs" />
+    <Compile Include="EventSourcing\IDomainEvent.cs" />
     <Compile Include="Implementation\SqlDb\SqlEventSourcedRepository.cs" />
-    <Compile Include="EventSourcing\VersionedEvent.cs" />
+    <Compile Include="EventSourcing\DomainEvent.cs" />
     <Compile Include="Handlers\ICommandHandler.cs" />
     <Compile Include="Handlers\IEventHandler.cs" />
     <Compile Include="Processors\MessageProcessor.cs" />
@@ -103,6 +105,7 @@
     <Compile Include="EventSourcing\Snapshots\ISnapshot.cs" />
     <Compile Include="EventSourcing\Snapshots\ISnapshotOrignator.cs" />
     <Compile Include="Repositories\ISnapshotRepository.cs" />
+    <Compile Include="Repositories\SnapshotRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZSharp.Framework.Configurations\ZSharp.Framework.Configurations.csproj">

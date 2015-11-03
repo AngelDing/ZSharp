@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using ZSharp.Framework.Extensions;
 using ZSharp.Framework.Utils;
 
 namespace ZSharp.Framework.Domain
 {
-    /// <summary>
-    /// Base class for event sourced entities that implements.
-    /// </summary>
     public abstract class EventSourced : IEventSourced
     {
-        private readonly Dictionary<Type, Action<IVersionedEvent>> handlers = new Dictionary<Type, Action<IVersionedEvent>>();
-        private readonly List<IVersionedEvent> pendingEvents = new List<IVersionedEvent>();
+        private readonly Dictionary<Type, Action<IDomainEvent>> handlers = new Dictionary<Type, Action<IDomainEvent>>();
+        private readonly List<IDomainEvent> pendingEvents = new List<IDomainEvent>();
 
-        public EventSourced()
+        protected EventSourced()
             : this(GuidHelper.NewSequentialId())
         {
         }
@@ -25,9 +23,9 @@ namespace ZSharp.Framework.Domain
 
         public Guid Id { get; set; }
 
-        public int Version { get; private set; }
+        public int Version { get; protected set; }
 
-        public IEnumerable<IVersionedEvent> Events
+        public IEnumerable<IDomainEvent> Events
         {
             get { return this.pendingEvents; }
         }
@@ -38,16 +36,21 @@ namespace ZSharp.Framework.Domain
             this.handlers.Add(typeof(TEvent), @event => handler((TEvent)@event));
         }
 
-        public void LoadFromHistory(IEnumerable<IVersionedEvent> pastEvents)
+        public void LoadFromHistory(IEnumerable<IDomainEvent> historyEvents)
         {
-            foreach (var e in pastEvents)
+            if (historyEvents.IsNullOrEmpty())
+            {
+                return;
+            }
+
+            foreach (var e in historyEvents)
             {
                 this.handlers[e.GetType()].Invoke(e);
                 this.Version = e.Version;
             }
         }
 
-        protected void Update(VersionedEvent e)
+        protected void Update(DomainEvent e)
         {
             e.Id = this.Id;
             e.Version = this.Version + 1;

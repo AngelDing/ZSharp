@@ -14,7 +14,7 @@ namespace ZSharp.Framework.Domain
 
         public DbSet<EventMessageEntity> Events { get; set; }
 
-        public DbSet<EventSourcedEntity> EventSources { get; set; }
+        public DbSet<DomainEventEntity> DomainEvents { get; set; }
 
         public DbSet<MessageLogEntity> MessageLogs { get; set; }
 
@@ -23,7 +23,7 @@ namespace ZSharp.Framework.Domain
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<EventSourcedEntity>().ToTable("EventSource");
+            modelBuilder.Entity<DomainEventEntity>().ToTable("DomainEvent");
             modelBuilder.Entity<MessageLogEntity>().ToTable("MessageLog");
             modelBuilder.Entity<CommandMessageEntity>().ToTable("CommandBus");
             modelBuilder.Entity<EventMessageEntity>().ToTable("EventBus");
