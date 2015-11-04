@@ -54,6 +54,26 @@ namespace ZSharp.Framework.MongoDb
             return this.GetBy(specification.SatisfiedBy());
         }
 
+        public T Single(Expression<Func<T, bool>> predicate)
+        {
+            return GetBy(predicate).Single();
+        }
+
+        public T FirstOrDefault(Expression<Func<T, bool>> predicate)
+        {
+            return GetBy(predicate).FirstOrDefault();
+        }
+
+        public int Count(Expression<Func<T, bool>> predicate)
+        {
+            return GetBy(predicate).Count();
+        }
+
+        public long LongCount(Expression<Func<T, bool>> predicate)
+        {
+            return GetBy(predicate).LongCount();
+        }
+
         #endregion
 
         #region IRepository

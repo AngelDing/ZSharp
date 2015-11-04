@@ -22,5 +22,13 @@ namespace ZSharp.Framework.Repositories
         /// <param name="specification"></param>
         /// <returns></returns>
         IEnumerable<T> GetBy(ISpecification<T> specification);
+
+        T Single(Expression<Func<T, bool>> predicate);
+
+        T FirstOrDefault(Expression<Func<T, bool>> predicate);
+
+        int Count(Expression<Func<T, bool>> predicate);
+
+        long LongCount(Expression<Func<T, bool>> predicate);
     }
 }

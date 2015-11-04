@@ -49,5 +49,13 @@ namespace ZSharp.Framework.Repositories
         public abstract IEnumerable<T> GetBy(Expression<Func<T, bool>> predicate);
 
         public abstract IEnumerable<T> GetBy(ISpecification<T> spec);
+
+        public abstract T Single(Expression<Func<T, bool>> predicate);
+
+        public abstract T FirstOrDefault(Expression<Func<T, bool>> predicate);
+
+        public abstract int Count(Expression<Func<T, bool>> predicate);
+
+        public abstract long LongCount(Expression<Func<T, bool>> predicate);
     }
 }

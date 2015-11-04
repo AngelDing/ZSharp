@@ -106,11 +106,31 @@ namespace ZSharp.Framework.SqlDb
             return GetSet().Where(spec.SatisfiedBy()).AsNoTracking();
         }
 
+        public override T Single(Expression<Func<T, bool>> predicate)
+        {
+            return GetSet().Single(predicate);
+        }
+
+        public override T FirstOrDefault(Expression<Func<T, bool>> predicate)
+        {
+            return GetSet().FirstOrDefault(predicate);
+        }
+
+        public override int Count(Expression<Func<T, bool>> predicate)
+        {
+            return GetSet().Count(predicate);
+        }
+
+        public override long LongCount(Expression<Func<T, bool>> predicate)
+        {
+            return GetSet().LongCount(predicate);
+        }
+
         #endregion     
 
         private IDbSet<T> GetSet()
         {
             return db.Set<T>();
-        }
+        }       
     }
 }
