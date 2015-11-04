@@ -1,6 +1,6 @@
 ﻿using ZSharp.Framework.Entities;
 using ObjectMapper;
-using ZSharp.Framework.Common;
+using ZSharp.Framework.Dtos;
 
 namespace ZSharp.Framework.Infrastructure
 {

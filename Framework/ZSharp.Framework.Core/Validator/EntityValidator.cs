@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.Validator
 {

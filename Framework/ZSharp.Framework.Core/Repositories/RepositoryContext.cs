@@ -73,7 +73,7 @@ namespace ZSharp.Framework.Repositories
         /// Registers a new object to the repository context.
         /// </summary>
         /// <param name="obj">The object to be registered.</param>
-        public virtual void RegisterNew<T>(T obj) where T : BaseEntity
+        public virtual void RegisterNew<T>(T obj) where T : Entity
         {
             newCollection.AddOrUpdate(obj, byte.MinValue, (o, b) => byte.MinValue);
             Committed = false;
@@ -83,7 +83,7 @@ namespace ZSharp.Framework.Repositories
         /// Registers a modified object to the repository context.
         /// </summary>
         /// <param name="obj">The object to be registered.</param>
-        public virtual void RegisterModified<T>(T obj) where T : BaseEntity
+        public virtual void RegisterModified<T>(T obj) where T : Entity
         {
             if (deletedCollection.ContainsKey(obj))
                 throw new InvalidOperationException("The object cannot be registered as a modified object since it was marked as deleted.");
@@ -97,7 +97,7 @@ namespace ZSharp.Framework.Repositories
         /// Registers a deleted object to the repository context.
         /// </summary>
         /// <param name="obj">The object to be registered.</param>
-        public virtual void RegisterDeleted<T>(T obj) where T : BaseEntity
+        public virtual void RegisterDeleted<T>(T obj) where T : Entity
         {
             var @byte = byte.MinValue;
             if (newCollection.ContainsKey(obj))

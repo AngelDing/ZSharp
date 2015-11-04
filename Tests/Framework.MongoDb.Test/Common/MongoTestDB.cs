@@ -5,7 +5,7 @@ using ZSharp.Framework.MongoDb.Managers;
 
 namespace Framework.MongoDb.Test
 {
-    public class MongoTestDB<T, TKey> : MongoRepository<T, TKey> where T : MongoEntity, IAggregateRoot<TKey>
+    public class MongoTestDB<T, TKey> : MongoRepository<T, TKey> where T : Entity, IAggregateRoot<TKey>
     {
         public MongoTestDB()
             : base("MongoTestDB")
@@ -17,7 +17,7 @@ namespace Framework.MongoDb.Test
     {
     }
 
-    public class MongoIndexManagerTest<T> : IndexManager<T> where T : MongoEntity
+    public class MongoIndexManagerTest<T> : IndexManager<T> where T : Entity
     {
         public MongoIndexManagerTest()
             : base("MongoTestDB")

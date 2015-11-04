@@ -13,7 +13,7 @@ using ZSharp.Framework.Utils;
 namespace ZSharp.Framework.MongoDb
 {
     public class MongoRepository<T, TKey> : BaseMongoDB<T>, IMongoRepository<T, TKey>
-      where T : MongoEntity, IAggregateRoot<TKey>
+      where T : Entity, IAggregateRoot<TKey>
     {
         public MongoRepository(string connectionStringOrName)
             : base(connectionStringOrName)

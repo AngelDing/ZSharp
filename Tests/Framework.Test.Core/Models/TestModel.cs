@@ -1,5 +1,5 @@
 ﻿using System;
-using ZSharp.Framework.Common;
+using ZSharp.Framework.Dtos;
 
 namespace Framework.Test.Core.Models
 {

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using ZSharp.Framework.Entities;
-using ZSharp.Framework.SqlDb;
 
 namespace Framework.SqlDb.Test
 {
     [Serializable]
-    public class EFCustomer : EfEntity<int>, IAggregateRoot<int>
+    public class EFCustomer : Entity<int>, IAggregateRoot<int>
     {
         public EFCustomer()
         {

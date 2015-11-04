@@ -1,11 +1,10 @@
 ﻿
 using System;
 using ZSharp.Framework.Entities;
-using ZSharp.Framework.SqlDb;
 
 namespace Demos.CQRS.Common
 {
-    public class CustomerEntity : EfEntity<int>, IAggregateRoot<int>, IBusinessEntity<int, string>
+    public class CustomerEntity : Entity<int>, IAggregateRoot<int>, IBusinessEntity<int, string>
     {
         public string FirstName { get; set; }
 

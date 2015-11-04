@@ -48,7 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseMongoDB.cs" />
-    <Compile Include="Entities\MongoEntity.cs" />
     <Compile Include="Entities\CollectionNameAttribute.cs" />
     <Compile Include="Entities\GuidKeyMongoEntity.cs" />
     <Compile Include="Entities\IdentityEntity.cs" />

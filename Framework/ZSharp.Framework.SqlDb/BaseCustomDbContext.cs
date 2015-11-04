@@ -18,7 +18,7 @@ namespace ZSharp.Framework.SqlDb
             ((IObjectContextAdapter)this).ObjectContext.ObjectMaterialized +=
             (sender, args) =>
             {
-                var entity = args.Entity as BaseEntity;
+                var entity = args.Entity as Entity;
                 if (entity != null)
                 {
                     entity.ObjectState = ObjectStateType.Unchanged;

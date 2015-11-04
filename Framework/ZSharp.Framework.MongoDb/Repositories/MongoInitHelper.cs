@@ -31,7 +31,7 @@ namespace ZSharp.Framework.MongoDb
 
         private static void RegisterClassMap()
         {
-            BsonClassMap.RegisterClassMap<BaseEntity>(rc =>
+            BsonClassMap.RegisterClassMap<Entities.Entity>((BsonClassMap<Entities.Entity> rc) =>
             {
                 rc.AutoMap();
                 rc.UnmapProperty(c => c.ObjectState);

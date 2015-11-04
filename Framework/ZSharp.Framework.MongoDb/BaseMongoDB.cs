@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Configuration;
-using ZSharp.Framework.Extensions;
+using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.MongoDb
 {
@@ -33,7 +33,7 @@ namespace ZSharp.Framework.MongoDb
             }
             else
             {
-                if (typeof(T).IsSubclassOf(typeof(MongoEntity)))
+                if (typeof(T).IsSubclassOf(typeof(Entity)))
                 {
                     this.collection = db.GetCollection<T>(GetCollectionName());
                 }

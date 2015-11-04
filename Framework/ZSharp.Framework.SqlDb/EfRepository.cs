@@ -10,7 +10,7 @@ using ZSharp.Framework.Repositories;
 namespace ZSharp.Framework.SqlDb
 {
     public class EfRepository<T, Tkey> : Repository<T, Tkey>
-        where T : EfEntity<Tkey>, IAggregateRoot<Tkey>
+        where T : Entity<Tkey>, IAggregateRoot<Tkey>
     {
         private readonly IEfRepositoryContext efContext;
         private readonly DbContext db;

@@ -17,7 +17,7 @@ namespace ZSharp.Framework.SqlDb
         /// <typeparam name="TEntity">要操作的实体</typeparam>
         /// <param name="root">根实体</param>
         public static void ApplyChanges<TEntity>(this DbContext context, IEnumerable<TEntity> entities)
-            where TEntity : BaseEntity
+            where TEntity : Entity
         {
             foreach (var entity in entities)
             {
@@ -44,7 +44,7 @@ namespace ZSharp.Framework.SqlDb
         {
             context.Set(root.GetType()).Attach(root);
 
-            var entries = context.ChangeTracker.Entries<BaseEntity>().ToList();
+            var entries = context.ChangeTracker.Entries<Entity>().ToList();
             foreach (var entry in entries)
             {
                 var entity = entry.Entity;

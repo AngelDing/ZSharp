@@ -1,12 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using ZSharp.Framework.Entities;
-using ZSharp.Framework.SqlDb;
 using ZSharp.Framework.Utils;
 
 namespace ZSharp.Framework.Domain
 {
-    public class ProcessEntity : EfEntity<Guid>, IAggregateRoot<Guid>
+    public class ProcessEntity : Entity<Guid>, IAggregateRoot<Guid>
     {
         public ProcessEntity()
         {

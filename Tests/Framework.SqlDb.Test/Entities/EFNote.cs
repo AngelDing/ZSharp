@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using ZSharp.Framework.SqlDb;
+using ZSharp.Framework.Entities;
 
 namespace Framework.SqlDb.Test
 {
     [Serializable]
-    public class EFNote : EfEntity<int>
+    public class EFNote : Entity<int>
     {
         public EFNote()
         {
@@ -22,7 +22,7 @@ namespace Framework.SqlDb.Test
     }
 
     [Serializable]
-    public class ChildNote : EfEntity<int>
+    public class ChildNote : Entity<int>
     {
         public string Title { get; set; }
 

@@ -1,9 +1,9 @@
 ﻿using System;
-using ZSharp.Framework.SqlDb;
+using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.Domain
 {
-    public class SnapshotEntity : EfEntity<long>, ISnapshot
+    public class SnapshotEntity : Entity<long>, ISnapshot
     {
         public Guid AggregateId { get; set; }
 

@@ -1,9 +1,9 @@
 ﻿using System;
-using ZSharp.Framework.SqlDb;
+using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.Domain
 {
-    public class DomainEventEntity : EfEntity<Guid>
+    public class DomainEventEntity : Entity<Guid>
     {
         public Guid AggregateId { get; set; }
 

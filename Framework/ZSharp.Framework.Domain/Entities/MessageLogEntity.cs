@@ -1,9 +1,9 @@
 ﻿using System;
-using ZSharp.Framework.SqlDb;
+using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.Domain
 {
-    public class MessageLogEntity : EfEntity<Guid>
+    public class MessageLogEntity : Entity<Guid>
     {
         public string Kind { get; set; }
 

@@ -1,9 +1,9 @@
 ﻿using System;
-using ZSharp.Framework.SqlDb;
+using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.Domain
 {
-    public class MessageEntity : EfEntity<long>
+    public class MessageEntity : Entity<long>
     {
         public string Body { get; set; }
 

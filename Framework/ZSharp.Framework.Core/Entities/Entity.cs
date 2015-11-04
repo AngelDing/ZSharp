@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 namespace ZSharp.Framework.Entities
 {
     [Serializable]
-    public abstract class BaseEntity : IEntity, IPartialUpdateEntity, IObjectWithState, IValidatableObject
+    public abstract class Entity : IEntity, IPartialUpdateEntity, IObjectWithState, IValidatableObject
     {      
         private Dictionary<string, object> updateList = new Dictionary<string, object>();
 
@@ -116,15 +116,15 @@ namespace ZSharp.Framework.Entities
     }
 
     [Serializable]
-    public abstract class BaseEntity<TKey> : BaseEntity, IEntity<TKey>
+    public abstract class Entity<TKey> : Entity, IEntity<TKey>
     {
         public TKey Id { get; set; }
 
         public override bool Equals(object entity)
         {
             return entity != null
-               && entity is BaseEntity<TKey>
-               && this == (BaseEntity<TKey>)entity;
+               && entity is Entity<TKey>
+               && this == (Entity<TKey>)entity;
         }
 
         public override int GetHashCode()
@@ -132,7 +132,7 @@ namespace ZSharp.Framework.Entities
             return this.Id.GetHashCode();
         }
 
-        public static bool operator ==(BaseEntity<TKey> entity1, BaseEntity<TKey> entity2)
+        public static bool operator ==(Entity<TKey> entity1, Entity<TKey> entity2)
         {
             if ((object)entity1 == null && (object)entity2 == null)
             {
@@ -152,7 +152,7 @@ namespace ZSharp.Framework.Entities
             return false;
         }
 
-        public static bool operator !=(BaseEntity<TKey> entity1, BaseEntity<TKey> entity2)
+        public static bool operator !=(Entity<TKey> entity1, Entity<TKey> entity2)
         {
             return (!(entity1 == entity2));
         }
