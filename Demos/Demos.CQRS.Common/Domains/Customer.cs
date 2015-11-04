@@ -28,7 +28,7 @@ namespace Demos.CQRS.Common
 
         public void Create()
         {
-            entity.CreatedDate = DateTimeOffset.Now;
+            entity.CreationTime = DateTimeOffset.Now;
             entity.CreatedBy = "Jacky";
             customerRepo.Insert(entity);
             var @event = entity.Map<CustomerCreatedEvent>();

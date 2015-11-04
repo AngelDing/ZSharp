@@ -16,15 +16,15 @@ namespace Framework.Service.Test
             {
                 Id = 1, 
                 Name = "Jacky",
-                CreatedDate = DateTime.Now,
+                CreationTime = DateTime.Now,
                 CreatedBy = "jia",
                 IsDeleted = false,
                 Length = 1000,
                 Price = 100.50M,
                 Qty = 20,
                 Type = 1,
-                UpdatedBy = "jia",
-                UpdatedDate = DateTime.Today.AddDays(2)
+                LastModifiedBy = "jia",
+                LastModificationTime = DateTime.Today.AddDays(2)
             };
 
             var model = entity.ToDto<TestModel>();
@@ -33,7 +33,7 @@ namespace Framework.Service.Test
             model.Name.Should().Be(entity.Name);
             model.Price.Should().Be(entity.Price);
             model.Qty.Should().Be(entity.Qty);
-            model.CreatedDate.Should().Be(entity.CreatedDate);
+            model.CreatedDate.Should().Be(entity.CreationTime);
             model.Type.Should().Be(entity.Type);
 
             entity.Id = 2;
@@ -48,7 +48,7 @@ namespace Framework.Service.Test
             model2.Name.Should().Be(entity.Name);
             model2.Price.Should().Be(entity.Price);
             model2.Qty.Should().Be(entity.Qty);
-            model2.CreatedDate.Should().Be(entity.CreatedDate);
+            model2.CreatedDate.Should().Be(entity.CreationTime);
             model2.Type.Should().Be(entity.Type);
         }
 
@@ -71,9 +71,9 @@ namespace Framework.Service.Test
             entity.Name.Should().Be(model.Name);
             entity.Price.Should().Be(model.Price);
             entity.Qty.Should().Be(model.Qty);
-            entity.CreatedDate.Should().Be(model.CreatedDate);
+            entity.CreationTime.Should().Be(model.CreatedDate);
             entity.Type.Should().Be(model.Type);
-            entity.UpdatedDate.HasValue.Should().BeFalse();
+            entity.LastModificationTime.HasValue.Should().BeFalse();
 
             model.Name = "xxxx";
 
@@ -89,8 +89,8 @@ namespace Framework.Service.Test
             {               
                 CreatedBy = "jia",
                 IsDeleted = false,             
-                UpdatedBy = "jia",
-                UpdatedDate = DateTime.Today.AddDays(2)
+                LastModifiedBy = "jia",
+                LastModificationTime = DateTime.Today.AddDays(2)
             };
 
             var model = new TestModel
@@ -107,14 +107,14 @@ namespace Framework.Service.Test
 
             entity.Id.Should().Be(1);
             entity.Name.Should().Be("Jacky");
-            entity.UpdatedBy.Should().Be("jia");
+            entity.LastModifiedBy.Should().Be("jia");
 
             entity = model.Map<TestEntity>();
 
             entity.Id.Should().Be(1);
             entity.Name.Should().Be("Jacky");
-            entity.UpdatedBy.Should().BeNull();
-            entity.UpdatedDate.HasValue.Should().BeFalse();
+            entity.LastModifiedBy.Should().BeNull();
+            entity.LastModificationTime.HasValue.Should().BeFalse();
         }
     }
 }

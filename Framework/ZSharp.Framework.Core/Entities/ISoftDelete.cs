@@ -1,7 +1,7 @@
 ﻿
 namespace ZSharp.Framework.Entities
 {
-    public interface IDeleteEntity
+    public interface ISoftDelete
     {
         bool IsDeleted { get; set; }
     }

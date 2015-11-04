@@ -1,12 +1,9 @@
-﻿
-using ZSharp.Framework.Entities;
-using System;
+﻿using ZSharp.Framework.Entities;
+
 namespace Framework.Test.Core.Entities
 {
-    public class TestEntity : IBusinessEntity<int, string>
+    public class TestEntity : FullAuditedEntity<int, string>
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public decimal Price { get; set; }
@@ -16,15 +13,5 @@ namespace Framework.Test.Core.Entities
         public byte Type { get; set; }
 
         public long Length { get; set; }
-
-        public DateTimeOffset CreatedDate { get; set; }
-
-        public string CreatedBy { get; set; }
-
-        public DateTimeOffset? UpdatedDate { get; set; }
-
-        public string UpdatedBy { get; set; }
-
-        public bool IsDeleted { get; set; }
     }
 }
