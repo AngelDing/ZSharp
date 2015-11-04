@@ -4,8 +4,8 @@ namespace ZSharp.Framework.Entities
 {
     public interface IModificationAudited<TUser> 
     {
-        TUser LastModifiedBy { get; set; }
+        TUser ModifiedBy { get; set; }
 
-        DateTimeOffset? LastModificationTime { get; set; }
+        DateTimeOffset? ModificationTime { get; set; }
     }
 }

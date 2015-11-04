@@ -23,8 +23,8 @@ namespace Framework.Service.Test
                 Price = 100.50M,
                 Qty = 20,
                 Type = 1,
-                LastModifiedBy = "jia",
-                LastModificationTime = DateTime.Today.AddDays(2)
+                ModifiedBy = "jia",
+                ModificationTime = DateTime.Today.AddDays(2)
             };
 
             var model = entity.ToDto<TestModel>();
@@ -73,7 +73,7 @@ namespace Framework.Service.Test
             entity.Qty.Should().Be(model.Qty);
             entity.CreationTime.Should().Be(model.CreatedDate);
             entity.Type.Should().Be(model.Type);
-            entity.LastModificationTime.HasValue.Should().BeFalse();
+            entity.ModificationTime.HasValue.Should().BeFalse();
 
             model.Name = "xxxx";
 
@@ -89,8 +89,8 @@ namespace Framework.Service.Test
             {               
                 CreatedBy = "jia",
                 IsDeleted = false,             
-                LastModifiedBy = "jia",
-                LastModificationTime = DateTime.Today.AddDays(2)
+                ModifiedBy = "jia",
+                ModificationTime = DateTime.Today.AddDays(2)
             };
 
             var model = new TestModel
@@ -107,14 +107,14 @@ namespace Framework.Service.Test
 
             entity.Id.Should().Be(1);
             entity.Name.Should().Be("Jacky");
-            entity.LastModifiedBy.Should().Be("jia");
+            entity.ModifiedBy.Should().Be("jia");
 
             entity = model.Map<TestEntity>();
 
             entity.Id.Should().Be(1);
             entity.Name.Should().Be("Jacky");
-            entity.LastModifiedBy.Should().BeNull();
-            entity.LastModificationTime.HasValue.Should().BeFalse();
+            entity.ModifiedBy.Should().BeNull();
+            entity.ModificationTime.HasValue.Should().BeFalse();
         }
     }
 }
