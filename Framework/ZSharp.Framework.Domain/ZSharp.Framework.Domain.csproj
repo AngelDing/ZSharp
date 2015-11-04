@@ -56,7 +56,6 @@
     <Compile Include="Entities\ProcessEntity.cs" />
     <Compile Include="Entities\SnapshotEntity.cs" />
     <Compile Include="Entities\UndispatchedMessageEntity.cs" />
-    <Compile Include="EntityNotFoundException.cs" />
     <Compile Include="EventSourcing\Snapshots\Snapshot.cs" />
     <Compile Include="Bus\EventBus.cs" />
     <Compile Include="Bus\EventBusExtensions.cs" />
@@ -104,7 +103,7 @@
     <Compile Include="EventSourcing\Snapshots\ISnapshot.cs" />
     <Compile Include="EventSourcing\Snapshots\ISnapshotOrignator.cs" />
     <Compile Include="Repositories\ISnapshotRepository.cs" />
-    <Compile Include="Repositories\SnapshotRepository.cs" />
+    <Compile Include="Implementation\SqlDb\SqlSnapshotRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZSharp.Framework.Configurations\ZSharp.Framework.Configurations.csproj">
@@ -135,9 +134,6 @@
       <Project>{33c02d28-af0c-4bbd-ba22-3acb43391347}</Project>
       <Name>ZSharp.Framework.SqlDb</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Implementation\SqlDb\Infrustructure.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -11,6 +11,7 @@ namespace ZSharp.Framework.Domain
         private readonly IEventBus eventBus;
         private readonly ISnapshotRepository snapshotRepo;
         private readonly IDomainEventRepository domainEventRepo;
+
         public EventSourcedRepository(
             IEventBus eventBus,
             IDomainEventRepository domainEventRepo,

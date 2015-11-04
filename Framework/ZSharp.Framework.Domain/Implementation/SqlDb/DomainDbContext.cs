@@ -18,6 +18,8 @@ namespace ZSharp.Framework.Domain
 
         public DbSet<MessageLogEntity> MessageLogs { get; set; }
 
+        public DbSet<SnapshotEntity> Snapshots { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -27,6 +29,7 @@ namespace ZSharp.Framework.Domain
             modelBuilder.Entity<MessageLogEntity>().ToTable("MessageLog");
             modelBuilder.Entity<CommandMessageEntity>().ToTable("CommandBus");
             modelBuilder.Entity<EventMessageEntity>().ToTable("EventBus");
+            modelBuilder.Entity<SnapshotEntity>().ToTable("Snapshot");
         }
     }
 }

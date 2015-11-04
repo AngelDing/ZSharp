@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ZSharp.Framework.Specifications;
 
 namespace ZSharp.Framework.Domain
 {

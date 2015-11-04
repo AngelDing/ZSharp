@@ -3,7 +3,7 @@ using System;
 
 namespace ZSharp.Framework.Domain
 {
-    public class Snapshot : ISnapshot
+    public abstract class Snapshot : ISnapshot
     {
         public Guid AggregateId { get; set; }
 
