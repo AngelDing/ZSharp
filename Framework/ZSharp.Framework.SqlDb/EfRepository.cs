@@ -59,12 +59,22 @@ namespace ZSharp.Framework.SqlDb
         public override void Delete(Tkey key)
         {
             var deleteEntity = this.GetByKey(key);
-            efContext.RegisterDeleted(deleteEntity);
+            this.Delete(deleteEntity);
         }
 
         public override void Delete(T entity)
         {
-            efContext.RegisterDeleted(entity);
+            if (entity is ISoftDelete)
+            {
+                //TODO:可優化，不要HardCode。
+                entity.NeedUpdateList.Add("IsDeleted", true);
+                Update(entity);
+            }
+            else
+            {
+                efContext.RegisterDeleted(entity);
+            }
+            
         }
 
         public override void Delete(Expression<Func<T, bool>> predicate)
@@ -72,7 +82,7 @@ namespace ZSharp.Framework.SqlDb
             var deleteList = this.GetBy(predicate);
             foreach (var e in deleteList)
             {
-                efContext.RegisterDeleted(e);
+                this.Delete(e);
             }
         }
 
