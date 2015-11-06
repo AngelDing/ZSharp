@@ -14,7 +14,8 @@ namespace ZSharp.Framework.SqlDb
     {
         private readonly IEfRepositoryContext efContext;
         private readonly DbContext db;
-       
+        private IDbSet<T> entities;
+
         public EfRepository(IRepositoryContext context)
             : base(context)
         {
@@ -73,8 +74,7 @@ namespace ZSharp.Framework.SqlDb
             else
             {
                 efContext.RegisterDeleted(entity);
-            }
-            
+            }            
         }
 
         public override void Delete(Expression<Func<T, bool>> predicate)
@@ -88,7 +88,7 @@ namespace ZSharp.Framework.SqlDb
 
         public override bool Exists(Expression<Func<T, bool>> predicate)
         {
-            var count = GetSet().Count(predicate);
+            var count = this.Entities.Count(predicate);
             return count != 0;
         }
 
@@ -98,49 +98,56 @@ namespace ZSharp.Framework.SqlDb
 
         public override T GetByKey(Tkey key)
         {
-            return GetSet().FirstOrDefault(p => (object)p.Id == (object)key);
+            return this.Entities.Find(key);//.FirstOrDefault(p => (object)p.Id == (object)key);
         }
 
         public override IEnumerable<T> GetAll()
         {
-            return GetSet().AsNoTracking();
+            return this.Entities.AsNoTracking();
         }
 
         public override IEnumerable<T> GetBy(Expression<Func<T, bool>> predicate)
         {
-            return GetSet().Where(predicate).AsNoTracking();
+            return this.Entities.Where(predicate).AsNoTracking();
         }
 
         public override IEnumerable<T> GetBy(ISpecification<T> spec)
         {
-            return GetSet().Where(spec.SatisfiedBy()).AsNoTracking();
+            return this.Entities.Where(spec.SatisfiedBy()).AsNoTracking();
         }
 
         public override T Single(Expression<Func<T, bool>> predicate)
         {
-            return GetSet().Single(predicate);
+            return this.Entities.Single(predicate);
         }
 
         public override T FirstOrDefault(Expression<Func<T, bool>> predicate)
         {
-            return GetSet().FirstOrDefault(predicate);
+            return this.Entities.FirstOrDefault(predicate);
         }
 
         public override int Count(Expression<Func<T, bool>> predicate)
         {
-            return GetSet().Count(predicate);
+            return this.Entities.Count(predicate);
         }
 
         public override long LongCount(Expression<Func<T, bool>> predicate)
         {
-            return GetSet().LongCount(predicate);
+            return this.Entities.LongCount(predicate);
         }
 
         #endregion     
 
-        private IDbSet<T> GetSet()
+        private DbSet<T> Entities
         {
-            return db.Set<T>();
-        }       
+            get
+            {
+                if (entities == null)
+                {
+                    entities = db.Set<T>();
+                }
+                return entities as DbSet<T>;
+            }
+        }
     }
 }
