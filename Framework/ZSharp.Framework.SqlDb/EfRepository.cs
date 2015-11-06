@@ -64,7 +64,7 @@ namespace ZSharp.Framework.SqlDb
 
         public override void Delete(T entity)
         {
-            if (entity is ISoftDelete)
+            if (entity is ISoftDeletable)
             {
                 //TODO:可優化，不要HardCode。
                 entity.NeedUpdateList.Add("IsDeleted", true);

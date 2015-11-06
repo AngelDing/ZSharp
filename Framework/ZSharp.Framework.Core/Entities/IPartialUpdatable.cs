@@ -5,7 +5,7 @@ namespace ZSharp.Framework.Entities
     /// <summary>
     /// 局部更新接口
     /// </summary>
-    public interface IPartialUpdateEntity
+    public interface IPartialUpdatable
     {
         /// <summary>
         /// 需要更新的字段及其值的集合

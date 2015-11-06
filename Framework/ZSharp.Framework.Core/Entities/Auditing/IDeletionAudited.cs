@@ -2,7 +2,7 @@ using System;
 
 namespace ZSharp.Framework.Entities
 {
-    public interface IDeletionAudited<TUser> : ISoftDelete
+    public interface IDeletionAudited<TUser> : ISoftDeletable
     {
         TUser DeletedBy { get; set; }
 

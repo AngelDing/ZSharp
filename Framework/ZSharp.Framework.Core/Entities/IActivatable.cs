@@ -1,7 +1,7 @@
 ﻿
 namespace ZSharp.Framework.Entities
 {
-    public interface IPassivable
+    public interface IActivatable
     {
         bool IsActive { get; set; }
     }

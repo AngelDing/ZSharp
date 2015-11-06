@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 namespace ZSharp.Framework.Entities
 {
     [Serializable]
-    public abstract class Entity : IEntity, IPartialUpdateEntity, IObjectWithState, IValidatableObject
+    public abstract class Entity : IEntity, IPartialUpdatable, IObjectWithState, IValidatableObject
     {      
         private Dictionary<string, object> updateList = new Dictionary<string, object>();
 
@@ -120,41 +120,61 @@ namespace ZSharp.Framework.Entities
     {
         public TKey Id { get; set; }
 
-        public override bool Equals(object entity)
+        public virtual bool IsTransient()
         {
-            return entity != null
-               && entity is Entity<TKey>
-               && this == (Entity<TKey>)entity;
+            return EqualityComparer<TKey>.Default.Equals(Id, default(TKey));
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is Entity<TKey>))
+            {
+                return false;
+            }
+            //Same instances must be considered as equal
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            //Transient objects are not considered as equal
+            var other = (Entity<TKey>)obj;
+            if (IsTransient() && other.IsTransient())
+            {
+                return false;
+            }
+            //Must have a IS-A relation of types or must be same type
+            var typeOfThis = GetType();
+            var typeOfOther = other.GetType();
+            if (!typeOfThis.IsAssignableFrom(typeOfOther) && !typeOfOther.IsAssignableFrom(typeOfThis))
+            {
+                return false;
+            }
+            return Id.Equals(other.Id);
         }
 
         public override int GetHashCode()
         {
-            return this.Id.GetHashCode();
+            return Id.GetHashCode();
+        }
+        
+        public static bool operator ==(Entity<TKey> left, Entity<TKey> right)
+        {
+            if (Equals(left, null))
+            {
+                return Equals(right, null);
+            }
+
+            return left.Equals(right);
         }
 
-        public static bool operator ==(Entity<TKey> entity1, Entity<TKey> entity2)
+        public static bool operator !=(Entity<TKey> left, Entity<TKey> right)
         {
-            if ((object)entity1 == null && (object)entity2 == null)
-            {
-                return true;
-            }
-
-            if ((object)entity1 == null || (object)entity2 == null)
-            {
-                return false;
-            }
-
-            if (entity1.Id.ToString() == entity2.Id.ToString())
-            {
-                return true;
-            }
-
-            return false;
+            return !(left == right);
         }
 
-        public static bool operator !=(Entity<TKey> entity1, Entity<TKey> entity2)
+        public override string ToString()
         {
-            return (!(entity1 == entity2));
+            return string.Format("[{0} {1}]", GetType().Name, Id);
         }
     }
 }

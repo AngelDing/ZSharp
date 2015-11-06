@@ -48,10 +48,10 @@
     <Compile Include="Entities\Auditing\IHasCreationTime.cs" />
     <Compile Include="Entities\Auditing\IModificationAudited.cs" />
     <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\IPassivable.cs" />
-    <Compile Include="Entities\ISoftDelete.cs" />
+    <Compile Include="Entities\IActivatable.cs" />
+    <Compile Include="Entities\ISoftDeletable.cs" />
     <Compile Include="Entities\IObjectWithState.cs" />
-    <Compile Include="Entities\IPartialUpdateEntity.cs" />
+    <Compile Include="Entities\IPartialUpdatable.cs" />
     <Compile Include="Entities\IAggregateRoot.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
