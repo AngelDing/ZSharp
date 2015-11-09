@@ -8,5 +8,7 @@ namespace ZSharp.Framework.MongoDb
     {
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+
+        //TODO:需要重寫對象的Equals方法
     }
 }

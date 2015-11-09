@@ -1,6 +1,4 @@
-﻿
-using System;
-using ZSharp.Framework.Entities;
+﻿using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.MongoDb
 {
@@ -11,5 +9,6 @@ namespace ZSharp.Framework.MongoDb
     {
         public long Id { get; set; }
 
+        //TODO:需要重寫對象的Equals方法
     }
 }

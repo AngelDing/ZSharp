@@ -8,5 +8,7 @@ namespace ZSharp.Framework.MongoDb
     public class IntKeyMongoEntity : Entity, IAggregateRoot<int>
     {
         public int Id { get; set; }
+
+        //TODO:需要重寫對象的Equals方法
     }
 }
