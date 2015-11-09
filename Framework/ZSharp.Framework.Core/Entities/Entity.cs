@@ -111,16 +111,15 @@ namespace ZSharp.Framework.Entities
 
             keys.Reverse();
             return string.Join(".", keys.ToArray());
-        }
-        
+        }        
     }
 
     [Serializable]
     public abstract class Entity<TKey> : Entity, IEntity<TKey>
     {
-        public TKey Id { get; set; }
+        public virtual TKey Id { get; set; }
 
-        public virtual bool IsTransient()
+        private bool IsTransient()
         {
             return EqualityComparer<TKey>.Default.Equals(Id, default(TKey));
         }

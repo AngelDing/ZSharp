@@ -71,7 +71,7 @@
       <Project>{33c02d28-af0c-4bbd-ba22-3acb43391347}</Project>
       <Name>ZSharp.Framework.SqlDb</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Demos.CQRS.Common\Demos.CQRS.Common.csproj">
+    <ProjectReference Include="..\Demos.CQRS.Common\Demos.CQRS.Common.csproj">
       <Project>{bbcc219b-2c28-46c1-a287-11918fc024b5}</Project>
       <Name>Demos.CQRS.Common</Name>
     </ProjectReference>

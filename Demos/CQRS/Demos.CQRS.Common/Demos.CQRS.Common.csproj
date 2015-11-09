@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="EntityFramework, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dll\EntityFramework\EntityFramework.dll</HintPath>
+      <HintPath>..\..\..\Dll\EntityFramework\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -55,19 +55,19 @@
     <Compile Include="Services\ICustomerService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
+    <ProjectReference Include="..\..\..\Framework\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
       <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
       <Name>ZSharp.Framework.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Framework\ZSharp.Framework.Domain\ZSharp.Framework.Domain.csproj">
+    <ProjectReference Include="..\..\..\Framework\ZSharp.Framework.Domain\ZSharp.Framework.Domain.csproj">
       <Project>{427ec224-50f3-4ba2-8434-518c6fea28d9}</Project>
       <Name>ZSharp.Framework.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Framework\ZSharp.Framework.Infrastructure\ZSharp.Framework.Infrastructure.csproj">
+    <ProjectReference Include="..\..\..\Framework\ZSharp.Framework.Infrastructure\ZSharp.Framework.Infrastructure.csproj">
       <Project>{66b2f2cc-da8f-4615-9933-6edcdfc52a6c}</Project>
       <Name>ZSharp.Framework.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Framework\ZSharp.Framework.SqlDb\ZSharp.Framework.SqlDb.csproj">
+    <ProjectReference Include="..\..\..\Framework\ZSharp.Framework.SqlDb\ZSharp.Framework.SqlDb.csproj">
       <Project>{33c02d28-af0c-4bbd-ba22-3acb43391347}</Project>
       <Name>ZSharp.Framework.SqlDb</Name>
     </ProjectReference>

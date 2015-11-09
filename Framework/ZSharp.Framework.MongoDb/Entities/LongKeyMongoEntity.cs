@@ -1,4 +1,5 @@
 ﻿
+using System;
 using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.MongoDb
@@ -9,5 +10,6 @@ namespace ZSharp.Framework.MongoDb
     public class LongKeyMongoEntity : Entity, IAggregateRoot<long>
     {
         public long Id { get; set; }
+
     }
 }
