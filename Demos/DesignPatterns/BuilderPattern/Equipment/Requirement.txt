@@ -1,0 +1,21 @@
+﻿在LCD CIMS（Computer Integrated Manufacture System）中，有这样一个需求。系统中需要创建Equipment对象，
+这些对象由Machine对象和多个Port对象组成。Port对象包含两种类型：Input与Output，而Machine对象中，PortType应该与Port对象的类型相对应。
+从目前的需求来看，在Equipment中，存在如下三种构成情况：
+（1）一个Machine对象，一个Input类型的Port对象；
+（2）一个Machine对象，一个Output类型的Port对象；
+（3）一个Machine对象，一个Input类型的Port对象，一个Output类型的Port对象；
+客户方承认，不排除将来有增加新的Equipment组合的可能。
+
+Buider模式应用实践:
+http://www.cnblogs.com/wayfarer/archive/2006/09/16/506292.html%09
+
+实现一：
+存在以下三个明显的缺陷：
+（1）创建过程过于繁杂，不便于调用方调用；
+（2）Port对象的添加过程无法控制；
+（3）过于僵化，不利于程序的扩展；
+
+实际上Factory Method模式与Builder模式并没有泾渭分明的区别，尤其针对Builder模式，我们都可以将其转换为Factory Method模式，
+反之则不然。也就是说，Factory Method模式的应用更加广泛。如果一定要作出区分，那么可以说，二者同时生成产品，
+Factory Method模式主要用于生成一类完整的产品，而Builder模式则更关注与产品内部各种零件的组合，并最终组装为整体的产品。
+由于Builder模式对产品内部的创建进行了细分，因此对于那些内部具有一定结构的目标对象，如本例的Equipment，最佳选择仍然是Builder模式。
