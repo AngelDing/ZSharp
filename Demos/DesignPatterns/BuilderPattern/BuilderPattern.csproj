@@ -38,10 +38,15 @@
   <ItemGroup>
     <Compile Include="Equipment\Implementation1\BuilderClient1.cs" />
     <Compile Include="Equipment\Equipment.cs" />
-    <Compile Include="Equipment\Machine.cs" />
-    <Compile Include="Equipment\Port.cs" />
     <Compile Include="Equipment\Implementation2\BuilderClient2.cs" />
     <Compile Include="Equipment\Implementation2\EQPBuilder.cs" />
+    <Compile Include="Equipment\Implementation4\BuilderClient4.cs" />
+    <Compile Include="Equipment\Implementation4\EquipmentBuilder.cs" />
+    <Compile Include="Equipment\Implementation4\GenericBuilder.cs" />
+    <Compile Include="Equipment\Machine.cs" />
+    <Compile Include="Equipment\Port.cs" />
+    <Compile Include="Equipment\Implementation3\BuilderClient3.cs" />
+    <Compile Include="Equipment\Implementation3\EQPBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -51,6 +56,7 @@
   <ItemGroup>
     <Content Include="Equipment\Requirement.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

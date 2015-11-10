@@ -44,4 +44,11 @@ namespace BuilderPattern.Equipment
             m_machine.Run();
         }
     }
+
+    public enum EquipmentType
+    {
+        OutputEQP = 1,
+        InputEQP = 2,
+        IOPutEQP = 3
+    }
 }

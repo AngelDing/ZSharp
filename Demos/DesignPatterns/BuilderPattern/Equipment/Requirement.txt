@@ -6,16 +6,45 @@
 （3）一个Machine对象，一个Input类型的Port对象，一个Output类型的Port对象；
 客户方承认，不排除将来有增加新的Equipment组合的可能。
 
+
 Buider模式应用实践:
 http://www.cnblogs.com/wayfarer/archive/2006/09/16/506292.html%09
 
-实现一：
-存在以下三个明显的缺陷：
-（1）创建过程过于繁杂，不便于调用方调用；
-（2）Port对象的添加过程无法控制；
-（3）过于僵化，不利于程序的扩展；
 
-实际上Factory Method模式与Builder模式并没有泾渭分明的区别，尤其针对Builder模式，我们都可以将其转换为Factory Method模式，
-反之则不然。也就是说，Factory Method模式的应用更加广泛。如果一定要作出区分，那么可以说，二者同时生成产品，
-Factory Method模式主要用于生成一类完整的产品，而Builder模式则更关注与产品内部各种零件的组合，并最终组装为整体的产品。
-由于Builder模式对产品内部的创建进行了细分，因此对于那些内部具有一定结构的目标对象，如本例的Equipment，最佳选择仍然是Builder模式。
+实现一：
+	存在以下三个明显的缺陷：
+	（1）创建过程过于繁杂，不便于调用方调用；
+	（2）Port对象的添加过程无法控制；
+	（3）过于僵化，不利于程序的扩展；
+
+	实际上Factory Method模式与Builder模式并没有泾渭分明的区别，尤其针对Builder模式，我们都可以将其转换为Factory Method模式，
+	反之则不然。也就是说，Factory Method模式的应用更加广泛。如果一定要作出区分，那么可以说，二者同时生成产品，
+	Factory Method模式主要用于生成一类完整的产品，而Builder模式则更关注与产品内部各种零件的组合，并最终组装为整体的产品。
+	由于Builder模式对产品内部的创建进行了细分，因此对于那些内部具有一定结构的目标对象，如本例的Equipment，最佳选择仍然是Builder模式。
+
+
+实现二：
+	每当要给设备增加端口的时候，就要创建新的Builder子类。如果把这个需求扩大化，如果要创建一个Equipment，
+	其可能包含0~M(M>=0)个InputPort、0~N(N>=0)个OutputPort，这样可能组合出(M+1) * (N + 1)个Equipment，
+	因此我们就需要创建(M + 1) * (N + 1) 个ConcreteBuilder，这会带来Builder子类数量的急剧膨胀；
+	其本质上是通过继承来达到构建不同的Equipment。这与Builder模式的思想是相违背的，结合Builder模式的结构图来看，
+	导向器(Diretor)是调用BuildPart()方法，来将部件(Part)组合到目标Product中的；如果只是组合不同数量的现有部件，
+	则不用定义新的ConcreteBuilder。因此，虽然这个实现几乎形似Builder模式，但却并不是Builder模式的应用。
+
+	Builder模式的误区：将复杂对象的构建进行封装，就是Builder模式了吗？
+	http://www.cnblogs.com/happyhippy/archive/2010/09/01/1814287.html
+
+
+实现三： 改进版的EQPBuilder
+	与实现二的EQPBuilder的区别在哪儿呢？
+	(1). InputPort、OutputPort、Machine等，是复杂对象Equipment的组成部分，这些部件的装配方式在AddXXOOPort、BuildMachine等方法中定义；
+		 而如何根据这些部件来创建复杂Equiment的算法，在导向器类LCDFactory中定义；这就使得“创建复杂对象的算法独立于该对象的组成部分以及他们的装配方式”。
+	(2). AddXXOOPort、BuildXXOOMachine等接口，封装了部件(Port、machine)与产品(Equipment)的装配方式，Add操作可能比较复杂，
+		 其可能封装了初始化Port设备、执行插拔、焊接等操作；LCDFactory作为创建设备导向器，如果其构造设备的过程中，要增加多个Port，
+		 则只需要多次复用Builder的Add操作即可。因此，如果只是组合不同数量的现有部件，本质上只是“创建复杂对象的算法”被改变了；
+		 因为我们只用调整算法部分LCDFactory就可以了，而不用去创建新的ConcreteBuilder；
+	(3). 当且仅当新的部件(SuperXXOO)需要加入到系统时，才需要去创建新的ConcreteBuilder；如果要创建SuperEquipment，
+		 我们只需要将SuperEQPBuilder的示例传递给LCDFactory就足够了，这里复用了原有的构造Equipment的算法。
+
+
+实现四： 抽象成通用的Builder
