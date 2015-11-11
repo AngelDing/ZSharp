@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BuilderPattern.Equipment.Implementation4
 {
-    public delegate void BuildStepHandler();
-
     public interface IBuilder<T> where T : class
     {
-        void AddSteps(IEnumerable<BuildStepHandler> setps);
+        void AddSteps(IEnumerable<Action> setps);
 
-        void BuildUp();
+        void BuildUp(bool isParallel = false);
 
         T GetResult();
 
@@ -17,7 +17,7 @@ namespace BuilderPattern.Equipment.Implementation4
 
     public abstract class BaseBuilder<T> : IBuilder<T> where T : class, new()
     {
-        private List<BuildStepHandler> stepHandlers = new List<BuildStepHandler>();
+        private List<Action> stepHandlers = new List<Action>();
 
         /// <summary>
         /// 此為通用意義上的待構造的對象，不是電商系統中的具體商品
@@ -38,16 +38,23 @@ namespace BuilderPattern.Equipment.Implementation4
             }
         }
 
-        public virtual void AddSteps(IEnumerable<BuildStepHandler> setps)
+        public virtual void AddSteps(IEnumerable<Action> setps)
         {
             stepHandlers.AddRange(setps);
         }
 
-        public virtual void BuildUp()
+        public virtual void BuildUp(bool isParallel = false)
         {
-            foreach (BuildStepHandler step in stepHandlers)
+            if (isParallel)
             {
-                step();
+                Parallel.Invoke(stepHandlers.ToArray());
+            }
+            else
+            {
+                foreach (var step in stepHandlers)
+                {
+                    step();
+                }
             }
         }
 
@@ -65,7 +72,7 @@ namespace BuilderPattern.Equipment.Implementation4
     {
         public virtual void Construct(IBuilder<T> builder)
         {
-            builder.BuildUp();
+            builder.BuildUp(true);
         }
     }
 }

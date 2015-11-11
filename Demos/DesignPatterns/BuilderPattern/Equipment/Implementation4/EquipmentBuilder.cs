@@ -1,5 +1,4 @@
-﻿
-
+﻿using System;
 using System.Collections.Generic;
 
 namespace BuilderPattern.Equipment.Implementation4
@@ -7,10 +6,17 @@ namespace BuilderPattern.Equipment.Implementation4
     public class EquipmentBuilder : BaseBuilder<Equipment>
     {
         private Machine m_machine;
+        internal EquipmentType EquipmentType { get; private set; }
 
-        internal void BuildMachine(EquipmentType type)
+        public EquipmentBuilder(EquipmentType type)
         {
-            var name = type.ToString();
+            this.EquipmentType = type;
+            BuildMachine();
+        }
+
+        private void BuildMachine()
+        {
+            var name = EquipmentType.ToString();
             m_machine = new Machine(name);
             this.Product.Name = name;
             this.Product.Machine = m_machine;
@@ -31,36 +37,36 @@ namespace BuilderPattern.Equipment.Implementation4
 
     public class LCDDirector : BuildDirector<Equipment>
     {
-        public void ConstructByType(EquipmentBuilder builder, EquipmentType type)
+        public override void Construct(IBuilder<Equipment> builder)
         {
-            builder.BuildMachine(type);
-            switch (type)
+            var eqpBuilder = builder as EquipmentBuilder;
+            switch (eqpBuilder.EquipmentType)
             {
                 case EquipmentType.InputEQP:
-                    builder.AddSteps(new List<BuildStepHandler> { builder.AddInputPort });
+                    eqpBuilder.AddSteps(new List<Action> { eqpBuilder.AddInputPort });
                     break;
                 case EquipmentType.OutputEQP:
-                    builder.AddSteps(new List<BuildStepHandler> { builder.AddOutputPort });
+                    eqpBuilder.AddSteps(new List<Action> { eqpBuilder.AddOutputPort });
                     break;
                 case EquipmentType.IOPutEQP:
-                    var steps = new List<BuildStepHandler>
+                    var steps = new List<Action>
                     {
-                        builder.AddInputPort,
-                        builder.AddOutputPort
+                        eqpBuilder.AddInputPort,
+                        eqpBuilder.AddOutputPort
                     };
-                    builder.AddSteps(steps);
+                    eqpBuilder.AddSteps(steps);
                     break;
                 default:
                     break;
             }
 
-            base.Construct(builder);
+            base.Construct(eqpBuilder);
         }
 
-        public static Equipment CreateEQP(EquipmentBuilder builder, EquipmentType type)
+        public static Equipment CreateEQP(EquipmentBuilder builder)
         {
             var director =  new LCDDirector();
-            director.ConstructByType(builder, type);
+            director.Construct(builder);
             return builder.GetResult();
         }
     }
