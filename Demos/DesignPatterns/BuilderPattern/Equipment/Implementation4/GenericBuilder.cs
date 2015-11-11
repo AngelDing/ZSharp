@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace BuilderPattern.Equipment.Implementation4
 {
@@ -18,8 +17,12 @@ namespace BuilderPattern.Equipment.Implementation4
 
     public abstract class BaseBuilder<T> : IBuilder<T> where T : class, new()
     {
-        protected T Product { get; private set; }
         private List<BuildStepHandler> stepHandlers = new List<BuildStepHandler>();
+
+        /// <summary>
+        /// 此為通用意義上的待構造的對象，不是電商系統中的具體商品
+        /// </summary>
+        protected T Product { get; private set; }
 
         public BaseBuilder()
             : this(null)
@@ -53,9 +56,8 @@ namespace BuilderPattern.Equipment.Implementation4
             return Product;
         }
 
-        public void TearDown()
+        public virtual void TearDown()
         {
-            throw new NotImplementedException();
         }
     }
 
