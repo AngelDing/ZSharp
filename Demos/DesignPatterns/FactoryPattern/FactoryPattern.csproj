@@ -7,8 +7,8 @@
     <ProjectGuid>{3E377E56-74DD-4413-ADCE-B1149F401466}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FactoryMethod</RootNamespace>
-    <AssemblyName>FactoryMethod</AssemblyName>
+    <RootNamespace>FactoryPattern</RootNamespace>
+    <AssemblyName>FactoryPattern</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

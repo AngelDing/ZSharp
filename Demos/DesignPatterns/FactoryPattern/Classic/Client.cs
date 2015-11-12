@@ -2,7 +2,7 @@
 using System;
 
 
-namespace FactoryMethod.Classic
+namespace FactoryPattern.Classic
 {
     class Client
     {

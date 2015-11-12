@@ -1,7 +1,7 @@
 ﻿using System;
 using Common;
 
-namespace FactoryMethod.Classic
+namespace FactoryPattern.Classic
 {
     /// <summary>
     /// 实体工厂类型

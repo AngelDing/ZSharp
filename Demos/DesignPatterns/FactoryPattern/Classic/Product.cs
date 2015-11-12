@@ -2,7 +2,7 @@
 using System;
 using Common;
 
-namespace FactoryMethod.Classic
+namespace FactoryPattern.Classic
 {
     public interface IProductTest : IProduct
     {
