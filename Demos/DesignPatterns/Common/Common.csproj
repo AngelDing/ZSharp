@@ -33,6 +33,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericBuilder.cs" />
     <Compile Include="IFactory.cs" />
     <Compile Include="IProduct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

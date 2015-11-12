@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BuilderPattern.Equipment.Implementation4
+namespace Common
 {
     public interface IBuilder<T> where T : class
     {
@@ -15,7 +15,7 @@ namespace BuilderPattern.Equipment.Implementation4
         void TearDown();
     }
 
-    public abstract class BaseBuilder<T> : IBuilder<T> where T : class, new()
+    public abstract class BaseBuilder<T> : IBuilder<T> where T : class, IProduct, new()
     {
         private List<Action> stepHandlers = new List<Action>();
 

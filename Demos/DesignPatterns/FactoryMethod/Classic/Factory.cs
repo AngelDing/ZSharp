@@ -29,11 +29,16 @@ namespace FactoryMethod.Classic
     {
     }
 
-    public class FactoryD : IFactory<IProductTest, CategoryType>
+    public class FactoryD : BaseFactory<IProductTest, CategoryType>
     {
-        public IProductTest CreateProduct(CategoryType category)
+        public FactoryD(CategoryType category)
+            : base(category)
         {
-            switch (category)
+        }
+
+        public override IProductTest CreateProduct()
+        {
+            switch (Category)
             {
                 case CategoryType.Good:
                     return new ProductA();

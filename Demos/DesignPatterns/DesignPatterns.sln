@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactoryMethod", "FactoryMet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{9ADAA2CD-0794-4148-8F06-7EE38228B6EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeGame", "FactoryPattern\MazeGame.csproj", "{2D1D49C7-5A16-482F-8A24-156E4D88B5DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{9ADAA2CD-0794-4148-8F06-7EE38228B6EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9ADAA2CD-0794-4148-8F06-7EE38228B6EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9ADAA2CD-0794-4148-8F06-7EE38228B6EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D1D49C7-5A16-482F-8A24-156E4D88B5DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D1D49C7-5A16-482F-8A24-156E4D88B5DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D1D49C7-5A16-482F-8A24-156E4D88B5DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D1D49C7-5A16-482F-8A24-156E4D88B5DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,5 +42,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5F9C458B-14ED-497A-B808-7D1819442BC2} = {05112E7B-5400-4C2D-B6C3-54D078AD00D7}
 		{3E377E56-74DD-4413-ADCE-B1149F401466} = {05112E7B-5400-4C2D-B6C3-54D078AD00D7}
+		{2D1D49C7-5A16-482F-8A24-156E4D88B5DC} = {05112E7B-5400-4C2D-B6C3-54D078AD00D7}
 	EndGlobalSection
 EndGlobal

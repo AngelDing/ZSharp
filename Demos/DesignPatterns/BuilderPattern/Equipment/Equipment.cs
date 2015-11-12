@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 
 namespace BuilderPattern.Equipment
 {
-    public class Equipment
+    public class Equipment : IProduct
     {
         private Machine m_machine;
         private List<Port> m_list;
