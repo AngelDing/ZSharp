@@ -36,6 +36,7 @@
     <Compile Include="GenericBuilder.cs" />
     <Compile Include="IFactory.cs" />
     <Compile Include="IProduct.cs" />
+    <Compile Include="Singleton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
