@@ -1,4 +1,6 @@
-﻿namespace Common
+﻿using System;
+
+namespace Common
 {
     /// <summary>
     /// 標示對象是單實例的
@@ -7,31 +9,51 @@
     {
     }
 
-    public class Singleton : ISingleton
+    public abstract class SingletonBase<T> : ISingleton
+        where T : ISingleton, new()
     {
-        private static Singleton instance;
+        //[ThreadStatic]  // 说明每个Instance仅在当前线程内静态,如果加此标签，则不需要锁；
+        private static T instance;
         private static readonly object syncRoot = new object();
 
-        // the constructor should be protected or private
-        private Singleton()
+        protected SingletonBase()
         {
         }
 
-        public static Singleton Instance()
+        public static T Instance
         {
-            // double-check locking
-            if (instance == null)
+           get
             {
-                lock (syncRoot)
+                // double-check locking
+                if (instance == null)
                 {
-                    if (instance == null)
+                    lock (syncRoot)
                     {
-                        // use lazy initialization
-                        instance = new Singleton();
+                        if (instance == null)
+                        {
+                            // use lazy initialization
+                            instance = new T();
+                        }
                     }
                 }
+                return instance;
             }
-            return instance;
+        }
+    }
+
+    public class SingletonSimple : SingletonBase<SingletonSimple>
+    {
+        public void Test()
+        {
+            Console.WriteLine("Singleton Test");
+        }
+    }
+
+    public class SingletonClient
+    {
+        public void Test()
+        {
+            SingletonSimple.Instance.Test();
         }
     }
 }

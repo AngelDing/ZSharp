@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeGame", "MazeGame\MazeGa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactoryPattern", "FactoryPattern\FactoryPattern.csproj", "{3E377E56-74DD-4413-ADCE-B1149F401466}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyweightPattern", "FlyweightPattern\FlyweightPattern.csproj", "{4634D96A-52D3-4D05-A0CC-9FF05DDAA1BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{3E377E56-74DD-4413-ADCE-B1149F401466}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E377E56-74DD-4413-ADCE-B1149F401466}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E377E56-74DD-4413-ADCE-B1149F401466}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4634D96A-52D3-4D05-A0CC-9FF05DDAA1BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4634D96A-52D3-4D05-A0CC-9FF05DDAA1BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4634D96A-52D3-4D05-A0CC-9FF05DDAA1BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4634D96A-52D3-4D05-A0CC-9FF05DDAA1BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -33,9 +33,16 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapter.cs" />
+    <Compile Include="Bridge.cs" />
+    <Compile Include="Composite.cs" />
+    <Compile Include="Decorator.cs" />
+    <Compile Include="Facade.cs" />
     <Compile Include="GenericBuilder.cs" />
     <Compile Include="IFactory.cs" />
     <Compile Include="IProduct.cs" />
+    <Compile Include="IPrototype.cs" />
+    <Compile Include="Proxy.cs" />
     <Compile Include="Singleton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
