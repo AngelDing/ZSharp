@@ -15,6 +15,8 @@ namespace Common.BehavioralPatterns
         /// 提供给调用者的统一操作方法
         /// </summary>
         void Execute();
+
+        Task ExecuteAsync();
     }
 
     public interface IInput
@@ -35,6 +37,11 @@ namespace Common.BehavioralPatterns
         public void Execute()
         {
             action.Invoke(obj);
+        }
+
+        public Task ExecuteAsync()
+        {
+            return Task.Factory.StartNew(Execute);
         }
     }
 
@@ -61,7 +68,11 @@ namespace Common.BehavioralPatterns
         /// </summary>
         private IList<ICommand> commands = new List<ICommand>();
 
-        public void AddCommand(ICommand command) { commands.Add(command); }
+        public void AddCommand(ICommand command)
+        {
+            commands.Add(command);
+            StoreCommand(command);
+        }
 
         /// <summary>
         /// 经过调用者组织后，供客户程序操作命令对象的方法
@@ -72,6 +83,11 @@ namespace Common.BehavioralPatterns
             {
                 command.Execute();
             }
+        }
+
+        private void StoreCommand(ICommand command)
+        {
+            //Store to db
         }
     }
 
