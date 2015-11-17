@@ -28,8 +28,7 @@ namespace FlyweightPattern.ObjectPool
         /// <param name="item">可用的对象实例</param>
         /// <param name="increasable">是否可以继续添加</param>
         /// <returns>是否成功获得可用的实例</returns>
-        public bool TryToAcquire<T>(out T item, out bool increasable)
-            where T : PoolableBase, new()
+        public bool TryToAcquire<T>(out T item, out bool increasable) where T : PoolableBase, new()
         {
             PrepareTypeList<T>();
             return (registry[typeof(T)] as SizeRestrictedList<T>).Acquire(out item, out increasable);
@@ -39,8 +38,7 @@ namespace FlyweightPattern.ObjectPool
         /// 缓冲新的实例
         /// </summary>
         /// <param name="item"></param>
-        public void Cache<T>(T item)
-            where T : PoolableBase, new()
+        public void Cache<T>(T item) where T : PoolableBase, new()
         {
             PrepareTypeList<T>();
             (registry[typeof(T)] as SizeRestrictedList<T>).Add(item);
@@ -50,11 +48,12 @@ namespace FlyweightPattern.ObjectPool
         /// 准备特定类型缓冲列表
         /// </summary>
         /// <param name="type"></param>
-        private void PrepareTypeList<T>()
-            where T : PoolableBase, new()
+        private void PrepareTypeList<T>() where T : PoolableBase, new()
         {
             if (!registry.ContainsKey(typeof(T)))
+            {
                 registry.Add(typeof(T), new SizeRestrictedList<T>());
+            }
         }
     }
 }

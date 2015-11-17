@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9ADAA2CD-0794-4148-8F06-7EE38228B6EB}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{FB1B0666-0781-40B4-881B-01C18765B0F3}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Common</RootNamespace>
-    <AssemblyName>Common</AssemblyName>
+    <RootNamespace>ChainOfResponsibilityPattern</RootNamespace>
+    <AssemblyName>ChainOfResponsibilityPattern</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,21 +36,22 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BehavioralPatterns\ChainOfResponsibility.cs" />
-    <Compile Include="StructuralPatterns\Adapter.cs" />
-    <Compile Include="StructuralPatterns\Bridge.cs" />
-    <Compile Include="StructuralPatterns\Composite.cs" />
-    <Compile Include="StructuralPatterns\Decorator.cs" />
-    <Compile Include="StructuralPatterns\Facade.cs" />
-    <Compile Include="Builder.cs" />
-    <Compile Include="IFactory.cs" />
-    <Compile Include="IProduct.cs" />
-    <Compile Include="IPrototype.cs" />
-    <Compile Include="StructuralPatterns\Proxy.cs" />
-    <Compile Include="Singleton.cs" />
+    <Compile Include="BreakPointTest.cs" />
+    <Compile Include="ConcreteHandlers.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseType.cs" />
+    <Compile Include="Request.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{9adaa2cd-0794-4148-8f06-7ee38228b6eb}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

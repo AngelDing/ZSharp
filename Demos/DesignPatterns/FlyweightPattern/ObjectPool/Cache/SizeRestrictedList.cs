@@ -8,8 +8,7 @@ namespace FlyweightPattern.ObjectPool
     /// 缓冲数量限制的池化对象缓冲 List
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SizeRestrictedList<T>
-        where T : PoolableBase, new()
+    public class SizeRestrictedList<T> where T : PoolableBase, new()
     {
         /// <summary>
         /// 相关缓冲内容
@@ -52,16 +51,17 @@ namespace FlyweightPattern.ObjectPool
             // 无法获取缓冲对象
             if (cache.Count <= 0)
                 return false;
-            
+
 
             // 重用既有实例
             foreach (T cachedItem in cache)
+            {
                 if ((cachedItem != null) && (cachedItem.Unoccupied))
                 {
                     item = cachedItem;
                     return true;
                 }
-
+            }
 
             return false;
         }
@@ -73,7 +73,9 @@ namespace FlyweightPattern.ObjectPool
         public void Add(T item)
         {
             if ((cache.Count < configuration.Max) || (item != null))  // 已经达到数量上限
+            {
                 cache.Add(item);
+            }
         }
 
         /// <summary>
@@ -89,11 +91,16 @@ namespace FlyweightPattern.ObjectPool
             {
                 TimeSpan timeSpan = DateTime.Now.Subtract(cache[i].AccessedTime);
                 if (timeSpan.TotalMilliseconds > configuration.Timeout)
+                {
                     toDeleteList.Add(i);
+                }
             }
 
             // 清理
-            if (toDeleteList.Count <= 0) return;
+            if (toDeleteList.Count <= 0)
+            {
+                return;
+            }
             for (int i = toDeleteList.Count - 1; i >= 0; i--)
             {
                 T item = cache[toDeleteList[i]];

@@ -4,7 +4,7 @@ namespace FlyweightPattern.ObjectPool
 {
     /// <summary>
     /// 基本可池化对象描述
-    /// </summary>S
+    /// </summary>
     public interface IPoolable : IDisposable
     {
         /// <summary>
