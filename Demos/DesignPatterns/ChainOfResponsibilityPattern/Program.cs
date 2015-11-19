@@ -31,7 +31,7 @@ namespace ChainOfResponsibilityPattern
             Console.WriteLine(request.Price);
 
             // 重新组织链表结构
-            handler1.Successor = handler1.Successor.Successor;  // 短路掉Discount
+            handler1.Successor = handler1.Successor.Successors;  // 短路掉Discount
             request = new Request(20, PurchaseType.Discount);
             head.Handle(new Request(20, PurchaseType.Discount));
             Console.WriteLine(request.Price);    // 确认被短路的部分无法生效

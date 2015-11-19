@@ -14,9 +14,9 @@ namespace ChainOfResponsibilityPattern
             IHandler handler2 = new DiscountHandler();
             IHandler handler3 = new MailHandler();
             IHandler handler4 = new RegularHandler();
-            handler1.Successor = handler3;
-            handler3.Successor = handler2;
-            handler2.Successor = handler4;
+            handler1.Successors = handler3;
+            handler3.Successors = handler2;
+            handler2.Successors = handler4;
             IHandler head = handler1;
 
             handler1.HasBreakPoint = true;

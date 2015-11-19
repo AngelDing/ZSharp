@@ -19,24 +19,42 @@ namespace Common.BehavioralPatterns
         Task ExecuteAsync();
     }
 
+    /// <summary>
+    /// 要执行的命令，如果带参数，则统一采用一个参数对象，此对象需要继承此接口
+    /// </summary>
     public interface IInput
     {
     }
 
-    public class BaseCommand<T> : ICommand where T : IInput
+    public class BaseCommand<T> : ICommand where T : class, IInput
     {
         private Action<T> action;
-        private T obj;
+        protected T ParamObject { get; set; }
+
+        public BaseCommand(Action<T> action)
+             : this(action, null)
+        {
+        }
 
         public BaseCommand(Action<T> action, T obj)
         {
             this.action = action;
-            this.obj = obj;
+            var result = CheckParamObject();
+            if (result == false)
+            {
+                throw new ArgumentException("result.Message");
+            }
+            this.ParamObject = obj;
         }
 
-        public void Execute()
+        protected virtual bool CheckParamObject()
         {
-            action.Invoke(obj);
+            return true;
+        }
+
+        public virtual void Execute()
+        {
+            action.Invoke(ParamObject);
         }
 
         public Task ExecuteAsync()
@@ -59,6 +77,13 @@ namespace Common.BehavioralPatterns
     }
 
     /// <summary>
+    /// 保存Command的队列
+    /// </summary>
+    public class CommandQueue : Queue<ICommand>
+    {
+    }
+
+    /// <summary>
     /// 调用者
     /// </summary>
     public class Invoker
@@ -66,22 +91,40 @@ namespace Common.BehavioralPatterns
         /// <summary>
         /// 管理相关命令对象
         /// </summary>
-        private IList<ICommand> commands = new List<ICommand>();
+        private CommandQueue queue;
+
+        public Invoker()
+        {
+        }
+
+        public Invoker(ICommand command)
+        {
+            AddCommand(command);
+        }
+
+        public Invoker(CommandQueue queue)
+        {
+            this.queue = queue;
+        }
 
         public void AddCommand(ICommand command)
         {
-            commands.Add(command);
             StoreCommand(command);
+            queue.Enqueue(command);
         }
 
+
         /// <summary>
-        /// 经过调用者组织后，供客户程序操作命令对象的方法
+        /// 按照队列方式执行排队的命令。相对而言，这时候Invoker
+        /// 具有执行的主动性，此处可以嵌入很多其他控制逻辑
         /// </summary>
         public void Run()
         {
-            foreach (ICommand command in commands)
+            while (queue.Count > 0)
             {
+                var command = queue.Dequeue();
                 command.Execute();
+                //command.ExecuteAsync();
             }
         }
 
@@ -91,15 +134,46 @@ namespace Common.BehavioralPatterns
         }
     }
 
+
+    public class ConcreteCommand : BaseCommand<Input>
+    {
+        public ConcreteCommand(Receiver receiver, Input input)
+            : base(receiver.Action, input)
+        {
+        }
+
+        protected override bool CheckParamObject()
+        {
+            //Do somthing
+            return true;
+        }
+
+        public override void Execute()
+        {
+            PreExecute();
+            base.Execute();
+            Ececuted();
+        }
+
+        private void Ececuted()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PreExecute()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class CommandClient
     {
         public void Test()
         {
             Receiver receiver = new Receiver();
             var input = new Input { Name = "Hello World" };
-            var cmd = new BaseCommand<Input>( receiver.Action, input);
-            Invoker invoker = new Invoker();
-            invoker.AddCommand(cmd);
+            var cmd = new ConcreteCommand(receiver, input);
+            Invoker invoker = new Invoker(cmd);
             invoker.Run();
         }
     }

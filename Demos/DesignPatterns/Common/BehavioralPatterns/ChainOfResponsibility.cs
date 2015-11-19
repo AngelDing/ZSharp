@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 /// <summary>
 /// 职责链 ： 使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。
 ///         将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象能处理它。
@@ -33,7 +35,7 @@ namespace Common.BehavioralPatterns
         /// <summary>
         /// 后继结点
         /// </summary>
-        IHandler Successor { get; set; }
+        IList<IHandler> Successors { get; set; }
 
         /// <summary>
         /// 当前Handler处理的请求类型
@@ -75,18 +77,23 @@ namespace Common.BehavioralPatterns
         private object enumType;
 
         public BaseHandler(object enumType)
-           : this(enumType, null)
+           : this(enumType, new List<IHandler>())
         {
             this.EnumType = enumType;
         }
 
         public BaseHandler(object enumType, IHandler successor)
+            : this(enumType, new List<IHandler> { successor})
+        {          
+        }
+
+        public BaseHandler(object enumType, IList<IHandler> successors)
         {
             this.EnumType = enumType;
-            this.Successor = successor;
-        }      
+            this.Successors = successors;
+        }
 
-        public IHandler Successor { get; set; }
+        public IList<IHandler> Successors { get; set; }
 
         public object EnumType
         {
@@ -129,9 +136,12 @@ namespace Common.BehavioralPatterns
             }
             else
             {
-                if (Successor != null)
+                if (Successors.Any())
                 {
-                    Successor.Handle(request);
+                    foreach (var s in Successors)
+                    {
+                        s.Handle(request);
+                    }
                 }
             }
         }
