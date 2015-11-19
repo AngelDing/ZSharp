@@ -1,5 +1,6 @@
 ﻿using Common.BehavioralPatterns;
 using System;
+using System.Collections.Generic;
 
 namespace ChainOfResponsibilityPattern
 {
@@ -14,9 +15,9 @@ namespace ChainOfResponsibilityPattern
             IHandler handler2 = new DiscountHandler();
             IHandler handler3 = new MailHandler();
             IHandler handler4 = new RegularHandler();
-            handler1.Successors = handler3;
-            handler3.Successors = handler2;
-            handler2.Successors = handler4;
+            handler1.Successors = new List<IHandler> { handler3 };
+            handler3.Successors = new List<IHandler> { handler2 };
+            handler2.Successors = new List<IHandler> { handler4 };
             IHandler head = handler1;
 
             handler1.HasBreakPoint = true;

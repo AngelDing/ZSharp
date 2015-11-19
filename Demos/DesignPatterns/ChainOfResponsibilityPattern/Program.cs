@@ -1,5 +1,6 @@
 ﻿using Common.BehavioralPatterns;
 using System;
+using System.Collections.Generic;
 
 namespace ChainOfResponsibilityPattern
 {
@@ -7,8 +8,10 @@ namespace ChainOfResponsibilityPattern
     {
         static void Main(string[] args)
         {
-            ClassicTest();
-            BreakPointTest();
+            new MediatorClient().Test();
+            new MerdiatorDelegatingClient().Test();
+            //ClassicTest();
+            //BreakPointTest();
             Console.ReadLine();
         }
 
@@ -21,20 +24,14 @@ namespace ChainOfResponsibilityPattern
             var handler4 = new RegularHandler();
 
             // 组装链式的结构  internal-> mail-> discount-> regular-> null
-            handler1.Successor = handler3;
-            handler3.Successor = handler2;
-            handler2.Successor = handler4;
+            handler1.Successors = new List<IHandler> { handler3 };
+            handler3.Successors = new List<IHandler> { handler2 }; 
+            handler2.Successors = new List<IHandler> { handler4 }; 
             var head = handler1;
 
             Request request = new Request(20, PurchaseType.Mail);
             head.Handle(request);
             Console.WriteLine(request.Price);
-
-            // 重新组织链表结构
-            handler1.Successor = handler1.Successor.Successors;  // 短路掉Discount
-            request = new Request(20, PurchaseType.Discount);
-            head.Handle(new Request(20, PurchaseType.Discount));
-            Console.WriteLine(request.Price);    // 确认被短路的部分无法生效
         }
 
         public static void BreakPointTest()
