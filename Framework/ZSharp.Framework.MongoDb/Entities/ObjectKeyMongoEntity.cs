@@ -1,13 +1,13 @@
 ﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.MongoDb
 {
-    public class StringKeyMongoEntity : Entity, IAggregateRoot<string>
+    public class ObjectKeyMongoEntity : Entity, IAggregateRoot<ObjectId>
     {
-        public string Id { get; set; }
+        public ObjectId Id { get; set; }
 
         //TODO:需要重寫對象的Equals方法
     }
+ 
 }

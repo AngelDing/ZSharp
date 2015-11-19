@@ -2,7 +2,7 @@
 namespace ZSharp.Framework.MongoDb
 {
     [CollectionName("IdentityEntity")]
-    public class IdentityEntity<T> : StringKeyMongoEntity
+    public class IdentityEntity<T> : ObjectKeyMongoEntity
     {
         public string Key
         {
