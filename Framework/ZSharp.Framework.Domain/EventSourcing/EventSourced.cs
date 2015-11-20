@@ -76,9 +76,7 @@ namespace ZSharp.Framework.Domain
         public virtual ISnapshot CreateSnapshot()
         {
             ISnapshot snapshot = this.DoCreateSnapshot();
-
             snapshot.Version = this.Version;
-            snapshot.Timestamp = DateTimeOffset.Now;
             snapshot.AggregateId = this.Id;
             return snapshot;
         }

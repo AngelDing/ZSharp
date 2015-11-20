@@ -94,8 +94,8 @@ namespace ZSharp.Framework.Domain
                 AggregateType = eventSourced.GetType().Name,
                 Version = eventSourced.Version,
                 SnapshotType = snapshot.GetType().AssemblyQualifiedName,
-                Timestamp = snapshot.Timestamp,
-                State = serializer.Serialize<string>(snapshot)
+                Timestamp = DateTimeOffset.Now,
+                SnapshotData = serializer.Serialize<string>(snapshot)
             };
         }
 
@@ -106,7 +106,7 @@ namespace ZSharp.Framework.Domain
             {
                 return null;
             }
-            return (ISnapshot)serializer.Deserialize(entity.State, snapshotType);
+            return (ISnapshot)serializer.Deserialize(entity.SnapshotData, snapshotType);
         }
 
         #endregion
