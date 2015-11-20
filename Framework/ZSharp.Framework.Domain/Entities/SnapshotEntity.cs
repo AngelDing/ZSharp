@@ -11,7 +11,7 @@ namespace ZSharp.Framework.Domain
 
         public int Version { get; set; }
 
-        public string SnapshotData { get; set; }
+        public string State { get; set; }
 
         public string AggregateType { get; set; }
 

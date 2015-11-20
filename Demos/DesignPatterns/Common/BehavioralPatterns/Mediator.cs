@@ -1,8 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+/// <summary>
+/// 中介者：
+///     用一个中介对象来封装一系列的对象交互;中介者使各对象不需要显式地相互引用，
+///     从而使其耦合松散，而且可以独立地改变它们之间的交互。
+/// 适用性：
+///     一组对象定义良好但是使用复杂的通信方式。产生的相互依赖关系结构混乱且难以理解。
+///     一个对象引用其他很多对象并且直接与这些对象通信，导致难以复用该对象。
+///     想定制一个分布在多个类中的行为，而又不想生成太多的子类。
+/// </summary>
 
 namespace Common.BehavioralPatterns
 {
