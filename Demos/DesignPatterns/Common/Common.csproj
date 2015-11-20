@@ -38,6 +38,7 @@
     <Compile Include="BehavioralPatterns\Interpreter.cs" />
     <Compile Include="BehavioralPatterns\Mediator.cs" />
     <Compile Include="BehavioralPatterns\Memento.cs" />
+    <Compile Include="BehavioralPatterns\Observer.cs" />
     <Compile Include="BehavioralPatterns\TemplateMethod.cs" />
     <Compile Include="StructuralPatterns\Adapter.cs" />
     <Compile Include="StructuralPatterns\Bridge.cs" />

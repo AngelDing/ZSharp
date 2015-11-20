@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("MementoPattern")]
+[assembly: AssemblyTitle("DesignPattern.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("MementoPattern")]
+[assembly: AssemblyProduct("DesignPattern.Test")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("762b7409-dda5-4a07-a2c0-024ddc8f667b")]
+[assembly: Guid("ff16b63f-2dc9-48f5-81ef-e5ff633fba42")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

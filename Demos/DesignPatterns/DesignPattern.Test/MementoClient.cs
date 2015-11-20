@@ -1,7 +1,7 @@
 ﻿using Common.BehavioralPatterns;
 using System;
 
-namespace MementoPattern
+namespace DesignPattern.Test
 {
     /// <summary>
     /// 具体状态类型
