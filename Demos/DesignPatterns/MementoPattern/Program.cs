@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MementoPattern
 {
@@ -10,6 +6,8 @@ namespace MementoPattern
     {
         static void Main(string[] args)
         {
+            new MementoClient().Test();
+            Console.ReadLine();
         }
     }
 }

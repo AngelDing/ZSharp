@@ -58,13 +58,18 @@ namespace Common.BehavioralPatterns
     }
 
     public abstract class OriginatorBase<T, M>
-        where T : ISnapshoot
+        where T : ISnapshoot, new()
         where M : IMemento<T>, new()
     {
         /// <summary>
         /// 发起人对象的状态
         /// </summary>
         protected T state;
+
+        public OriginatorBase()
+        {
+            state = new T();
+        }
 
         /// <summary>
         /// 把状态保存到备忘录，或者从备忘录恢复之前的状态
