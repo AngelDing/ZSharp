@@ -10,8 +10,11 @@ namespace DesignPattern.Test
             observer.TestMulticst();
             observer.TestMultiSubject();
 
-
             new MementoClient().Test();
+
+            Console.WriteLine("-----Begin:状态模式测试-----");
+            new StateTest().Test();
+            Console.WriteLine("-----End:状态模式测试-----");
 
             Console.ReadLine();
         }

@@ -19,13 +19,6 @@ namespace Common.BehavioralPatterns
         Task ExecuteAsync();
     }
 
-    /// <summary>
-    /// 要执行的命令，如果带参数，则统一采用一个参数对象，此对象需要继承此接口
-    /// </summary>
-    public interface IInput
-    {
-    }
-
     public class BaseCommand<T> : ICommand where T : class, IInput
     {
         private Action<T> action;
@@ -71,6 +64,9 @@ namespace Common.BehavioralPatterns
         }
     }
 
+    /// <summary>
+    /// 要执行的命令，如果带参数，则统一采用一个参数对象，此对象需要继承此接口
+    /// </summary>
     public class Input : IInput
     {
         public string Name { get; set; }
