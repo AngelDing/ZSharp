@@ -16,6 +16,11 @@ namespace DesignPattern.Test
             new StateTest().Test();
             Console.WriteLine("-----End:状态模式测试-----");
 
+            Console.WriteLine("-----Begin:策略模式测试-----");
+            new StrategyClient().Test();
+            Console.WriteLine("-----End:策略模式测试-----");
+
+
             Console.ReadLine();
         }
     }
