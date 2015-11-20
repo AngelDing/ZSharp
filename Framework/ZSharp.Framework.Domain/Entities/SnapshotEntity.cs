@@ -3,7 +3,7 @@ using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.Domain
 {
-    public class SnapshotEntity : Entity<long>, ISnapshot
+    public class SnapshotEntity : Entity<long>
     {
         public Guid AggregateId { get; set; }
 
@@ -11,7 +11,7 @@ namespace ZSharp.Framework.Domain
 
         public int Version { get; set; }
 
-        public string State { get; set; }
+        public string SnapshotData { get; set; }
 
         public string AggregateType { get; set; }
 
