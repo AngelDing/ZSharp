@@ -36,12 +36,17 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Visitor\ConcreteVisitor.cs" />
+    <Compile Include="Visitor\Employee.cs" />
     <Compile Include="MementoClient.cs" />
     <Compile Include="ObserverTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateTest.cs" />
     <Compile Include="StrategyTest.cs" />
+    <Compile Include="Visitor\IEmployee.cs" />
+    <Compile Include="Visitor\ReflectionVisitor.cs" />
+    <Compile Include="Visitor\VisitorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
