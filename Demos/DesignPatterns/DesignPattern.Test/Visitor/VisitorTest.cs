@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using Common.BehavioralPatterns;
 
 namespace DesignPattern.Test.Visitor
 {
@@ -13,7 +16,8 @@ namespace DesignPattern.Test.Visitor
             employees.Add(new Manager("alice", JobLevel.SeniorManager, PayType.Yearly, "it"));
             employees.Add(new Manager("jacky", JobLevel.SeniorManager, PayType.Yearly, "manager"));
 
-            AcceptReflectionVisitor(employees);
+            //AcceptReflectionVisitor(employees);
+            AcceptVisitor(employees);
 
             IEmployee joe = employees[0];
             Console.WriteLine(joe.Income);
@@ -41,15 +45,30 @@ namespace DesignPattern.Test.Visitor
         {
             employees.Accept(new EmployeeVisitor());
         }
-
+        
         public void AcceptVisitor(EmployeeCollection employees)
         {
-            employees.Accept(new HourlyEmployeeVisitor());
-            employees.Accept(new MonthlyEmployeeVisitor());
-            employees.Accept(new YearlyEmployeeVisitor());
-            employees.Accept(new CommonEmployeeVisitor());
-            employees.Accept(new ManagerEmployeeVisitor());
-            employees.Accept(new SeniorManagerEmployeeVisitor());
+            //TODO: 重构：可以放入缓存，IEmployeeVisitor可以按参数传入，提取公共方法
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+            var visitorList = new List<Type>();
+            foreach (var a in assemblies)
+            {
+                var tempList = a.GetTypes();
+                foreach (var t in tempList)
+                {
+                    if (typeof(IEmployeeVisitor).IsAssignableFrom(t) && !t.IsInterface)
+                    {
+                        visitorList.Add(t);
+                    }
+                }
+            }
+
+            foreach (var v in visitorList)
+            {
+                var instance = Activator.CreateInstance(v);
+                employees.Accept(instance as IVisitor);
+            }
         }
     }
 }

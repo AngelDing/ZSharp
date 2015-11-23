@@ -24,10 +24,13 @@ namespace DesignPattern.Test.Visitor
         }
     }
 
-    public class EmployeeVisitor : BaseVisitor, IEmployeeVisitor
+    public interface IEmployeeReflectionVisitor : IVisitor
     {
-        private const string visitMethod = "Visit{0}";
-       
+    }
+
+    public class EmployeeVisitor : BaseVisitor, IEmployeeReflectionVisitor
+    {
+        private const string visitMethod = "Visit{0}";       
 
         public void Visit(IVisitorElement element)
         {
