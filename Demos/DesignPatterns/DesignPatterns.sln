@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Creational Patterns", "1 - Creational Patterns", "{05112E7B-5400-4C2D-B6C3-54D078AD00D7}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\jiajiazhou\Desktop\设计模式.docx = C:\Users\jiajiazhou\Desktop\设计模式.docx
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuilderPattern", "BuilderPattern\BuilderPattern.csproj", "{5F9C458B-14ED-497A-B808-7D1819442BC2}"
 EndProject
@@ -24,6 +27,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IteratorPattern", "IteratorPattern\IteratorPattern.csproj", "{64194DC2-D45F-4780-B7AE-5FB4BFAED343}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesignPattern.Test", "DesignPattern.Test\DesignPattern.Test.csproj", "{FF16B63F-2DC9-48F5-81EF-E5FF633FBA42}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Doc", "4 - Doc", "{8086BF93-9D94-4B45-9594-62208E9954FE}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\jiajiazhou\Desktop\设计模式.docx = C:\Users\jiajiazhou\Desktop\设计模式.docx
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
