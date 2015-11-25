@@ -4,3 +4,4 @@
 4.统一的配置管理中心；
 5.基于Quartz.net的Task管理模块；
 6.基于Opserver的监控；
+7.整合工作流（SlickFlow, RoadFlow）
