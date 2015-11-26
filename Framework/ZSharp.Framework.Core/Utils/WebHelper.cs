@@ -1,7 +1,6 @@
 using System.Web;
-using ZSharp.Framework.Extensions;
 
-namespace ZSharp.Framework.Mvc
+namespace ZSharp.Framework.Utils
 {
     public partial class WebHelper
     {

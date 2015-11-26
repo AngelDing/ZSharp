@@ -3,7 +3,7 @@ using System.IO;
 using System.Web.Hosting;
 using ZSharp.Framework.Utils;
 
-namespace ZSharp.Framework.Mvc
+namespace ZSharp.Framework.Utils
 {
     public static class CommonHelper
     {

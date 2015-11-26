@@ -6,14 +6,8 @@ namespace ZSharp.Framework.Extensions
     {
         public static void Dump(this Exception exc)
         {
-            try
-            {
-                exc.StackTrace.Dump();
-                exc.Message.Dump();
-            }
-            catch
-            {
-            }
-        }        
+            exc.StackTrace.Dump();
+            exc.Message.Dump();
+        }
     }
 }

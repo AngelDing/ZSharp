@@ -75,6 +75,7 @@
     <Compile Include="Threading\ActionDisposable.cs" />
     <Compile Include="Threading\LockExtensions.cs" />
     <Compile Include="Threading\ReadLockDisposable.cs" />
+    <Compile Include="Utils\CommonHelper.cs" />
     <Compile Include="Utils\ExecHelper.cs" />
     <Compile Include="Utils\HashCodeHelper.cs" />
     <Compile Include="Utils\TaskHelper.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Utils\RandomHelper.cs" />
     <Compile Include="Utils\TimerTaskFactory.cs" />
     <Compile Include="Utils\TypeHelper.cs" />
+    <Compile Include="Utils\WebHelper.cs" />
     <Compile Include="Utils\Wildcard.cs" />
     <Compile Include="ValidationException.cs" />
     <Compile Include="Validator\EntityValidator.cs" />

@@ -6,7 +6,7 @@ namespace ZSharp.Framework.Common
 {
     /// <summary>
     /// Classes implementing this interface provide information about types 
-    /// to various services in the SmartStore engine.
+    /// to various services in the engine.
     /// </summary>
     public interface ITypeFinder
     {
