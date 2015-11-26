@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Diagnostics;
+using ZSharp.Framework.Threading;
 
-namespace ZSharp.Framework.Threading
+namespace ZSharp.Framework.Extensions
 {
     public static class LockExtensions
     {

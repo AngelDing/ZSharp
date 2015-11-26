@@ -73,7 +73,7 @@
     <Compile Include="Patterns\ICloneable.cs" />
     <Compile Include="Patterns\Singleton.cs" />
     <Compile Include="Threading\ActionDisposable.cs" />
-    <Compile Include="Threading\LockExtensions.cs" />
+    <Compile Include="Extensions\LockExtensions.cs" />
     <Compile Include="Threading\ReadLockDisposable.cs" />
     <Compile Include="Utils\CommonHelper.cs" />
     <Compile Include="Utils\ExecHelper.cs" />
