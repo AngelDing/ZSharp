@@ -35,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonConfig.cs" />
+    <Compile Include="ISettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Redis\IRedisConfiguration.cs" />
     <Compile Include="Redis\RedisConfigurationHandler.cs" />

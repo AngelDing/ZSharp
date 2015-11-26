@@ -14,12 +14,12 @@ namespace ZSharp.Framework.Configurations
             {
                 var isSupport = false;
                 var isSupportMongoStr = ConfigurationManager.AppSettings["IsSupportMongoDb"];
-                 if (!isSupportMongoStr.IsNullOrEmpty())
-                 {
-                     isSupport = isSupportMongoStr.ToBool(false);
-                 }
+                if (!isSupportMongoStr.IsNullOrEmpty())
+                {
+                    isSupport = isSupportMongoStr.ToBool(false);
+                }
 
-                 return isSupport;
+                return isSupport;
             }
         }
 
@@ -33,7 +33,7 @@ namespace ZSharp.Framework.Configurations
                 return ConfigurationManager.AppSettings["SerializationFormatType"];
             }
         }
-   
+
         /// <summary>
         /// 所屬程序系統代碼
         /// </summary>
@@ -75,6 +75,44 @@ namespace ZSharp.Framework.Configurations
             get
             {
                 return ConfigurationManager.AppSettings["RedisConfigName"];
+            }
+        }
+
+        public static string EngineTypeSetting
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["sm:EngineType"];
+            }
+        }
+
+        public static bool EnableDynamicDiscovery
+        {
+            get
+            {
+                var isEnable = false;
+                var isEnableStr = ConfigurationManager.AppSettings["sm:EnableDynamicDiscovery"];
+                if (!isEnableStr.IsNullOrEmpty())
+                {
+                    isEnable = isEnableStr.ToBool(false);
+                }
+
+                return isEnable;
+            }
+        }
+
+        public static bool ClearPluginsShadowDirectoryOnStartup
+        {
+            get
+            {
+                var isClear = true;
+                var isClearStr = ConfigurationManager.AppSettings["sm:ClearPluginsShadowDirectoryOnStartup"];
+                if (!isClearStr.IsNullOrEmpty())
+                {
+                    isClear = isClearStr.ToBool(true);
+                }
+
+                return isClear;
             }
         }
     }

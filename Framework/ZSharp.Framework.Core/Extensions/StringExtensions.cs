@@ -4,6 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System;
+using ZSharp.Framework.Utils;
 
 namespace ZSharp.Framework.Extensions
 {
@@ -306,6 +307,90 @@ namespace ZSharp.Framework.Extensions
         }
 
         #endregion
+
+        [DebuggerStepThrough]
+        public static string FormatWith(this string format, params object[] args)
+        {
+            return FormatWith(format, CultureInfo.CurrentCulture, args);
+        }
+
+        /// <summary>
+        /// Formats a string to the current culture.
+        /// </summary>
+        /// <param name="formatString">The format string.</param>
+        /// <param name="objects">The objects.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        public static string FormatCurrent(this string format, params object[] objects)
+        {
+            return string.Format(CultureInfo.CurrentCulture, format, objects);
+        }
+
+        /// <summary>Debug.WriteLine</summary>
+        [DebuggerStepThrough]
+        public static void Dump(this string value, bool appendMarks = false)
+        {
+            Debug.WriteLine(value);
+            Debug.WriteLineIf(appendMarks, "------------------------------------------------");
+        }
+
+        [DebuggerStepThrough]
+        public static string NullEmpty(this string value)
+        {
+            return (string.IsNullOrEmpty(value)) ? null : value;
+        }
+
+        [DebuggerStepThrough]
+        public static string EmptyNull(this string value)
+        {
+            return (value ?? string.Empty).Trim();
+        }
+
+        /// <summary>
+        /// Ensures the target string ends with the specified string.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>The target string with the value string at the end.</returns>
+        [DebuggerStepThrough]
+        public static string EnsureEndsWith(this string value, string endWith)
+        {
+            GuardHelper.ArgumentNotNull(value, "value");
+            GuardHelper.ArgumentNotNull(endWith, "endWith");
+
+            if (value.Length >= endWith.Length)
+            {
+                if (string.Compare(value, value.Length - endWith.Length, endWith, 0, endWith.Length, StringComparison.OrdinalIgnoreCase) == 0)
+                    return value;
+
+                string trimmedString = value.TrimEnd(null);
+
+                if (string.Compare(trimmedString, trimmedString.Length - endWith.Length, endWith, 0, endWith.Length, StringComparison.OrdinalIgnoreCase) == 0)
+                    return value;
+            }
+
+            return value + endWith;
+        }
+
+        /// <summary>
+        /// Determines whether this instance and another specified System.String object have the same value.
+        /// </summary>
+        /// <param name="instance">The string to check equality.</param>
+        /// <param name="comparing">The comparing with string.</param>
+        /// <returns>
+        /// <c>true</c> if the value of the comparing parameter is the same as this string; otherwise, <c>false</c>.
+        /// </returns>
+        [DebuggerStepThrough]
+        public static bool IsCaseInsensitiveEqual(this string value, string comparing)
+        {
+            return string.Compare(value, comparing, StringComparison.OrdinalIgnoreCase) == 0;
+        }
+
+        [DebuggerStepThrough]
+        public static bool IsMatch(this string input, string pattern, RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline)
+        {
+            return Regex.IsMatch(input, pattern, options);
+        }
     }
 }
 

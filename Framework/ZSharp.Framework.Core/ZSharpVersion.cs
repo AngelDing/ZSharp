@@ -1,0 +1,81 @@
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Reflection;
+using ZSharp.Framework.Extensions;
+
+namespace ZSharp.Framework
+{
+    public static class ZSharpVersion
+    {
+        private static readonly Version s_infoVersion = new Version("1.0.0.0");
+        private static readonly Version s_version = Assembly.GetExecutingAssembly().GetName().Version;
+        private static readonly List<Version> s_breakingChangesHistory = new List<Version>
+        { 
+            // IMPORTANT: Add app versions from low to high
+            new Version("1.2"),
+            new Version("1.2.1"), 
+            new Version("2.0"),
+            new Version("2.1"),
+            new Version("2.2")
+        };
+
+        static ZSharpVersion()
+        {
+            s_breakingChangesHistory.Reverse();
+
+            // get informational version
+            var infoVersionAttr = Assembly.GetExecutingAssembly().GetAttribute<AssemblyInformationalVersionAttribute>(false);
+            if (infoVersionAttr != null)
+            {
+                s_infoVersion = new Version(infoVersionAttr.InformationalVersion);
+            }
+        }
+
+        /// <summary>
+        /// Gets the app version
+        /// </summary>
+        public static string CurrentVersion
+        {
+            get
+            {
+                return "{0}.{1}".FormatInvariant(s_infoVersion.Major, s_infoVersion.Minor);
+            }
+        }
+
+        /// <summary>
+        /// Gets the app full version
+        /// </summary>
+        public static string CurrentFullVersion
+        {
+            get
+            {
+                return s_infoVersion.ToString();
+            }
+        }
+
+        public static Version Version
+        {
+            get
+            {
+                return s_infoVersion;
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of SmartStore.NET versions in which breaking changes occured,
+        /// which could lead to plugins malfunctioning.
+        /// </summary>
+        /// <remarks>
+        /// A plugin's <c>MinAppVersion</c> is checked against this list to assume
+        /// it's compatibility with the current app version.
+        /// </remarks>
+        public static IEnumerable<Version> BreakingChangesHistory
+        {
+            get
+            {
+                return s_breakingChangesHistory.AsEnumerable();
+            }
+        }
+    }
+}

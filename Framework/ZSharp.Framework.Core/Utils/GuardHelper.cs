@@ -68,5 +68,12 @@ namespace ZSharp.Framework.Utils
         {
             return expression.Method.Name;
         }
+
+        [DebuggerStepThrough]
+        public static void ArgumentNotNull(object arg, string argName)
+        {
+            if (arg == null)
+                throw new ArgumentNullException(argName);
+        }
     }
 }

@@ -1,0 +1,262 @@
+﻿using System;
+using System.IO;
+using NuGet;
+using ZSharp.Framework.Mvc.IO;
+using ZSharp.Framework.Mvc.Plugins;
+using ZSharp.Framework.Utils;
+
+namespace ZSharp.Framework.Mvc.Packaging
+{
+
+	public class PackageInstaller : IPackageInstaller
+	{
+		private readonly IVirtualPathProvider _virtualPathProvider;
+		private readonly IPluginFinder _pluginFinder;
+		private readonly IFolderUpdater _folderUpdater;
+		private readonly Logging.ILogger _logger;
+
+		public PackageInstaller(
+			IVirtualPathProvider virtualPathProvider,
+			IPluginFinder pluginFinder,
+			IFolderUpdater folderUpdater,
+            Logging.ILogger logger)
+		{
+			_virtualPathProvider = virtualPathProvider;
+			_pluginFinder = pluginFinder;
+			_folderUpdater = folderUpdater;
+			_logger = logger;
+		}
+
+
+		public PackageInfo Install(Stream packageStream, string location, string applicationPath)
+		{
+			GuardHelper.ArgumentNotNull(() => packageStream);
+			
+			IPackage package = null;
+			try
+			{
+				package = new ZipPackage(packageStream);
+
+			}
+			catch (Exception ex)
+			{
+				throw new FrameworkException("Admin.Packaging.StreamError", ex);
+			}
+			
+			// instantiates the appropriate package repository
+			var packageRepository = new NullSourceRepository();
+			return InstallPackage(package, packageRepository, location, applicationPath);
+		}
+
+		/// <summary>
+		/// Tries to install the package
+		/// </summary>
+		/// <param name="package">The package to install</param>
+		/// <param name="packageRepository">The repository</param>
+		/// <param name="location">The virtual location of the package file, usually <c>~/App_Data</c></param>
+		/// <param name="applicationPath">The virtual app root path, usually <c>~/</c></param>
+		/// <returns>An instance of <see cref="PackageInfo"/> type</returns>
+		protected PackageInfo InstallPackage(IPackage package, IPackageRepository packageRepository, string location, string applicationPath)
+		{
+
+			bool previousInstalled;
+
+			// 1. See if extension was previous installed and backup its folder if so
+			try
+			{
+				previousInstalled = BackupExtensionFolder(package.ExtensionFolder(), package.ExtensionId());
+			}
+			catch (Exception exception)
+			{
+				throw new FrameworkException("Admin.Packaging.BackupError", exception);
+			}
+
+			if (previousInstalled)
+			{
+				// 2. If extension is installed, need to un-install first
+				try
+				{
+					UninstallExtensionIfNeeded(package);
+				}
+				catch (Exception exception)
+				{
+					throw new FrameworkException("Admin.Packaging.UninstallError", exception);
+				}
+			}
+
+			var packageInfo = ExecuteInstall(package, packageRepository, location, applicationPath);
+
+			// check if the new package is compatible with current SmartStore version
+			var descriptor = package.GetExtensionDescriptor(packageInfo.Type);
+			
+			if (descriptor != null)
+			{
+				packageInfo.ExtensionDescriptor = descriptor;
+
+				if (!PluginManager.IsAssumedCompatible(descriptor.MinAppVersion))
+				{
+					if (previousInstalled)
+					{
+						// restore the previous version
+						RestoreExtensionFolder(package.ExtensionFolder(), package.ExtensionId());
+					}
+					else
+					{
+						// just uninstall the new package
+						Uninstall(package.Id, _virtualPathProvider.MapPath("~\\"));
+					}
+
+					var msg = "Admin.Packaging.IsIncompatible";
+					_logger.Error(msg);
+					throw new FrameworkException(msg);
+				}
+			}
+
+			return packageInfo;
+		}
+
+		/// <summary>
+		/// Executes a package installation.
+		/// </summary>
+		/// <param name="package">The package to install.</param>
+		/// <param name="packageRepository">The repository for the package.</param>
+		/// <param name="sourceLocation">The source location.</param>
+		/// <param name="targetPath">The path where to install the package.</param>
+		/// <returns>The package information.</returns>
+		protected PackageInfo ExecuteInstall(IPackage package, IPackageRepository packageRepository, string sourceLocation, string targetPath)
+		{
+			var logger = new NugetLogger(_logger);
+
+			var project = new FileBasedProjectSystem(targetPath) { Logger = logger };
+
+			var referenceRepository = new PluginReferenceRepository(project, packageRepository, _pluginFinder);
+
+			var projectManager = new ProjectManager(
+				packageRepository,
+				new DefaultPackagePathResolver(targetPath),
+				project,
+				referenceRepository
+				) { Logger = logger };
+
+			// add the package to the project
+			projectManager.AddPackageReference(package, true, false);
+
+			return new PackageInfo
+			{
+				Id = package.Id,
+				Name = package.Title ?? package.Id,
+				Version = package.Version.ToString(),
+				Type = "Plugin",
+				Path = targetPath
+			};
+		}
+
+		public void Uninstall(string packageId, string applicationFolder)
+		{
+
+			string extensionFullPath = string.Empty;
+
+			if (packageId.StartsWith(PackagingUtils.GetExtensionPrefix("Theme")))
+			{
+				extensionFullPath = _virtualPathProvider.MapPath("~/Themes/" + packageId.Substring(PackagingUtils.GetExtensionPrefix("Theme").Length));
+			}
+			else if (packageId.StartsWith(PackagingUtils.GetExtensionPrefix("Plugin")))
+			{
+				extensionFullPath = _virtualPathProvider.MapPath("~/Plugins/" + packageId.Substring(PackagingUtils.GetExtensionPrefix("Plugin").Length));
+			}
+
+			if (string.IsNullOrEmpty(extensionFullPath) || !System.IO.Directory.Exists(extensionFullPath))
+			{
+				throw new FrameworkException("Admin.Packaging.NotFound" + packageId);
+			}
+
+			// If the package was not installed through nuget we still need to try to uninstall it by removing its directory
+			if (Directory.Exists(extensionFullPath))
+			{
+				Directory.Delete(extensionFullPath, true);
+			}
+		}
+
+		private bool RestoreExtensionFolder(string extensionFolder, string extensionId)
+		{
+			var virtualSource = _virtualPathProvider.Combine("~", extensionFolder, extensionId);
+			var source = new DirectoryInfo(_virtualPathProvider.MapPath(virtualSource));
+
+			if (source.Exists)
+			{
+				var tempPath = _virtualPathProvider.Combine("~/App_Data", "_Backup", extensionFolder, extensionId);
+				string localTempPath = null;
+				for (int i = 0; i < 1000; i++)
+				{
+					localTempPath = _virtualPathProvider.MapPath(tempPath) + (i == 0 ? "" : "." + i.ToString());
+					if (!System.IO.Directory.Exists(localTempPath))
+					{
+						System.IO.Directory.CreateDirectory(localTempPath);
+						break;
+					}
+					localTempPath = null;
+				}
+
+				if (localTempPath == null)
+				{
+					throw new FrameworkException("Admin.Packaging.TooManyBackups" + tempPath);
+				}
+
+				var backupFolder = new DirectoryInfo(localTempPath);
+				_folderUpdater.Restore(backupFolder, source);
+				_logger.Info("Admin.Packaging.RestoreSuccess" + virtualSource);
+
+				return true;
+			}
+
+			return false;
+		}
+
+		private bool BackupExtensionFolder(string extensionFolder, string extensionId)
+		{
+			var source = new DirectoryInfo(_virtualPathProvider.MapPath(_virtualPathProvider.Combine("~", extensionFolder, extensionId)));
+
+			if (source.Exists)
+			{
+				var tempPath = _virtualPathProvider.Combine("~/App_Data", "_Backup", extensionFolder, extensionId);
+				string localTempPath = null;
+				for (int i = 0; i < 1000; i++)
+				{
+					localTempPath = _virtualPathProvider.MapPath(tempPath) + (i == 0 ? "" : "." + i.ToString());
+					if (!System.IO.Directory.Exists(localTempPath))
+					{
+						System.IO.Directory.CreateDirectory(localTempPath);
+						break;
+					}
+					localTempPath = null;
+				}
+
+				if (localTempPath == null)
+				{
+					throw new FrameworkException("Admin.Packaging.TooManyBackups" + tempPath);
+				}
+
+				var backupFolder = new DirectoryInfo(localTempPath);
+				_folderUpdater.Backup(source, backupFolder);
+                _logger.Info("Admin.Packaging.BackupSuccess" + backupFolder.Name);
+
+				return true;
+			}
+
+			return false;
+		}
+
+		private void UninstallExtensionIfNeeded(IPackage package)
+		{
+			// Nuget requires to un-install the currently installed packages if the new
+			// package is the same version or an older version
+			try
+			{
+				Uninstall(package.Id, _virtualPathProvider.MapPath("~\\"));
+				//_notifier.Information("Successfully un-installed local package {0}".FormatInvariant(package.ExtensionId()));
+			}
+			catch { }
+		}
+	}
+
+}

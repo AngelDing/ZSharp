@@ -140,11 +140,11 @@ namespace ZSharp.Framework.Utils
         //    return new InvalidOperationException("Sequence contains no elements.");
         //}
 
-        //[DebuggerStepThrough]
-        //public static Exception MoreThanOneElement()
-        //{
-        //    return new InvalidOperationException("Sequence contains more than one element.");
-        //}
+        [DebuggerStepThrough]
+        public static Exception MoreThanOneElement()
+        {
+            return new InvalidOperationException("Sequence contains more than one element.");
+        }
 
     }
 }

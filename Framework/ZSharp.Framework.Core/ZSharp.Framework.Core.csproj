@@ -32,8 +32,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ITypeFinder.cs" />
     <Compile Include="Dependency\IContainer.cs" />
     <Compile Include="Dependency\SimpleContainer.cs" />
     <Compile Include="Dependency\SimpleLocator.cs" />
@@ -56,14 +58,20 @@
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Extensions\ConversionExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\HttpExtensions.cs" />
+    <Compile Include="Extensions\MiscExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="FrameworkException.cs" />
     <Compile Include="Dtos\IDto.cs" />
+    <Compile Include="Patterns\ICloneable.cs" />
+    <Compile Include="Patterns\Singleton.cs" />
     <Compile Include="Threading\ActionDisposable.cs" />
     <Compile Include="Threading\LockExtensions.cs" />
     <Compile Include="Threading\ReadLockDisposable.cs" />
@@ -110,12 +118,14 @@
     <Compile Include="Utils\RandomHelper.cs" />
     <Compile Include="Utils\TimerTaskFactory.cs" />
     <Compile Include="Utils\TypeHelper.cs" />
+    <Compile Include="Utils\Wildcard.cs" />
     <Compile Include="ValidationException.cs" />
     <Compile Include="Validator\EntityValidator.cs" />
     <Compile Include="Validator\IValidator.cs" />
     <Compile Include="ValueObjects\BaseValueObject.cs" />
     <Compile Include="ValueObjects\DateRange.cs" />
     <Compile Include="ValueObjects\Money.cs" />
+    <Compile Include="ZSharpVersion.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
