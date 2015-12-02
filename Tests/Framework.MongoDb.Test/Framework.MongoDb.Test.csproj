@@ -89,6 +89,7 @@
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderLog.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\TestEntity.cs" />
     <Compile Include="IndexManagerTest.cs" />
     <Compile Include="MongoIdTest.cs" />
     <Compile Include="MongoManagerTest.cs" />

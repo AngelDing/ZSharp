@@ -1,12 +1,11 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Serializers;
 using System;
 
 namespace ZSharp.Framework.MongoDb.Conventions
 {
-    [BsonSerializer(typeof(MongoDbMoneyFieldSerializer))]
+    [Obsolete("2.0的驱动已经能够处理decimal的表达式判断，不用再手动指定序列化机制！")]
     public class MongoDbMoneyFieldSerializer : SerializerBase<decimal>
     {
         public override decimal Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)

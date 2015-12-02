@@ -1,4 +1,6 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
 using System;
 using System.Configuration;
 using ZSharp.Framework.MongoDb;
@@ -11,6 +13,17 @@ namespace Framework.MongoDb.Test
         public BaseMongoTest()
         {
             MongoInitHelper.InitMongoDBRepository();
+
+            //如果手动指定关系，则需要同时指定自定义的特殊序列化机制，否则会采用默认的序列化机制
+            var dateTimeSerializer = new DateTimeSerializer(DateTimeKind.Local);
+            var nullableDateTimeSerializer = new NullableSerializer<DateTime>(dateTimeSerializer);
+            BsonClassMap.RegisterClassMap<MyTestEntity>(rc =>
+            {
+                rc.MapProperty(i => i.A);
+                rc.MapProperty(i => i.B).SetSerializer(dateTimeSerializer);
+                rc.MapProperty(i => i.C);
+                rc.MapProperty(i => i.D).SetSerializer(nullableDateTimeSerializer);
+            });
         }
 
         private void DropDatabase()

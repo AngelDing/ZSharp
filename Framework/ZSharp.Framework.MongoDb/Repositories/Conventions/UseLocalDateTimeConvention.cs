@@ -37,6 +37,11 @@ namespace ZSharp.Framework.MongoDb.Conventions
             {
                 serializer = new DateTimeSerializer(DateTimeKind.Local);
             }
+            else if (type == typeof(DateTime?))
+            {
+                var dateTimeSerializer = new DateTimeSerializer(DateTimeKind.Local);
+                serializer = new NullableSerializer<DateTime>(dateTimeSerializer);
+            }
             return serializer;
         }
 

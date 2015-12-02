@@ -240,7 +240,51 @@ namespace Framework.MongoDb.Test
             updatedTask.TaskStatusEntity.LastRunTime.Day.Should().Be(dateTime.AddDays(-1).Day);
             updatedTask.Name.Should().Be(newName);
         }
-        
+
+        [Fact]
+        public void mongo_nullable_datetime_test()
+        {
+            var repo = new MongoTestDB<LogEntity>();
+            repo.RemoveAll();
+            var log = new LogEntity
+            {
+                CreateDate = DateTime.Now,
+                Price = 300,
+                Amount = 200,
+                CreatedBy = "Jia",
+                Details = new List<MyTestEntity>
+                {
+                    new MyTestEntity
+                    {
+                        A = "A",
+                        B = DateTime.Today,
+                        C = 100
+                    },
+                    new MyTestEntity
+                    {
+                        A = "AA",
+                        B = DateTime.Today,
+                        C = 200,
+                        D = DateTime.Today
+                    },
+                }
+            };
+
+            repo.Insert(log);
+
+            var result = repo.GetBy(p => p.CreatedBy == "Jia").LastOrDefault();
+            result.Should().NotBeNull();
+            var list = result.Details.ToList();
+            var first = list.FirstOrDefault();
+            first.B.Should().Be(DateTime.Today);
+            first.D.Should().Be(null);
+
+            result.Details.LastOrDefault().D.Should().Be(DateTime.Today);
+
+            result = repo.GetBy(p => p.Price > 100 && p.Amount == 200).FirstOrDefault();
+            result.Should().NotBeNull();
+        }
+
         #region Private Method
 
         private MongoTaskEntity GetMongoTaskEntity(DateTime dateTime, TimeSpan timeSpan)

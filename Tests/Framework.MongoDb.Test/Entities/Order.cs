@@ -25,7 +25,7 @@ namespace Framework.MongoDb.Test
 
         public int Quantity { get; set; }
 
-        [BsonSerializer(typeof(MongoDbMoneyFieldSerializer))]
+        //[BsonSerializer(typeof(MongoDbMoneyFieldSerializer))]
         public decimal Price { get; set; }
     }
 }
