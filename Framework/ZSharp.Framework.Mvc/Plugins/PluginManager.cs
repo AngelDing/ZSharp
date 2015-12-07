@@ -11,8 +11,7 @@ using System.Web.Compilation;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using ZSharp.Framework.Utils;
 using ZSharp.Framework.Extensions;
-using ZSharp.Framework.Threading;
-using ZSharp.Framework.Mvc.Packaging;
+//using ZSharp.Framework.Mvc.Packaging;
 using ZSharp.Framework.Configurations;
 
 //Contributor: Umbraco (http://www.umbraco.com). Thanks a lot!
@@ -80,8 +79,8 @@ namespace ZSharp.Framework.Mvc.Plugins
         /// </summary>
         public static void Initialize()
         {
-            // update from NuGet package, if it exists and is valid
-            new AppUpdater().TryUpdateFromPackage();
+            //// update from NuGet package, if it exists and is valid
+            //new AppUpdater().TryUpdateFromPackage();
 
             // adding a process-specific environment path (either bin/x86 or bin/amd64)
             // ensures that unmanaged native dependencies can be resolved successfully.
