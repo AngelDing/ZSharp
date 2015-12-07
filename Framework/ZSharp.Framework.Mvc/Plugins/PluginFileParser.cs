@@ -43,6 +43,7 @@ namespace ZSharp.Framework.Mvc.Plugins
 			"Design",
             "Misc"
         };
+
         public readonly static IComparer<string> KnownGroupComparer = new GroupComparer();
 
 		public readonly static string InstalledPluginsFilePath = CommonHelper.MapPath("~/App_Data/InstalledPlugins.txt");

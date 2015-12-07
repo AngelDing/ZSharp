@@ -35,7 +35,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonConfig.cs" />
-    <Compile Include="ISettings.cs" />
+    <Compile Include="Settings\ISettingEntity.cs" />
+    <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Redis\IRedisConfiguration.cs" />
     <Compile Include="Redis\RedisConfigurationHandler.cs" />
@@ -43,6 +44,8 @@
     <Compile Include="Redis\RedisHostCollection.cs" />
     <Compile Include="Redis\RedisHostGroup.cs" />
     <Compile Include="Redis\RedisHostGroupCollection.cs" />
+    <Compile Include="Settings\ISettingService.cs" />
+    <Compile Include="Settings\JsonPersistAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Redis\App.config" />

@@ -11,7 +11,6 @@ namespace ZSharp.Framework.Mvc
     /// </summary>
     public class AutofacRequestLifetimeHttpModule : IHttpModule
 	{
-
 		public void Init(HttpApplication context)
 		{
 			GuardHelper.ArgumentNotNull(() => context);

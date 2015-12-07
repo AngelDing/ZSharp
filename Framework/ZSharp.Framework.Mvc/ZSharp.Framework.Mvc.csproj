@@ -42,10 +42,6 @@
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NuGet.Core, Version=1.6.30117.9648, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dll\NuGet.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
@@ -78,32 +74,21 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Engine\AppDomainTypeFinder.cs" />
-    <Compile Include="Engine\ContextState.cs" />
     <Compile Include="Dependency\AutofacRequestLifetimeHttpModule.cs" />
     <Compile Include="Dependency\ContainerManager.cs" />
     <Compile Include="Dependency\DefaultLifetimeScopeAccessor.cs" />
     <Compile Include="Dependency\DefaultLifetimeScopeProvider.cs" />
     <Compile Include="Dependency\IDependencyRegistrar.cs" />
     <Compile Include="Dependency\ILifetimeScopeAccessor.cs" />
+    <Compile Include="Engine\AppDomainTypeFinder.cs" />
+    <Compile Include="Engine\ContextState.cs" />
     <Compile Include="Engine\EngineContext.cs" />
     <Compile Include="Engine\IEngine.cs" />
     <Compile Include="Engine\IStartupTask.cs" />
     <Compile Include="Engine\WebAppTypeFinder.cs" />
     <Compile Include="Engine\ZSharpEngine.cs" />
-    <Compile Include="IO\FileSystemSettings.cs" />
-    <Compile Include="IO\Media\FileSystemStorageProvider.cs" />
-    <Compile Include="IO\Media\IStorageFile.cs" />
-    <Compile Include="IO\Media\IStorageFolder.cs" />
-    <Compile Include="IO\Media\IStorageProvider.cs" />
-    <Compile Include="IO\MimeTypes.cs" />
-    <Compile Include="IO\VirtualPath\DefaultVirtualPathProvider.cs" />
-    <Compile Include="IO\VirtualPath\IVirtualPathProvider.cs" />
-    <Compile Include="IO\WebSite\IWebSiteFolder.cs" />
-    <Compile Include="IO\WebSite\WebSiteFolder.cs" />
     <Compile Include="Plugins\BasePlugin.cs" />
     <Compile Include="Plugins\IConfigurable.cs" />
-    <Compile Include="Plugins\ILicensable.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Plugins\IPluginFinder.cs" />
     <Compile Include="Plugins\IPreApplicationStart.cs" />
