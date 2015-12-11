@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.BehavioralPatterns
@@ -133,8 +131,8 @@ namespace Common.BehavioralPatterns
 
     public class ConcreteCommand : BaseCommand<Input>
     {
-        public ConcreteCommand(Receiver receiver, Input input)
-            : base(receiver.Action, input)
+        public ConcreteCommand(Action<Input> action, Input input)
+            : base(action, input)
         {
         }
 
@@ -168,7 +166,7 @@ namespace Common.BehavioralPatterns
         {
             Receiver receiver = new Receiver();
             var input = new Input { Name = "Hello World" };
-            var cmd = new ConcreteCommand(receiver, input);
+            var cmd = new ConcreteCommand(receiver.Action, input);
             Invoker invoker = new Invoker(cmd);
             invoker.Run();
         }

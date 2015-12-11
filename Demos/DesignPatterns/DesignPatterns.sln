@@ -1,12 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Creational Patterns", "1 - Creational Patterns", "{05112E7B-5400-4C2D-B6C3-54D078AD00D7}"
-	ProjectSection(SolutionItems) = preProject
-		C:\Users\jiajiazhou\Desktop\设计模式.docx = C:\Users\jiajiazhou\Desktop\设计模式.docx
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuilderPattern", "BuilderPattern\BuilderPattern.csproj", "{5F9C458B-14ED-497A-B808-7D1819442BC2}"
 EndProject
