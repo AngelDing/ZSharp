@@ -7,7 +7,7 @@ namespace Demos.CQRS.Publisher
     class Program
     {
         /// <summary>
-        /// 採用Command同直接調用Server有何區別？
+        /// 採用Command同直接調用Service有何區別？
         /// 如果不涉及共享資源的訪問，僅僅涉及CRUD等操作，則可以直接訪問Service；
         /// 如果涉及共享資源，或者長時間操作，則可以採用異步的Command，從而提高用戶友好性。
         /// </summary>
