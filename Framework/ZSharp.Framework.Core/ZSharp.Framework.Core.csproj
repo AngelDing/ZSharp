@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Web" />
@@ -72,6 +73,13 @@
     <Compile Include="Dtos\IDto.cs" />
     <Compile Include="Patterns\ICloneable.cs" />
     <Compile Include="Patterns\Singleton.cs" />
+    <Compile Include="Reflection\Field.cs" />
+    <Compile Include="Reflection\IProperty.cs" />
+    <Compile Include="Reflection\PrivateDynamicObjectBase.cs" />
+    <Compile Include="Reflection\PrivateDynamicObjectInstance.cs" />
+    <Compile Include="Reflection\PrivateDynamicObjectStatic.cs" />
+    <Compile Include="Reflection\PrivateUsingDynamicExtensions.cs" />
+    <Compile Include="Reflection\Property.cs" />
     <Compile Include="Threading\ActionDisposable.cs" />
     <Compile Include="Extensions\LockExtensions.cs" />
     <Compile Include="Threading\ReadLockDisposable.cs" />

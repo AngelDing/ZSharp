@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2233AC39-C415-4DA5-9FFA-02563C2889CF}</ProjectGuid>
+    <ProjectGuid>{8CE832B6-1865-45AD-AA2F-30275231F491}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Framework.Caching.Test</RootNamespace>
-    <AssemblyName>Framework.Caching.Test</AssemblyName>
+    <RootNamespace>Framework.Core.Test</RootNamespace>
+    <AssemblyName>Framework.Core.Test</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,16 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentAssertions">
-      <HintPath>..\..\Dll\FluentAssertions\FluentAssertions.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentAssertions.Core">
-      <HintPath>..\..\Dll\FluentAssertions\FluentAssertions.Core.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
       <Private>True</Private>
@@ -71,35 +64,17 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="BaseCacheTest.cs" />
-    <Compile Include="CacheKeyTest.cs" />
-    <Compile Include="CachePolicyTest.cs" />
-    <Compile Include="CacheTagTest.cs" />
-    <Compile Include="LRUCacheTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RedisCacheTest.cs" />
-    <Compile Include="StaticCacheTest.cs" />
-    <Compile Include="TestClass.cs" />
-    <Compile Include="WebCacheTest.cs" />
+    <Compile Include="Reflection\MiscTestClasses.cs" />
+    <Compile Include="Reflection\ReflectionUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\ZSharp.Framework.Caching\ZSharp.Framework.Caching.csproj">
-      <Project>{4e6380c9-050b-4177-bb04-bf74c132e564}</Project>
-      <Name>ZSharp.Framework.Caching</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Framework\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
       <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
       <Name>ZSharp.Framework.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Framework.Test.Core\Framework.Test.Core.csproj">
-      <Project>{c39c2567-5a34-4988-bb00-d5f99d50f14a}</Project>
-      <Name>Framework.Test.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
