@@ -4,39 +4,40 @@ namespace ZSharp.Framework.Utils
 {
     public class GuidHelper
     {
-        private static readonly long EpochMilliseconds = 
-            new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).Ticks / 10000L;
-
         /// <summary>
         /// Creates a sequential GUID according to SQL Server's ordering rules.
+        /// using a strategy suggested Jimmy Nilsson's 
+        /// <a href="http://www.informit.com/articles/article.asp?p=25862">article</a>.
         /// </summary>
+        /// <remarks>
+        /// The comb algorithm is designed to make the use of GUIDs as Primary Keys, Foreign Keys, 
+        /// and Indexes nearly as efficient as ints.
+        /// </remarks>
         public static Guid NewSequentialId()
         {
-            // This code was not reviewed to guarantee uniqueness under most conditions, 
-            // nor completely optimize for avoiding page splits in SQL Server when doing inserts 
-            // from multiple hosts, so do not re-use in production systems.
-            var guidBytes = Guid.NewGuid().ToByteArray();
+            byte[] guidArray = Guid.NewGuid().ToByteArray();
 
-            // get the milliseconds since Jan 1 1970
-            byte[] sequential = BitConverter.GetBytes((DateTimeOffset.Now.Ticks / 10000L) - EpochMilliseconds);
+            DateTime baseDate = new DateTime(1900, 1, 1);
+            DateTime now = DateTime.Now;
 
-            // discard the 2 most significant bytes, as we only care about the milliseconds increasing,
-            // but the highest ones should be 0 for several thousand years to come (non-issue).
-            if (BitConverter.IsLittleEndian)
-            {
-                guidBytes[10] = sequential[5];
-                guidBytes[11] = sequential[4];
-                guidBytes[12] = sequential[3];
-                guidBytes[13] = sequential[2];
-                guidBytes[14] = sequential[1];
-                guidBytes[15] = sequential[0];
-            }
-            else
-            {
-                Buffer.BlockCopy(sequential, 2, guidBytes, 10, 6);
-            }
+            // Get the days and milliseconds which will be used to build the byte string 
+            TimeSpan days = new TimeSpan(now.Ticks - baseDate.Ticks);
+            TimeSpan msecs = now.TimeOfDay;
 
-            return new Guid(guidBytes);
+            // Convert to a byte array 
+            // Note that SQL Server is accurate to 1/300th of a millisecond so we divide by 3.333333 
+            byte[] daysArray = BitConverter.GetBytes(days.Days);
+            byte[] msecsArray = BitConverter.GetBytes((long)(msecs.TotalMilliseconds / 3.333333));
+
+            // Reverse the bytes to match SQL Servers ordering 
+            Array.Reverse(daysArray);
+            Array.Reverse(msecsArray);
+
+            // Copy the bytes into the guid 
+            Array.Copy(daysArray, daysArray.Length - 2, guidArray, guidArray.Length - 6, 2);
+            Array.Copy(msecsArray, msecsArray.Length - 4, guidArray, guidArray.Length - 4, 4);
+
+            return new Guid(guidArray);
         }
 
         public static Guid NewGuid()
