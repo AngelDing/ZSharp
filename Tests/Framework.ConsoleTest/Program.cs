@@ -7,10 +7,14 @@ namespace Framework.ConsoleTest
     class Program
     {
         static void Main(string[] args)
-        {            
-            DistributedLockTest();
+        {
+            //DistributedLockTest();
             //LoggerTest.Test();
             //new StringTest().Test();
+
+            PhoneTest.MainTest();
+            BugTracker.MainTest();
+            SwitchTest.MainTest();
 
             Console.ReadLine();
         }

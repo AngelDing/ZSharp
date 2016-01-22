@@ -44,6 +44,9 @@
     <Compile Include="LoggerTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stateless\BugTrackerTest.cs" />
+    <Compile Include="Stateless\PhoneTest.cs" />
+    <Compile Include="Stateless\SwitchTest.cs" />
     <Compile Include="StringTest.cs" />
     <Compile Include="UnityConfig.cs" />
   </ItemGroup>

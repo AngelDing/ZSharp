@@ -3,7 +3,7 @@ using System.Linq;
 using ZSharp.Framework.Reflection;
 using Xunit;
 
-namespace Framework.Core.Test
+namespace Framework.Reflection.Test
 {
     public class ReflectionUnitTest
     {

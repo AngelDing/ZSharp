@@ -80,6 +80,26 @@
     <Compile Include="Reflection\PrivateDynamicObjectStatic.cs" />
     <Compile Include="Reflection\PrivateUsingDynamicExtensions.cs" />
     <Compile Include="Reflection\Property.cs" />
+    <Compile Include="Stateless\DotGraph.cs" />
+    <Compile Include="Stateless\DynamicTriggerBehaviour.cs" />
+    <Compile Include="Stateless\Enforce.cs" />
+    <Compile Include="Stateless\EntryActionBehaviour.cs" />
+    <Compile Include="Stateless\ExitActionBehaviour.cs" />
+    <Compile Include="Stateless\IgnoredTriggerBehaviour.cs" />
+    <Compile Include="Stateless\ParameterConversion.cs" />
+    <Compile Include="Stateless\StateConfiguration.cs" />
+    <Compile Include="Stateless\StateMachine.cs" />
+    <Compile Include="Stateless\StateMachineResources.Designer.cs">
+      <DependentUpon>StateMachineResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Stateless\StateReference.cs" />
+    <Compile Include="Stateless\StateRepresentation.cs" />
+    <Compile Include="Stateless\Transition.cs" />
+    <Compile Include="Stateless\TransitioningTriggerBehaviour.cs" />
+    <Compile Include="Stateless\TriggerBehaviour.cs" />
+    <Compile Include="Stateless\TriggerWithParameters.cs" />
     <Compile Include="Threading\ActionDisposable.cs" />
     <Compile Include="Extensions\LockExtensions.cs" />
     <Compile Include="Threading\ReadLockDisposable.cs" />
@@ -137,7 +157,12 @@
     <Compile Include="ValueObjects\Money.cs" />
     <Compile Include="ZSharpVersion.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Stateless\StateMachineResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>StateMachineResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

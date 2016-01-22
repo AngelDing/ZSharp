@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Framework.Core.Test
+namespace Framework.Reflection.Test
 {
     // Only used as a covenient way to refer to this assembly
     public class MarkerType
@@ -10,9 +10,9 @@ namespace Framework.Core.Test
 
     internal class FooBase
     {
-        private int _somePrivateIntegerField = -1;
+        private int _somePrivateIntegerField = -1; //断言用到
 
-        private static int _somePrivateStaticIntegerField = 17;
+        private static int _somePrivateStaticIntegerField = 17;  //断言用到
 
         private int AddIntegers(int n1, int n2)
         {
@@ -45,7 +45,7 @@ namespace Framework.Core.Test
         }
 
         private Bar _bar = new Bar();
-        private Bar _barNull;
+        private Bar _barNull;  //断言用到
 
         internal int SomeInternalInteger { get; set; }
         public bool SomePublicBool { get; set; }

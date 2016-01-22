@@ -67,6 +67,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\MiscTestClasses.cs" />
     <Compile Include="Reflection\ReflectionUnitTest.cs" />
+    <Compile Include="Stateless\DotGraphFixture.cs" />
+    <Compile Include="Stateless\DynamicTriggerBehaviourFixture.cs" />
+    <Compile Include="Stateless\IgnoredTriggerBehaviourFixture.cs" />
+    <Compile Include="Stateless\State.cs" />
+    <Compile Include="Stateless\StateMachineFixture.cs" />
+    <Compile Include="Stateless\StateRepresentationFixture.cs" />
+    <Compile Include="Stateless\TransitionFixture.cs" />
+    <Compile Include="Stateless\TransitioningTriggerBehaviourFixture.cs" />
+    <Compile Include="Stateless\Trigger.cs" />
+    <Compile Include="Stateless\TriggerBehaviourFixture.cs" />
+    <Compile Include="Stateless\TriggerWithParametersFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -77,6 +88,7 @@
       <Name>ZSharp.Framework.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
