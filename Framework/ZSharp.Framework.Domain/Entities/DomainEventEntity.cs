@@ -1,9 +1,8 @@
 ﻿using System;
-using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.Domain
 {
-    public class DomainEventEntity : Entity<Guid>
+    public class DomainEventEntity : BaseDomainEntity
     {
         public Guid AggregateId { get; set; }
 
@@ -15,6 +14,6 @@ namespace ZSharp.Framework.Domain
 
         public string Payload { get; set; }
 
-        public string CorrelationId { get; set; }
+        public Guid CorrelationId { get; set; }
     }
 }

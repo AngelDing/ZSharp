@@ -66,7 +66,7 @@
       <Name>ZSharp.Framework.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Framework\ZSharp.Framework.Domain\ZSharp.Framework.Domain.csproj">
-      <Project>{427ec224-50f3-4ba2-8434-518c6fea28d9}</Project>
+      <Project>{04ffe14d-eafb-4970-8de2-db9826454a36}</Project>
       <Name>ZSharp.Framework.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Framework\ZSharp.Framework.Serializations\ZSharp.Framework.Serializations.csproj">

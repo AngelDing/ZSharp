@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using ZSharp.Framework.Extensions;
-using ZSharp.Framework.Utils;
 
 namespace ZSharp.Framework.Domain
 {
@@ -9,29 +8,37 @@ namespace ZSharp.Framework.Domain
     {
         private readonly Dictionary<Type, Action<IDomainEvent>> handlers = new Dictionary<Type, Action<IDomainEvent>>();
         private readonly List<IDomainEvent> pendingEvents = new List<IDomainEvent>();
-
-        protected EventSourced()
-            : this(GuidHelper.NewSequentialId())
-        {
-        }
+        private int version = Constants.ApplicationRuntime.DefaultVersion;
 
         protected EventSourced(Guid id)
         {
             this.Id = id;
-            this.Version = Constants.ApplicationRuntime.DefaultVersion;
         }
 
-        public Guid Id { get; set; }
-
-        public int Version { get; protected set; }
-
-        public IEnumerable<IDomainEvent> Events
+        public IEnumerable<IDomainEvent> PendingEvents
         {
             get { return this.pendingEvents; }
         }
 
-        protected void Handles<TEvent>(Action<TEvent> handler)
-            where TEvent : IEvent
+        public Guid Id { get; private set; }
+
+        public int Version
+        {
+            get
+            {
+                return this.version;
+            }
+            protected set
+            {
+                this.version = value;
+            }
+        }
+
+        public Guid CorrelationId { get; set; }
+
+        public string Topic { get; set; }
+
+        protected void Handles<TEvent>(Action<TEvent> handler) where TEvent : IEvent
         {
             this.handlers.Add(typeof(TEvent), @event => handler((TEvent)@event));
         }
@@ -46,16 +53,20 @@ namespace ZSharp.Framework.Domain
             foreach (var e in historyEvents)
             {
                 this.handlers[e.GetType()].Invoke(e);
-                this.Version = e.Version;
+                this.version = e.Version;
             }
         }
 
+        /// <summary>
+        /// 更新领域实体
+        /// </summary>
+        /// <param name="e">领域事件</param>
         protected void Update(DomainEvent e)
         {
-            e.Id = this.Id;
-            e.Version = this.Version + 1;
+            e.SourceId = this.Id;
+            e.Version = this.version + 1;
             this.handlers[e.GetType()].Invoke(e);
-            this.Version = e.Version;
+            this.version = e.Version;
             this.pendingEvents.Add(e);
         }
 
@@ -67,7 +78,7 @@ namespace ZSharp.Framework.Domain
 
         public virtual void LoadFromSnapshot(ISnapshot snapshot)
         {
-            this.Version = snapshot.Version;
+            this.version = snapshot.Version;
             this.Id = snapshot.AggregateId;
             DoLoadFromSnapshot(snapshot);
             this.pendingEvents.Clear();
@@ -76,10 +87,11 @@ namespace ZSharp.Framework.Domain
         public virtual ISnapshot CreateSnapshot()
         {
             ISnapshot snapshot = this.DoCreateSnapshot();
-            snapshot.Version = this.Version;
+            snapshot.Version = this.version;
             snapshot.AggregateId = this.Id;
             return snapshot;
         }
+
         #endregion
     }
 }

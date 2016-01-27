@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9D6E8A47-E763-479A-A4E0-DAF6F87E691A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZSharp.Framework.Domain</RootNamespace>
+    <AssemblyName>ZSharp.Framework.Domain.SqlDb</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\EntityFramework\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Transactions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entity\CommandMessageEntity.cs" />
+    <Compile Include="DomainDbContext.cs" />
+    <Compile Include="Entity\EventMessageEntity.cs" />
+    <Compile Include="Entity\MessageEntity.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\BaseSqlDomainRepositroy.cs" />
+    <Compile Include="Repository\IMessageRepository.cs" />
+    <Compile Include="Repository\SqlDomainEventRepository.cs" />
+    <Compile Include="Repository\SqlMessageLogRepository.cs" />
+    <Compile Include="Message\SqlMessageReceiver.cs" />
+    <Compile Include="Repository\SqlMessageRepository.cs" />
+    <Compile Include="Message\SqlMessageSender.cs" />
+    <Compile Include="Repository\SqlSnapshotRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
+      <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
+      <Name>ZSharp.Framework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.Domain\ZSharp.Framework.Domain.csproj">
+      <Project>{04ffe14d-eafb-4970-8de2-db9826454a36}</Project>
+      <Name>ZSharp.Framework.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.EfExtensions\ZSharp.Framework.EfExtensions.csproj">
+      <Project>{500f07ef-fc30-4968-a330-479276ac1124}</Project>
+      <Name>ZSharp.Framework.EfExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.Infrastructure\ZSharp.Framework.Infrastructure.csproj">
+      <Project>{66b2f2cc-da8f-4615-9933-6edcdfc52a6c}</Project>
+      <Name>ZSharp.Framework.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.Serializations\ZSharp.Framework.Serializations.csproj">
+      <Project>{b4594b5f-676e-47b4-9f1a-d9d695a95457}</Project>
+      <Name>ZSharp.Framework.Serializations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.SqlDb\ZSharp.Framework.SqlDb.csproj">
+      <Project>{33c02d28-af0c-4bbd-ba22-3acb43391347}</Project>
+      <Name>ZSharp.Framework.SqlDb</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

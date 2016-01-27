@@ -1,9 +1,8 @@
 ﻿using System;
-using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.Domain
 {
-    public class MessageLogEntity : Entity<Guid>
+    public class MessageLogEntity : BaseDomainEntity
     {
         public string Kind { get; set; }
 
@@ -19,7 +18,7 @@ namespace ZSharp.Framework.Domain
 
         public string SourceType { get; set; }
 
-        public string CreationDate { get; set; }
+        public DateTimeOffset CreationTime { get; set; }
 
         public string Payload { get; set; }
     }

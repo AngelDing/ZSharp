@@ -6,7 +6,7 @@ namespace ZSharp.Framework.Domain
     /// Abstracts the behavior of a receiving component that raises 
     /// an event for every received event.
     /// </summary>
-    public interface IMessageReceiver
+    public interface IMessageReceiver : IDisposable
     {
         /// <summary>
         /// Event raised whenever a message is received. Consumer of 

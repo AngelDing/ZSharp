@@ -66,10 +66,6 @@
       <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
       <Name>ZSharp.Framework.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Framework\ZSharp.Framework.Domain\ZSharp.Framework.Domain.csproj">
-      <Project>{427ec224-50f3-4ba2-8434-518c6fea28d9}</Project>
-      <Name>ZSharp.Framework.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Framework\ZSharp.Framework.EfExtensions\ZSharp.Framework.EfExtensions.csproj">
       <Project>{500f07ef-fc30-4968-a330-479276ac1124}</Project>
       <Name>ZSharp.Framework.EfExtensions</Name>

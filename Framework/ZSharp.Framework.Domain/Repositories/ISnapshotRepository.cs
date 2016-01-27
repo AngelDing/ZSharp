@@ -3,14 +3,12 @@ using System;
 
 namespace ZSharp.Framework.Domain
 {
-    public interface ISnapshotRepository
+    public interface ISnapshotRepository<T> where T : IEventSourced
     {
-        ISnapshot GetSnapshot(Type eventSourcedType, Guid id);
+        ISnapshot GetSnapshot(Guid id);
 
-        bool CanCreateOrUpdateSnapshot(IEventSourced eventSourced);
+        void SaveSnapshot(T eventSourced);
 
-        void CreateOrUpdateSnapshot(IEventSourced eventSourced);
-
-        bool HasSnapshot(Type eventSourcedType, Guid id);
+        bool HasSnapshot(Guid id);
     }
 }

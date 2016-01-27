@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{427EC224-50F3-4BA2-8434-518C6FEA28D9}</ProjectGuid>
+    <ProjectGuid>{04FFE14D-EAFB-4970-8DE2-DB9826454A36}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZSharp.Framework.Domain</RootNamespace>
     <AssemblyName>ZSharp.Framework.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,80 +31,50 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EasyNetQ">
-      <HintPath>..\..\Dll\RabbitMq\EasyNetQ.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dll\EntityFramework\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="RabbitMQ.Client">
-      <HintPath>..\..\Dll\RabbitMq\RabbitMQ.Client.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bus\CommandBus.cs" />
-    <Compile Include="Bus\CommandBusExtensions.cs" />
+    <Compile Include="Bus\EventBus.cs" />
+    <Compile Include="Bus\IBus.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Entities\MessageEntity.cs" />
-    <Compile Include="Entities\CommandMessageEntity.cs" />
-    <Compile Include="Entities\EventMessageEntity.cs" />
+    <Compile Include="DomainException.cs" />
+    <Compile Include="Entities\BaseDomainEntity.cs" />
+    <Compile Include="Entities\DomainEventEntity.cs" />
+    <Compile Include="Entities\MessageLogEntity.cs" />
     <Compile Include="Entities\ProcessEntity.cs" />
     <Compile Include="Entities\SnapshotEntity.cs" />
     <Compile Include="Entities\UndispatchedMessageEntity.cs" />
-    <Compile Include="EventSourcing\Snapshots\Snapshot.cs" />
-    <Compile Include="Bus\EventBus.cs" />
-    <Compile Include="Bus\EventBusExtensions.cs" />
-    <Compile Include="Bus\ICommandBus.cs" />
-    <Compile Include="Bus\IEventBus.cs" />
-    <Compile Include="DomainException.cs" />
-    <Compile Include="Entities\DomainEventEntity.cs" />
-    <Compile Include="EventSourcing\EventSourced.cs" />
-    <Compile Include="Bus\IBus.cs" />
-    <Compile Include="Handlers\IHandler.cs" />
-    <Compile Include="Handlers\IHandlerRegistry.cs" />
-    <Compile Include="Implementation\RabbitMq\RabbitMqMessageReceiver.cs" />
-    <Compile Include="Implementation\RabbitMq\RabbitMqMessageSender.cs" />
-    <Compile Include="Implementation\SqlDb\DomainDbContext.cs" />
-    <Compile Include="EventSourcing\IEventSourced.cs" />
-    <Compile Include="Implementation\SqlDb\SqlDomainEventRepository.cs" />
-    <Compile Include="Implementation\SqlDb\SqlMessageLogRepository.cs" />
-    <Compile Include="Implementation\SqlDb\SqlMessageReceiver.cs" />
-    <Compile Include="Implementation\SqlDb\SqlMessageRepository.cs" />
-    <Compile Include="Implementation\SqlDb\SqlMessageSender.cs" />
-    <Compile Include="Messaging\IMessage.cs" />
-    <Compile Include="Messaging\MessageDispatcher.cs" />
-    <Compile Include="Messaging\MessageReceiver.cs" />
-    <Compile Include="Messaging\MessageSender.cs" />
-    <Compile Include="Repositories\EventSourcedRepository.cs" />
-    <Compile Include="Repositories\IDomainEventRepository.cs" />
-    <Compile Include="Repositories\IMessageRepository.cs" />
-    <Compile Include="Repositories\IEventSourcedRepository.cs" />
-    <Compile Include="EventSourcing\IDomainEvent.cs" />
     <Compile Include="EventSourcing\DomainEvent.cs" />
-    <Compile Include="Handlers\ICommandHandler.cs" />
-    <Compile Include="Handlers\IEventHandler.cs" />
-    <Compile Include="Processors\MessageProcessor.cs" />
-    <Compile Include="Entities\MessageLogEntity.cs" />
+    <Compile Include="EventSourcing\EventSourced.cs" />
+    <Compile Include="EventSourcing\IEventSourced.cs" />
+    <Compile Include="EventSourcing\Snapshots\ISnapshot.cs" />
+    <Compile Include="EventSourcing\Snapshots\ISnapshotOrignator.cs" />
+    <Compile Include="EventSourcing\Snapshots\ISnapshotPolicy.cs" />
+    <Compile Include="EventSourcing\Snapshots\NoSnapshotPolicy.cs" />
+    <Compile Include="EventSourcing\Snapshots\SimpleSnapshotPolicy.cs" />
+    <Compile Include="IHandler.cs" />
     <Compile Include="MessageLog\MessageLogHandler.cs" />
     <Compile Include="Messaging\Envelope.cs" />
     <Compile Include="Messaging\IMessageReceiver.cs" />
     <Compile Include="Messaging\IMessageSender.cs" />
     <Compile Include="Messaging\Message.cs" />
+    <Compile Include="Messaging\MessageDispatcher.cs" />
     <Compile Include="Messaging\MessageReceivedEventArgs.cs" />
+    <Compile Include="Messaging\MessageReceiver.cs" />
+    <Compile Include="Messaging\MessageSender.cs" />
     <Compile Include="Processors\IProcessManager.cs" />
     <Compile Include="Processors\IProcessor.cs" />
+    <Compile Include="Processors\MessageProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EventSourcing\EventStore.cs" />
+    <Compile Include="Repositories\IDomainEventRepository.cs" />
+    <Compile Include="EventSourcing\IEventStore.cs" />
     <Compile Include="Repositories\IMessageLogRepository.cs" />
-    <Compile Include="EventSourcing\Snapshots\ISnapshot.cs" />
-    <Compile Include="EventSourcing\Snapshots\ISnapshotOrignator.cs" />
     <Compile Include="Repositories\ISnapshotRepository.cs" />
-    <Compile Include="Implementation\SqlDb\SqlSnapshotRepository.cs" />
+    <Compile Include="Repositories\NullMessageLogRepository.cs" />
+    <Compile Include="Repositories\NullSnapshotRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZSharp.Framework.Configurations\ZSharp.Framework.Configurations.csproj">
@@ -114,29 +85,9 @@
       <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
       <Name>ZSharp.Framework.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ZSharp.Framework.DesignPatterns\ZSharp.Framework.DesignPatterns.csproj">
-      <Project>{f7ae11bb-e449-4337-a8cb-4dfbef80c099}</Project>
-      <Name>ZSharp.Framework.DesignPatterns</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ZSharp.Framework.EfExtensions\ZSharp.Framework.EfExtensions.csproj">
-      <Project>{500f07ef-fc30-4968-a330-479276ac1124}</Project>
-      <Name>ZSharp.Framework.EfExtensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ZSharp.Framework.Infrastructure\ZSharp.Framework.Infrastructure.csproj">
-      <Project>{66b2f2cc-da8f-4615-9933-6edcdfc52a6c}</Project>
-      <Name>ZSharp.Framework.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ZSharp.Framework.Logging\ZSharp.Framework.Logging.csproj">
       <Project>{2d8850ae-67c7-4448-87b2-f3f084f36b55}</Project>
       <Name>ZSharp.Framework.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ZSharp.Framework.Serializations\ZSharp.Framework.Serializations.csproj">
-      <Project>{b4594b5f-676e-47b4-9f1a-d9d695a95457}</Project>
-      <Name>ZSharp.Framework.Serializations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ZSharp.Framework.SqlDb\ZSharp.Framework.SqlDb.csproj">
-      <Project>{33c02d28-af0c-4bbd-ba22-3acb43391347}</Project>
-      <Name>ZSharp.Framework.SqlDb</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

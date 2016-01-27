@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ZSharp.Framework;
+using System;
 
 namespace ZSharp.Framework.Domain
 {
+    [Serializable]
     public class DomainException : FrameworkException
     {
         public DomainException() : base() { }

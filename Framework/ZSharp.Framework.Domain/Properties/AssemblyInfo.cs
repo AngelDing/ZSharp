@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
 [assembly: AssemblyProduct("ZSharp.Framework.Domain")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2015")]
+[assembly: AssemblyCopyright("Copyright © Microsoft 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("427ec224-50f3-4ba2-8434-518c6fea28d9")]
+[assembly: Guid("04ffe14d-eafb-4970-8de2-db9826454a36")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

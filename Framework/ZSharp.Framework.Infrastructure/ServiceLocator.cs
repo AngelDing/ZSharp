@@ -7,7 +7,10 @@ namespace ZSharp.Framework.Infrastructure
     {
         public static void SetLocatorProvider(IUnityContainer container)
         {
-            Locator.ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(container));
+            //http://blogs.msdn.com/b/miah/archive/2009/05/12/servicelocator-and-unity-be-careful.aspx
+            //http://unity.codeplex.com/workitem/11791
+            UnityServiceLocator locator = new UnityServiceLocator(container);
+            Locator.ServiceLocator.SetLocatorProvider(() => locator);
         }
 
         public static TService GetInstance<TService>()

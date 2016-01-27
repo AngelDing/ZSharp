@@ -1,6 +1,7 @@
 ﻿using Xunit;
 using ZSharp.Framework.Domain;
 using Framework.Test.Core;
+using System;
 
 namespace Framework.Domain.Test
 {
@@ -18,7 +19,7 @@ namespace Framework.Domain.Test
         public void send_commond_msg_test()
         {
             var msg = new CommandTestMsg { Name = "Command" };
-            dispatcher.DispatchMessage(msg, null);
+            dispatcher.DispatchMessage(msg, Guid.NewGuid());
         }
     }
 }

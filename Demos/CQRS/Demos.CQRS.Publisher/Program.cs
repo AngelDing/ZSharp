@@ -24,7 +24,7 @@ namespace Demos.CQRS.Publisher
                 Email = "a@b.com"
             };
             //異步
-            commandBus.Send(creatCommand, "Common", "Customer");
+            commandBus.Send(creatCommand, "Customer");
 
             var cInfo = creatCommand.Map<CustomerInfo>();
             //同步 

@@ -1,5 +1,4 @@
-﻿using System;
-using ZSharp.Framework.Domain;
+﻿using ZSharp.Framework.Domain;
 
 namespace Demos.CQRS.Common
 {

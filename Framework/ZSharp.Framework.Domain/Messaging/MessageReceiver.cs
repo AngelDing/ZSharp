@@ -1,25 +1,36 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using ZSharp.Framework.Utils;
+using ZSharp.Framework.Extensions;
+using System.Collections.Generic;
+using ZSharp.Framework.Configurations;
 
 namespace ZSharp.Framework.Domain
 {  
-    public abstract class MessageReceiver : DisposableObject, IMessageReceiver, IDisposable
+    public abstract class MessageReceiver : DisposableObject, IMessageReceiver
     {
         private readonly TimeSpan pollDelay;
         private readonly object lockObject = new object();
         private CancellationTokenSource cancellationSource;
-        internal string SysCode { get; private set; }
-        internal string Topic { get; private set; }
+        public string SysCode { get; private set; }
+        public IEnumerable<string> Topics { get; private set; }
 
-        public MessageReceiver(string sysCode, string topic)
+        /// <summary>
+        /// 消息接收器
+        /// </summary>
+        /// <param name="topics">关注的事件主题集合，虽然支持集合，但建议每个Processor仅处理一个主题</param>
+        public MessageReceiver(IEnumerable<string> topics)
         {
-            GuardHelper.ArgumentNotEmpty(() => sysCode);
-            GuardHelper.ArgumentNotEmpty(() => topic);
-
-            this.SysCode = sysCode;
-            this.Topic = topic;
+            if (topics.IsNullOrEmpty())
+            {
+                topics = new List<string>
+                {
+                    Constants.ApplicationRuntime.DefaultCommandTopic,
+                    Constants.ApplicationRuntime.DefaultEventTopic
+                };
+            }
+            this.SysCode = CommonConfig.SystemCode;
+            this.Topics = topics;
             this.pollDelay = TimeSpan.FromMilliseconds(100);
         }
 

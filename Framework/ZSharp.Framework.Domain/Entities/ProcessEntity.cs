@@ -1,11 +1,11 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using ZSharp.Framework.Entities;
+﻿using ZSharp.Framework.Entities;
 using ZSharp.Framework.Utils;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ZSharp.Framework.Domain
 {
-    public class ProcessEntity : Entity<Guid>, IAggregateRoot<Guid>
+    public class ProcessEntity : BaseDomainEntity, IAggregateRoot<Guid>
     {
         public ProcessEntity()
         {

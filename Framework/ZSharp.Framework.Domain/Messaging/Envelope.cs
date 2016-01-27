@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ZSharp.Framework.Configurations;
+using System;
 
 namespace ZSharp.Framework.Domain
 {
@@ -15,6 +16,7 @@ namespace ZSharp.Framework.Domain
         public Envelope(T body)
         {
             this.Body = body;
+            this.SysCode = CommonConfig.SystemCode;
         }
 
         public T Body { get; private set; }
@@ -23,7 +25,7 @@ namespace ZSharp.Framework.Domain
 
         public TimeSpan? TimeToLive { get; set; }
 
-        public string CorrelationId { get; set; }
+        public Guid CorrelationId { get; set; }
 
         public string SysCode { get; set; }
 

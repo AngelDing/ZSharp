@@ -10,6 +10,23 @@ namespace Framework.Test.Core
         {
             this.Id = GuidHelper.NewSequentialId();
         }
+
+        public string CreatedBy
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public DateTimeOffset CreationTime
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public Guid Id { get; private set; }
 
         public string Name { get; set; }

@@ -1,9 +1,8 @@
 ﻿using System;
-using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.Domain
 {
-    public class SnapshotEntity : Entity<long>
+    public class SnapshotEntity : BaseDomainEntity
     {
         public Guid AggregateId { get; set; }
 

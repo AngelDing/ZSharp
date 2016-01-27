@@ -20,9 +20,6 @@ namespace ZSharp.Framework.Domain
             this.Logger = LogManager.GetLogger(this.GetType());
         }
 
-        /// <summary>
-        /// Starts the listener.
-        /// </summary>
         public virtual void Start()
         {
             lock (this.lockObject)
@@ -36,9 +33,6 @@ namespace ZSharp.Framework.Domain
             }
         }
 
-        /// <summary>
-        /// Stops the listener.
-        /// </summary>
         public virtual void Stop()
         {
             lock (this.lockObject)
@@ -85,11 +79,7 @@ namespace ZSharp.Framework.Domain
                 {
                     this.Stop();
                     this.disposed = true;
-
-                    using (this.receiver as IDisposable)
-                    {
-                        // Dispose receiver if it's disposable.
-                    }
+                    receiver.Dispose();
                 }
             }
         }

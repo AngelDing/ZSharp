@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using ZSharp.Framework.Specifications;
 
 namespace ZSharp.Framework.Domain
 {
-    public interface IDomainEventRepository : IDisposable
+    public interface IDomainEventRepository<T> where T : IEventSourced
     {
-        void SaveEvents(IEnumerable<IDomainEvent> domainEvents, string sourcedTypeName);
+        void SaveEvents(IEnumerable<IDomainEvent> domainEvents);
 
-        IEnumerable<IDomainEvent> LoadEvents(string sourcedTypeName, Guid id);
+        IEnumerable<IDomainEvent> LoadEvents(Guid id);
 
-        IEnumerable<IDomainEvent> LoadEvents(string sourcedTypeName, Guid id, int version);
+        IEnumerable<IDomainEvent> LoadEvents(Guid id, int version);
     }
 }

@@ -9,12 +9,12 @@ namespace ZSharp.Framework.Domain
     public class MessageDispatcher
     {
         private Dictionary<Type, List<Tuple<Type, Action<Envelope>>>> handlersByEventType;
-        private Dictionary<Type, Action<IMessage, string>> dispatchersByEventType;
+        private Dictionary<Type, Action<IMessage, Guid>> dispatchersByEventType;
 
         public MessageDispatcher()
         {
             this.handlersByEventType = new Dictionary<Type, List<Tuple<Type, Action<Envelope>>>>();
-            this.dispatchersByEventType = new Dictionary<Type, Action<IMessage, string>>();
+            this.dispatchersByEventType = new Dictionary<Type, Action<IMessage, Guid>>();
         }
 
         public MessageDispatcher(IEnumerable<IHandler> handlers)
@@ -49,10 +49,10 @@ namespace ZSharp.Framework.Domain
             }
         }
 
-        public void DispatchMessage(IMessage message, string correlationId)
+        public void DispatchMessage(IMessage message, Guid correlationId)
         {
             Type messageType = message.GetType();
-            Action<IMessage, string> dispatch;
+            Action<IMessage, Guid> dispatch;
             if (this.dispatchersByEventType.TryGetValue(messageType, out dispatch))
             {
                 dispatch(message, correlationId);
@@ -64,7 +64,7 @@ namespace ZSharp.Framework.Domain
             }
         }
 
-        private void DoDispatchMessage<T>(T msg, string correlationId) where T : IMessage
+        private void DoDispatchMessage<T>(T msg, Guid correlationId) where T : IMessage
         {
             var envelope = Envelope.Create(msg);
             envelope.CorrelationId = correlationId;
@@ -133,10 +133,10 @@ namespace ZSharp.Framework.Domain
             return (Action<Envelope>)invocationExpression.Compile();
         }
 
-        private Action<IMessage, string> BuildDispatchInvocation(Type msgType)
+        private Action<IMessage, Guid> BuildDispatchInvocation(Type msgType)
         {
             var msgParameter = Expression.Parameter(typeof(IMessage));
-            var correlationIdParameter = Expression.Parameter(typeof(string));
+            var correlationIdParameter = Expression.Parameter(typeof(Guid));
 
             var dispatchExpression =
                 Expression.Lambda(
@@ -149,7 +149,7 @@ namespace ZSharp.Framework.Domain
                     msgParameter,                    
                     correlationIdParameter);
 
-            return (Action<IMessage, string>)dispatchExpression.Compile();
+            return (Action<IMessage, Guid>)dispatchExpression.Compile();
         }
     }
 }
