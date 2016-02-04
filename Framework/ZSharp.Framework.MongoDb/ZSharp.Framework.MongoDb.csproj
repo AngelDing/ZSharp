@@ -94,6 +94,9 @@
     <Compile Include="Repositories\IMongoRepository.cs" />
     <Compile Include="Repositories\MongoInitHelper.cs" />
     <Compile Include="Repositories\MongoRepository.cs" />
+    <Compile Include="Sequence\MongoStateProvider.cs" />
+    <Compile Include="Sequence\MongoStateProviderFactory.cs" />
+    <Compile Include="Sequence\SequenceEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZSharp.Framework.Caching\ZSharp.Framework.Caching.csproj">

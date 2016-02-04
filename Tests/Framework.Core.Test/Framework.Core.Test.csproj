@@ -67,6 +67,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\MiscTestClasses.cs" />
     <Compile Include="Reflection\ReflectionUnitTest.cs" />
+    <Compile Include="Sequence\InMemoryStateProvider.cs" />
+    <Compile Include="Sequence\Sequence.cs" />
+    <Compile Include="Sequence\Tests.cs" />
     <Compile Include="Stateless\DotGraphFixture.cs" />
     <Compile Include="Stateless\DynamicTriggerBehaviourFixture.cs" />
     <Compile Include="Stateless\IgnoredTriggerBehaviourFixture.cs" />

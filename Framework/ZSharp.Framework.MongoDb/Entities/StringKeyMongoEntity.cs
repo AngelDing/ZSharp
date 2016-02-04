@@ -1,6 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using ZSharp.Framework.Entities;
+﻿using ZSharp.Framework.Entities;
 
 namespace ZSharp.Framework.MongoDb
 {

@@ -36,7 +36,12 @@ namespace ZSharp.Framework.MongoDb
 
         public T GetByKey(TKey id)
         {            
-            return this.Collection.Find<T>(p => (object)p.Id == (object)id).FirstOrDefaultAsync().Result;
+            return GetByKeyAsync(id).Result;
+        }
+
+        public async Task<T> GetByKeyAsync(TKey id)
+        {
+            return await Collection.Find<T>(p => (object)p.Id == (object)id).FirstOrDefaultAsync();
         }
 
         public IEnumerable<T> GetAll()
@@ -163,6 +168,12 @@ namespace ZSharp.Framework.MongoDb
 
         public void Update(Expression<Func<T, bool>> query, Dictionary<string, object> columnValues)
         {
+            var update = CreateUpdateDefinition(columnValues);
+            AsyncHelper.RunSync(() => this.UpdateAsync(query, update));
+        }
+
+        private UpdateDefinition<T> CreateUpdateDefinition(Dictionary<string, object> columnValues)
+        {
             if (columnValues == null || columnValues.Count == 0)
             {
                 throw new ArgumentException("Update Columns is Null!", "columnValues");
@@ -183,29 +194,19 @@ namespace ZSharp.Framework.MongoDb
                 updates.Add(definition);
             }
             var update = builder.Combine(updates);
-            AsyncHelper.RunSync(() => this.UpdateAsync(query, update));      
+            return update;
         }
 
-        private Expression<Func<T, TField>> GetExpression<TField>(string key, TField value)
+        public async Task<T> FindOneAndUpdateAsync(Expression<Func<T, bool>> query, Dictionary<string, object> columnValues)
         {
-            var keyArray = key.Split('.');
-            var param = Expression.Parameter(typeof(T), "i");
-
-            MemberExpression member = Expression.Property(param, keyArray[0]);
-            for (var i = 1; i < keyArray.Length; i++)
-            {
-                member = Expression.Property(member, keyArray[i]);
-            }
-
-            var exp = Expression.Lambda<Func<T, TField>>(member, param);
-
-            return exp;
-        }
+            var update = CreateUpdateDefinition(columnValues);
+            return await FindOneAndUpdateAsync(query, update);
+        }        
 
         public async Task UpdateAsync(Expression<Func<T, bool>> query, UpdateDefinition<T> update)
         {
-            await this.Collection.UpdateOneAsync<T>(query, update);      
-        }
+            await Collection.UpdateOneAsync<T>(query, update);      
+        }        
 
         public void Update(Expression<Func<T, bool>> query, T entity)
         {
@@ -243,6 +244,27 @@ namespace ZSharp.Framework.MongoDb
             {
                 throw new ValidationException(errorList);
             }
+        }
+
+        private Expression<Func<T, TField>> GetExpression<TField>(string key, TField value)
+        {
+            var keyArray = key.Split('.');
+            var param = Expression.Parameter(typeof(T), "i");
+
+            MemberExpression member = Expression.Property(param, keyArray[0]);
+            for (var i = 1; i < keyArray.Length; i++)
+            {
+                member = Expression.Property(member, keyArray[i]);
+            }
+
+            var exp = Expression.Lambda<Func<T, TField>>(member, param);
+
+            return exp;
+        }
+
+        private async Task<T> FindOneAndUpdateAsync(Expression<Func<T, bool>> query, UpdateDefinition<T> update)
+        {
+            return await Collection.FindOneAndUpdateAsync<T>(query, update);
         }
     }
 }

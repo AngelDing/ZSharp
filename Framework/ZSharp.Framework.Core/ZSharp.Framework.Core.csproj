@@ -80,6 +80,12 @@
     <Compile Include="Reflection\PrivateDynamicObjectStatic.cs" />
     <Compile Include="Reflection\PrivateUsingDynamicExtensions.cs" />
     <Compile Include="Reflection\Property.cs" />
+    <Compile Include="Sequence\Exceptions.cs" />
+    <Compile Include="Sequence\ISequence.cs" />
+    <Compile Include="Sequence\IStateProvider.cs" />
+    <Compile Include="Sequence\SequenceGenerator.cs" />
+    <Compile Include="Sequence\SequenceKey.cs" />
+    <Compile Include="Sequence\SequenceOptions.cs" />
     <Compile Include="Stateless\DotGraph.cs" />
     <Compile Include="Stateless\DynamicTriggerBehaviour.cs" />
     <Compile Include="Stateless\Enforce.cs" />

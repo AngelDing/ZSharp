@@ -47,6 +47,11 @@
     <Compile Include="EfRepositoryContext.cs" />
     <Compile Include="EfRepositoryException.cs" />
     <Compile Include="IEfRepositoryContext.cs" />
+    <Compile Include="Sequence\SequenceConfiguration.cs" />
+    <Compile Include="Sequence\SequenceDbContext.cs" />
+    <Compile Include="Sequence\SqlServerSequence.cs" />
+    <Compile Include="Sequence\SqlServerStateProvider.cs" />
+    <Compile Include="Sequence\SqlServerStateProviderFactory.cs" />
     <Compile Include="SortByExtension.cs" />
   </ItemGroup>
   <ItemGroup>
