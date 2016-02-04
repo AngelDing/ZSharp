@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B4A14099-486A-4709-88DA-7BD855DB8BC1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZSharp.Framework.BizCode</RootNamespace>
+    <AssemblyName>ZSharp.Framework.BizCode</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Serializations\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\SequenceEntity.cs" />
+    <Compile Include="Entities\SequenceSettingEntity.cs" />
+    <Compile Include="Factory\SequenceResetFactory.cs" />
+    <Compile Include="Factory\SequenceRuleFactory.cs" />
+    <Compile Include="PaddingSide.cs" />
+    <Compile Include="Parent\ISequence.cs" />
+    <Compile Include="Parent\ISequenceReset.cs" />
+    <Compile Include="Parent\SequenceRuleBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositiories\ISequenceRepository.cs" />
+    <Compile Include="Resets\DateSequenceReset.cs" />
+    <Compile Include="Resets\NullSequenceReset.cs" />
+    <Compile Include="Rules\ClassSequenceRule.cs" />
+    <Compile Include="Rules\ConstSequenceRule.cs" />
+    <Compile Include="Rules\GuidSequenceRule.cs" />
+    <Compile Include="Rules\NumberingSequenceRule.cs" />
+    <Compile Include="Rules\SqlSequenceRule.cs" />
+    <Compile Include="Rules\TimeStampSequenceRule.cs" />
+    <Compile Include="Sequence.cs" />
+    <Compile Include="SequenceContext.cs" />
+    <Compile Include="SequenceHandler\GoodsNoSequenceRule.cs" />
+    <Compile Include="SequenceHandler\IClassSequenceHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
+      <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
+      <Name>ZSharp.Framework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.SqlDb\ZSharp.Framework.SqlDb.csproj">
+      <Project>{33c02d28-af0c-4bbd-ba22-3acb43391347}</Project>
+      <Name>ZSharp.Framework.SqlDb</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Sql\T_Sequence.sql" />
+    <Content Include="Sql\T_SequenceSetting.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -86,6 +86,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.Domain.Sql
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Domain.Demo", "Demos\ZSharp.Domain.Demo\ZSharp.Domain.Demo.csproj", "{6441B5DA-9F56-4DBB-BD23-F11D5E7E279F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.BizCode", "Framework\ZSharp.Framework.BizCode\ZSharp.Framework.BizCode.csproj", "{B4A14099-486A-4709-88DA-7BD855DB8BC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -236,6 +238,10 @@ Global
 		{6441B5DA-9F56-4DBB-BD23-F11D5E7E279F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6441B5DA-9F56-4DBB-BD23-F11D5E7E279F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6441B5DA-9F56-4DBB-BD23-F11D5E7E279F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4A14099-486A-4709-88DA-7BD855DB8BC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4A14099-486A-4709-88DA-7BD855DB8BC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4A14099-486A-4709-88DA-7BD855DB8BC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4A14099-486A-4709-88DA-7BD855DB8BC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
