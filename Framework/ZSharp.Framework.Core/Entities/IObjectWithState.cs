@@ -9,6 +9,7 @@
     {
         Added,
         Unchanged,
+        PartialModified,
         Modified,
         Deleted
     }

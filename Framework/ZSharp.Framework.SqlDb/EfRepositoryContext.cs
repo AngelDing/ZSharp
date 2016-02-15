@@ -8,6 +8,8 @@ using ZSharp.Framework.Entities;
 using System.Threading.Tasks;
 using System.Threading;
 using ZSharp.Framework.Repositories;
+using ZSharp.Framework.Extensions;
+using System.Data.Entity.Infrastructure;
 
 namespace ZSharp.Framework.SqlDb
 {
@@ -36,22 +38,24 @@ namespace ZSharp.Framework.SqlDb
 
         #region IRepositoryContext Members
 
-        public override void RegisterNew<T>(T obj)
-        {
-            this.dbContext.Entry(obj).State = EntityState.Added;
-            Committed = false;
-        }
+        //public override void RegisterNew<T>(T obj)
+        //{
+        //    this.dbContext.Entry(obj).State = EntityState.Added;
+        //    Committed = false;
+        //}
 
         public override void RegisterModified<T>(T obj)
         {            
             this.dbContext.Detach(obj);
-            obj.ObjectState = ObjectStateType.Modified;
+            base.RegisterModified(obj);
+            //obj.ObjectState = ObjectStateType.Modified;
         }
 
         public override void RegisterDeleted<T>(T obj)
         {
             this.dbContext.Detach(obj);
-            this.dbContext.Entry(obj).State = EntityState.Deleted;
+            base.RegisterDeleted(obj);
+            //this.dbContext.Entry(obj).State = EntityState.Deleted;
         }       
 
         #endregion
@@ -60,24 +64,63 @@ namespace ZSharp.Framework.SqlDb
 
         public override void Commit()
         {
-            //此處手動進行相關邏輯的校驗，故需要全局關閉SaveChanges時自動的校驗：
-            //Configuration.ValidateOnSaveEnabled = false;
-            var errors = dbContext.GetValidationErrors();
+            if (IsNeedSave())
+            {
+                //此處手動進行相關邏輯的校驗，故需要全局關閉SaveChanges時自動的校驗：
+                //Configuration.ValidateOnSaveEnabled = false;
+                var errors = dbContext.GetValidationErrors();
 
-            if (errors.Any())
-            {
-                var errorMsgs = GetErrors(errors);
-                throw new EfRepositoryException(errorMsgs);
-            }
+                if (errors.Any())
+                {
+                    var errorMsgs = GetErrors(errors);
+                    throw new EfRepositoryException(errorMsgs);
+                }
 
-            try
-            {
-                dbContext.SaveChanges();
+                try
+                {
+                    foreach (var newObj in NewCollection)
+                    {
+                        var newEntity = newObj.Key;
+                        dbContext.Entry(newEntity).State = EntityState.Added;
+                    }
+                    foreach (var updateObj in ModifiedCollection)
+                    {
+                        var updateEntity = updateObj.Key as Entity;
+                        if (updateEntity != null && updateEntity.ObjectState == ObjectStateType.Modified)
+                        {
+                            dbContext.Entry(updateEntity).State = EntityState.Modified;
+                        }
+                    }
+                    foreach (var deleteObj in DeletedCollection)
+                    {
+                        var deleteEntity = deleteObj.Key;
+                        dbContext.Entry(deleteEntity).State = EntityState.Deleted;
+                    }
+
+                    dbContext.SaveChanges();
+                    ClearRegistrations();
+                }
+                catch (DbUpdateConcurrencyException e)
+                {
+                    throw new DbUpdateConcurrencyException(e.Message, e);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
-            catch (Exception ex)
+        }
+
+        private bool IsNeedSave()
+        {
+            var isNeedSave = false;
+            if (!NewCollection.IsNullOrEmpty()
+                || !ModifiedCollection.IsNullOrEmpty()
+                || !DeletedCollection.IsNullOrEmpty())
             {
-                throw ex;
+                isNeedSave = true;
             }
+            return isNeedSave;
         }
 
         private string GetErrors(IEnumerable<DbEntityValidationResult> results)

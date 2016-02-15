@@ -21,8 +21,8 @@ namespace ZSharp.Framework.SqlDb
         {
             if (context is IEfRepositoryContext)
             {
-                this.efContext = context as IEfRepositoryContext;
-                this.db = efContext.DbContext;
+                efContext = context as IEfRepositoryContext;
+                db = efContext.DbContext;
             }          
         }
 
@@ -43,6 +43,10 @@ namespace ZSharp.Framework.SqlDb
 
         public override void Update(T entity)
         {
+            if (entity.ObjectState != ObjectStateType.PartialModified)
+            {
+                entity.ObjectState = ObjectStateType.Modified;
+            }
             efContext.RegisterModified(entity);
             efContext.DbContext.ApplyChanges(new List<T> { entity });
         }
@@ -51,9 +55,12 @@ namespace ZSharp.Framework.SqlDb
         {
             foreach (var e in entities)
             {
+                if (e.ObjectState != ObjectStateType.PartialModified)
+                {
+                    e.ObjectState = ObjectStateType.Modified;
+                }
                 efContext.RegisterModified(e);
             }
-
             efContext.DbContext.ApplyChanges(entities);
         }
 
@@ -103,17 +110,17 @@ namespace ZSharp.Framework.SqlDb
 
         public override IEnumerable<T> GetAll()
         {
-            return this.Entities.AsNoTracking();
+            return this.Entities.AsNoTracking().ToList();
         }
 
         public override IEnumerable<T> GetBy(Expression<Func<T, bool>> predicate)
         {
-            return this.Entities.Where(predicate).AsNoTracking();
+            return this.Entities.Where(predicate).AsNoTracking().ToList();
         }
 
         public override IEnumerable<T> GetBy(ISpecification<T> spec)
         {
-            return this.Entities.Where(spec.SatisfiedBy()).AsNoTracking();
+            return this.Entities.Where(spec.SatisfiedBy()).AsNoTracking().ToList();
         }
 
         public override T Single(Expression<Func<T, bool>> predicate)

@@ -45,6 +45,7 @@ namespace ZSharp.Framework.Entities
             MemberExpression body = (MemberExpression)express.Body;
             var propStr = GetUpdateKey(express);
 
+            this.ObjectState = ObjectStateType.PartialModified;
             updateList.Add(propStr, val);
             //用於EF的局部更新，此方法不影響MongoDB的局部更新
             SetPropertyValue(this, propStr, val);

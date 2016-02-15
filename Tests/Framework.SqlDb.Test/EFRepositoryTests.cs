@@ -88,8 +88,14 @@ namespace Framework.SqlDb.Test
 
                 foreach (var c in allList)
                 {
-                    //c.UserName = c.UserName + "123";
-                    c.SetUpdate(() => c.UserName, c.UserName + "123");
+                    if (c.Id == 1)
+                    {
+                        c.UserName = c.UserName + "123";
+                    }
+                    else
+                    {
+                        c.SetUpdate(() => c.UserName, c.UserName + "123");
+                    }
                 }
                 repo.Update(allList);
                 repo.RepoContext.Commit();
