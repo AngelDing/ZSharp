@@ -149,6 +149,27 @@ namespace Framework.SqlDb.Test
             custList.First().Id.Should().BeGreaterThan(0);
         }
 
+        [Fact]
+        public void ef_multi_commit_test()
+        {
+            var customer = GetCustomerInfo();
+            using (var repo = new CustomerRepository())
+            {
+                repo.Insert(customer);
+                repo.RepoContext.Commit();
+                customer.SetUpdate(() => customer.UserName, "jiajia");
+                customer.EFNote.Add(new EFNote { NoteText = "XXX", CustomerId = 1, ObjectState = ObjectStateType.Added });
+                repo.Update(customer);
+                repo.RepoContext.Commit();
+            }
+
+            using (var repo = new CustomerRepository())
+            {
+                var notes = repo.GetNoteList();
+                notes.Count.Should().Be(3);
+            }
+        }
+
         #region Update
 
         [Fact]
