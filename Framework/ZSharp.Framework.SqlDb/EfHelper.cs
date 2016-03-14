@@ -48,7 +48,7 @@ namespace ZSharp.Framework.SqlDb
 
         private static void ApplyChange<TEntity>(DbContext context, TEntity root)
         {
-            context.Set(root.GetType()).Attach(root);
+            context.Set(root.GetType()).Add(root);
             var entries = context.ChangeTracker.Entries<Entity>().ToList();
             foreach (var entry in entries)
             {
