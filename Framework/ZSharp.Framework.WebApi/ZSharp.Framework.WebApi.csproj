@@ -80,6 +80,9 @@
     <Compile Include="Exception\CustomExceptionLogger.cs" />
     <Compile Include="Exception\GenericTextExceptionHandler.cs" />
     <Compile Include="Exception\InternalServerErrorTextPlainResult.cs" />
+    <Compile Include="FileInput\Handler.cs" />
+    <Compile Include="FileInput\PathFormater.cs" />
+    <Compile Include="FileInput\UploadHandler.cs" />
     <Compile Include="FlurlExtensions\CapturedJilJsonContent.cs" />
     <Compile Include="FlurlExtensions\HttpJilExtensions.cs" />
     <Compile Include="FlurlExtensions\ResponseMessageExtensions.cs" />
