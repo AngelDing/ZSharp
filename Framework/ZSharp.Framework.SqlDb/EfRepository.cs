@@ -110,17 +110,17 @@ namespace ZSharp.Framework.SqlDb
 
         public override IEnumerable<T> GetAll()
         {
-            return this.Entities.AsNoTracking().ToList();
+            return this.Entities.AsNoTracking().AsEnumerable();
         }
 
         public override IEnumerable<T> GetBy(Expression<Func<T, bool>> predicate)
         {
-            return this.Entities.Where(predicate).AsNoTracking().ToList();
+            return this.Entities.Where(predicate).AsNoTracking().AsEnumerable();
         }
 
         public override IEnumerable<T> GetBy(ISpecification<T> spec)
         {
-            return this.Entities.Where(spec.SatisfiedBy()).AsNoTracking().ToList();
+            return this.Entities.Where(spec.SatisfiedBy()).AsNoTracking().AsEnumerable();
         }
 
         public override T Single(Expression<Func<T, bool>> predicate)
