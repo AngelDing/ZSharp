@@ -112,6 +112,7 @@
     <Compile Include="Utils\CommonHelper.cs" />
     <Compile Include="Utils\ExecHelper.cs" />
     <Compile Include="Utils\HashCodeHelper.cs" />
+    <Compile Include="Utils\PassWordHelper.cs" />
     <Compile Include="Utils\TaskHelper.cs" />
     <Compile Include="Threading\UpgradeableReadLockDisposable.cs" />
     <Compile Include="Threading\WriteLockDisposable.cs" />
