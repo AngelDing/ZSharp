@@ -30,18 +30,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EasyNetQ">
-      <HintPath>..\..\Dll\RabbitMq\EasyNetQ.dll</HintPath>
-    </Reference>
     <Reference Include="RabbitMQ.Client">
       <HintPath>..\..\Dll\RabbitMq\RabbitMQ.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\DeliveryModeAttribute.cs" />
+    <Compile Include="Attributes\QueueAttribute.cs" />
+    <Compile Include="Attributes\TimeoutSecondsAttribute.cs" />
+    <Compile Include="Connection\ConnectionConfiguration.cs" />
+    <Compile Include="ZRabbitMqException.cs" />
     <Compile Include="IRabbitBus.cs" />
+    <Compile Include="Message\MessageDeliveryMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RabbitFactory.cs" />
+    <Compile Include="Strategies\DefaultCorrelationIdGenerationStrategy.cs" />
+    <Compile Include="Strategies\DefaultMessageSerializationStrategy.cs" />
+    <Compile Include="Strategies\IClusterHostSelectionStrategy.cs" />
+    <Compile Include="Strategies\IMessageSerializationStrategy.cs" />
+    <Compile Include="Strategies\MessageDeliveryModeStrategy.cs" />
+    <Compile Include="Strategies\OrderedClusterHostSelectionStrategy.cs" />
+    <Compile Include="Strategies\RandomClusterHostSelectionStrategy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
