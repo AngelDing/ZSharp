@@ -19,6 +19,16 @@ namespace ZSharp.Framework.Utils
         }
 
         [DebuggerStepThrough]
+        public static void ArgumentNotEmpty(Func<IEnumerable> arg)
+        {
+            if (!arg().HasItems())
+            {
+                string argName = GetParamName(arg);
+                throw ErrorHelper.Argument(argName, "List cannot be null and must have at least one item.");
+            }
+        }
+
+        [DebuggerStepThrough]
         public static void ArgumentNotNull<T>(Func<T> arg, string msg = null)
         {
             if (arg() == null)
@@ -31,16 +41,6 @@ namespace ZSharp.Framework.Utils
                 {
                     throw new ArgumentNullException(GetParamName(arg), msg);
                 }
-            }
-        }
-
-        [DebuggerStepThrough]
-        public static void ArgumentNotEmpty(Func<IEnumerable> arg)
-        {
-            if (!arg().HasItems())
-            {
-                string argName = GetParamName(arg);
-                throw ErrorHelper.Argument(argName, "List cannot be null and must have at least one item.");
             }
         }
 
@@ -67,13 +67,6 @@ namespace ZSharp.Framework.Utils
         private static string GetParamName<T>(Func<T> expression)
         {
             return expression.Method.Name;
-        }
-
-        [DebuggerStepThrough]
-        public static void ArgumentNotNull(object arg, string argName)
-        {
-            if (arg == null)
-                throw new ArgumentNullException(argName);
-        }
+        }  
     }
 }

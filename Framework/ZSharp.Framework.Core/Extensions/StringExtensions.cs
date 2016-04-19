@@ -355,8 +355,8 @@ namespace ZSharp.Framework.Extensions
         [DebuggerStepThrough]
         public static string EnsureEndsWith(this string value, string endWith)
         {
-            GuardHelper.ArgumentNotNull(value, "value");
-            GuardHelper.ArgumentNotNull(endWith, "endWith");
+            GuardHelper.ArgumentNotNull(() => value);
+            GuardHelper.ArgumentNotNull(() => endWith);
 
             if (value.Length >= endWith.Length)
             {

@@ -65,6 +65,7 @@
     <Compile Include="Serializers\NullSerializer.cs" />
     <Compile Include="Serializers\ProtoBufSerializer.cs" />
     <Compile Include="Serializers\XmlSerializer.cs" />
+    <Compile Include="TypeNameSerializer.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
