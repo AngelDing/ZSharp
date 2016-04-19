@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using ZSharp.Framework.Extensions;
+using ZSharp.Framework.Utils;
 
 namespace ZSharp.Framework.RabbitMq
 {
@@ -22,7 +24,7 @@ namespace ZSharp.Framework.RabbitMq
 
         public void Add(T item)
         {
-            //Preconditions.CheckNotNull(item, "item");
+            GuardHelper.ArgumentNotNull(() => item);
             items.Add(item);
             items.Shuffle();
         }

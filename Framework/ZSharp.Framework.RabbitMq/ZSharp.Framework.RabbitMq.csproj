@@ -40,6 +40,9 @@
     <Compile Include="Attributes\QueueAttribute.cs" />
     <Compile Include="Attributes\TimeoutSecondsAttribute.cs" />
     <Compile Include="Connection\ConnectionConfiguration.cs" />
+    <Compile Include="Message\IMessage.cs" />
+    <Compile Include="Message\MessageFactory.cs" />
+    <Compile Include="Message\MessageProperties.cs" />
     <Compile Include="ZRabbitMqException.cs" />
     <Compile Include="IRabbitBus.cs" />
     <Compile Include="Message\MessageDeliveryMode.cs" />

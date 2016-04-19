@@ -1,3 +1,5 @@
+using ZSharp.Framework.Serializations;
+
 namespace ZSharp.Framework.RabbitMq
 {
     public class DefaultMessageSerializationStrategy : IMessageSerializationStrategy
@@ -16,7 +18,7 @@ namespace ZSharp.Framework.RabbitMq
         public SerializedMessage SerializeMessage(IMessage message)
         {
             var typeName = typeNameSerializer.Serialize(message.MessageType);
-            var messageBody = serializer.MessageToBytes(message.GetBody());
+            var messageBody = serializer.Serialize<byte[]>(message.GetBody());
             var messageProperties = message.Properties;
 
             messageProperties.Type = typeName;
@@ -29,14 +31,14 @@ namespace ZSharp.Framework.RabbitMq
 
         public IMessage<T> DeserializeMessage<T>(MessageProperties properties, byte[] body) where T : class
         {
-            var messageBody = serializer.BytesToMessage<T>(body);
+            var messageBody = serializer.Deserialize<T>(body);
             return new Message<T>(messageBody, properties);
         }
 
         public IMessage DeserializeMessage(MessageProperties properties, byte[] body)
         {
-            var messageType = typeNameSerializer.DeSerialize(properties.Type);
-            var messageBody = serializer.BytesToMessage(properties.Type, body);
+            var messageType = typeNameSerializer.Deserialize(properties.Type);
+            var messageBody = serializer.Deserialize(body, messageType);
             return MessageFactory.CreateInstance(messageType, messageBody, properties);
         }
     }

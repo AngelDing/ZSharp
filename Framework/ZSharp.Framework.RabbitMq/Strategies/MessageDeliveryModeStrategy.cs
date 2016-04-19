@@ -1,4 +1,5 @@
 ﻿using System;
+using ZSharp.Framework.Utils;
 
 namespace ZSharp.Framework.RabbitMq
 {

@@ -65,6 +65,7 @@
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\HttpExtensions.cs" />
+    <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Extensions\MiscExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Utils\ExecHelper.cs" />
     <Compile Include="Utils\HashCodeHelper.cs" />
     <Compile Include="Utils\PassWordHelper.cs" />
+    <Compile Include="Utils\ReflectionHelper.cs" />
     <Compile Include="Utils\TaskHelper.cs" />
     <Compile Include="Threading\UpgradeableReadLockDisposable.cs" />
     <Compile Include="Threading\WriteLockDisposable.cs" />

@@ -4,7 +4,9 @@ namespace ZSharp.Framework.RabbitMq
     public interface IMessageSerializationStrategy
     {
         SerializedMessage SerializeMessage(IMessage message);
+
         IMessage<T> DeserializeMessage<T>(MessageProperties properties, byte[] body) where T : class;
+
         IMessage DeserializeMessage(MessageProperties properties, byte[] body);
     }
 
@@ -17,6 +19,7 @@ namespace ZSharp.Framework.RabbitMq
         }
 
         public MessageProperties Properties { get; private set; }
+
         public byte[] Body { get; private set; }
     }     
 }
