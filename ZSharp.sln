@@ -88,6 +88,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Domain.Demo", "Demos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.BizCode", "Framework\ZSharp.Framework.BizCode\ZSharp.Framework.BizCode.csproj", "{B4A14099-486A-4709-88DA-7BD855DB8BC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Mvc.Demo", "Demos\ZSharp.Mvc.Demo\ZSharp.Mvc.Demo.csproj", "{41CCFBFD-E27F-4F20-BD7B-CD41682DD90E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -242,6 +244,10 @@ Global
 		{B4A14099-486A-4709-88DA-7BD855DB8BC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4A14099-486A-4709-88DA-7BD855DB8BC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4A14099-486A-4709-88DA-7BD855DB8BC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41CCFBFD-E27F-4F20-BD7B-CD41682DD90E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41CCFBFD-E27F-4F20-BD7B-CD41682DD90E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41CCFBFD-E27F-4F20-BD7B-CD41682DD90E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41CCFBFD-E27F-4F20-BD7B-CD41682DD90E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -266,5 +272,6 @@ Global
 		{BBCC219B-2C28-46C1-A287-11918FC024B5} = {6DFD4E52-A724-4216-974D-67174188B89F}
 		{8CE832B6-1865-45AD-AA2F-30275231F491} = {D95C6325-E447-4C95-B400-9445516275C7}
 		{6441B5DA-9F56-4DBB-BD23-F11D5E7E279F} = {3644D60B-C63B-4D7F-9925-5F76EB0F9C3D}
+		{41CCFBFD-E27F-4F20-BD7B-CD41682DD90E} = {3644D60B-C63B-4D7F-9925-5F76EB0F9C3D}
 	EndGlobalSection
 EndGlobal
