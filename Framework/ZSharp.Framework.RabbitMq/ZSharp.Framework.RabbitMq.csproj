@@ -57,6 +57,7 @@
     <Compile Include="Message\MessageProperties.cs" />
     <Compile Include="Message\MessageReceivedInfo.cs" />
     <Compile Include="Producer\IPublishExchangeDeclareStrategy.cs" />
+    <Compile Include="Producer\PublishExchangeDeclareStrategy.cs" />
     <Compile Include="ZRabbitMqException.cs" />
     <Compile Include="Bus\IBus.cs" />
     <Compile Include="Message\MessageDeliveryMode.cs" />
