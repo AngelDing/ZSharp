@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
-using ZSharp.Framework.EfExtensions.Batch;
 using ZSharp.Framework.EfExtensions.Mapping;
 
 namespace ZSharp.Framework.EfExtensions.Batch
@@ -40,8 +37,7 @@ namespace ZSharp.Framework.EfExtensions.Batch
             }
         }
 
-        private void Insert<T>(IEnumerable<T> entities, SqlTransaction transaction,
-            EntityMap entiyMap, int batchSize)
+        private void Insert<T>(IEnumerable<T> entities, SqlTransaction transaction, EntityMap entiyMap, int batchSize)
         {
             var options = SqlBulkCopyOptions.Default;
             using (var reader = new MappedDataReader<T>(entities, entiyMap))
@@ -62,22 +58,6 @@ namespace ZSharp.Framework.EfExtensions.Batch
                     sqlBulkCopy.WriteToServer(reader);
                 }
             }
-        }
-
-        //private void Insert<T>(IEnumerable<T> entities, SqlTransaction transaction, 
-        //    EntityMap entiyMap, int batchSize)
-        //{
-        //    var options = SqlBulkCopyOptions.Default;
-
-        //    using (DataTable dataTable = new MappedDataTable().CreateDataTable(entiyMap, entities))
-        //    {
-        //        using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(transaction.Connection, options, transaction))
-        //        {
-        //            sqlBulkCopy.BatchSize = batchSize;
-        //            sqlBulkCopy.DestinationTableName = dataTable.TableName;
-        //            sqlBulkCopy.WriteToServer(dataTable);
-        //        }
-        //    }
-        //}        
+        }    
     }
 }

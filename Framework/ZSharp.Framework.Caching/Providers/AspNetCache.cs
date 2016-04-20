@@ -20,22 +20,21 @@ namespace ZSharp.Framework.Caching
                 return Enumerable.Empty<KeyValuePair<string, object>>();
             }
 
-            var result =
-                from entry in HttpRuntime.Cache.Cast<DictionaryEntry>()
-                let key = entry.Key.ToString()
-                where key.StartsWith(REGION_NAME)
-                select new KeyValuePair<string, object>(
-                    key.Substring(REGION_NAME.Length),
-                    entry.Value);
+            var result = from entry in HttpRuntime.Cache.Cast<DictionaryEntry>()
+                         let key = entry.Key.ToString()
+                         where key.StartsWith(REGION_NAME)
+                         select new KeyValuePair<string, object>(
+                             key.Substring(REGION_NAME.Length), 
+                             entry.Value);
 
             return result;
         }
 
-        public override bool IsSingleton()
+        public override bool IsThreadSafety()
         {
             // because Asp.NET Cache is thread-safe by itself,
             // no need to mess up with locks.
-            return false;
+            return true;
         }
 
         public CacheType CacheType
@@ -70,8 +69,8 @@ namespace ZSharp.Framework.Caching
 
             var key = BuildKey(cacheKey.Key);
 
-            var absoluteExpiration = System.Web.Caching.Cache.NoAbsoluteExpiration;
-            var slidingExpiration = System.Web.Caching.Cache.NoSlidingExpiration;
+            var absoluteExpiration = Cache.NoAbsoluteExpiration;
+            var slidingExpiration = Cache.NoSlidingExpiration;
 
             switch (cachePolicy.ExpirationType)
             {
@@ -127,7 +126,7 @@ namespace ZSharp.Framework.Caching
             string key = GetTagKey(cacheTag);
             var value = DateTimeOffset.UtcNow.Ticks;
 
-            var slidingExpiration = System.Web.Caching.Cache.NoSlidingExpiration;
+            var slidingExpiration = Cache.NoSlidingExpiration;
             var absoluteExpiration = DateTime.UtcNow;
 
             HttpRuntime.Cache.Insert(key, value, null, absoluteExpiration, slidingExpiration);         

@@ -6,14 +6,15 @@ using ZSharp.Framework.EfExtensions.Mapping;
 namespace ZSharp.Framework.EfExtensions
 {
     public class EfLocator : SimpleLocator
-    {  
+    {
         public override void RegisterDefaults(IContainer container)
         {
-            container.Register<IMappingProvider>(() => new MetadataMappingProvider());
-            container.Register<IBatchInsert>(() => new BatchInsertProvider());
-            container.Register<IBatchUpdate>(() => new BatchUpdateProvider());
-            container.Register<IBatchDelete>(() => new BatchDeleteProvider());           
-            container.Register<IFutureRunner>(() => new FutureRunner());
+            var transient = DependencyLifecycle.Transient;
+            container.Register<IMappingProvider>(p => new MetadataMappingProvider());
+            container.Register<IBatchInsert>(p => new BatchInsertProvider(), transient);
+            container.Register<IBatchUpdate>(p => new BatchUpdateProvider(), transient);
+            container.Register<IBatchDelete>(p => new BatchDeleteProvider(), transient);
+            container.Register<IFutureRunner>(p => new FutureRunner(), transient);
         }
     }
 }

@@ -32,9 +32,10 @@ namespace ZSharp.Framework.Caching
             return Cache;
         }
 
-        public override bool IsSingleton()
-        { 
-            return false;
+        public override bool IsThreadSafety()
+        {
+            //http://stackoverflow.com/questions/6738151/is-memorycache-set-thread-safe
+            return true;
         }
 
         public override T Get<T>(string key)

@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="AsyncSemaphore.cs" />
     <Compile Include="Common\ITypeFinder.cs" />
+    <Compile Include="Dependency\DependencyLifecycle.cs" />
     <Compile Include="Dependency\IContainer.cs" />
     <Compile Include="Dependency\SimpleContainer.cs" />
     <Compile Include="Dependency\SimpleLocator.cs" />

@@ -52,8 +52,10 @@ namespace ZSharp.Framework.RabbitMq
         /// If this flag is false, the server silently drops the message.
         /// </param>
         /// <param name="message">The message to publish</param>
-        void Publish<T>(IExchange exchange, string routingKey, bool mandatory, IMessage<T> message) where T : class;
+        void Publish<T>(IExchange exchange, string routingKey, bool mandatory, IMessage<T> message)
+            where T : class;
 
-        Task PublishAsync<T>( IExchange exchange, string routingKey,bool mandatory, IMessage<T> message) where T : class;
+        Task PublishAsync<T>( IExchange exchange, string routingKey,bool mandatory, IMessage<T> message)
+            where T : class;
     }
 }

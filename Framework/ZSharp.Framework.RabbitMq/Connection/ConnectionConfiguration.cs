@@ -90,7 +90,7 @@ namespace ZSharp.Framework.RabbitMq
             clientProperties.Add("product", product);
             clientProperties.Add("platform", platform);
             clientProperties.Add("version", version);
-            clientProperties.Add("easynetq_version", version);
+            clientProperties.Add("rabbitmq_version", version);
             clientProperties.Add("application", applicationName);
             clientProperties.Add("application_location", applicationPath);
             clientProperties.Add("machine_name", hostname);

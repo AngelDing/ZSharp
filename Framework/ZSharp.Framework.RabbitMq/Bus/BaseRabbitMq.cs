@@ -1,13 +1,10 @@
-﻿
-using ZSharp.Framework.Logging;
+﻿using ZSharp.Framework.Logging;
 
 namespace ZSharp.Framework.RabbitMq
 {
-    public abstract class BaseRabbitMq
+    public abstract class BaseRabbitMq : DisposableObject
     {
-        protected ILogger Logger{ get; private set; }
-
-        protected IProduceConsumeInterceptor produceConsumeInterceptor { get; set; }
+        protected ILogger Logger{ get; private set; }        
         
         protected IEventBus eventBus { get; set; }
 
@@ -19,6 +16,19 @@ namespace ZSharp.Framework.RabbitMq
         {
             Logger = LogManager.GetLogger(GetType());
             this.connectionConfiguration = connectionConfiguration;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                //consumerFactory.Dispose();
+                //confirmationListener.Dispose();
+                clientCommandDispatcher.Dispose();
+                //connection.Dispose();
+
+                Logger.Debug("Connection disposed");
+            }
         }
     }
 }

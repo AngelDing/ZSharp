@@ -1,6 +1,8 @@
 ﻿using System;
 using ZSharp.Framework.Utils;
 using ZSharp.Framework.Infrastructure;
+using System.Threading.Tasks;
+using RabbitMQ.Client;
 
 namespace ZSharp.Framework.RabbitMq
 {
@@ -9,8 +11,23 @@ namespace ZSharp.Framework.RabbitMq
         private readonly IPublishConfirmationListener confirmationListener;
         private readonly IExchange exchange;
         private readonly string routingKey;
+        private bool mandatory;
         private MessageProperties msgProperties;
         private byte[] body;
+
+        private RawMessage rawMsg;
+        private RawMessage RawMessage
+        {
+            get
+            {
+                if (rawMsg == null)
+                {
+                    var produceConsumeInterceptor = ServiceLocator.GetInstance<IProduceConsumeInterceptor>();
+                    rawMsg = produceConsumeInterceptor.OnProduce(new RawMessage(msgProperties, body));
+                }
+                return rawMsg;
+            }
+        }
 
         public PublishManager(
             ConnectionConfiguration connectionConfiguration, 
@@ -36,7 +53,7 @@ namespace ZSharp.Framework.RabbitMq
 
         public void Publish(bool mandatory)
         {
-            var rawMessage = produceConsumeInterceptor.OnProduce(new RawMessage(msgProperties, body));
+            this.mandatory = mandatory;
             if (connectionConfiguration.PublisherConfirms)
             {
                 var timeBudget = new TimeBudget(TimeSpan.FromSeconds(connectionConfiguration.Timeout)).Start();
@@ -44,107 +61,88 @@ namespace ZSharp.Framework.RabbitMq
                 {
                     var confirmsWaiter = clientCommandDispatcher.Invoke(model =>
                     {
-                        var properties = model.CreateBasicProperties();
-                        rawMessage.Properties.CopyTo(properties);
-
-                        var waiter = confirmationListener.GetWaiter(model);
-
-                        try
-                        {
-                            model.BasicPublish(exchange.Name, routingKey, mandatory, properties, rawMessage.Body);
-                        }
-                        catch (Exception)
-                        {
-                            waiter.Cancel();
-                            throw;
-                        }
-
-                        return waiter;
+                        return GetConfirmationWaiter(model);
                     });
-
                     try
                     {
                         confirmsWaiter.Wait(timeBudget.GetRemainingTime());
                         break;
                     }
-                    catch (PublishInterruptedException)
+                    catch (PublishInterruptedException ex)
                     {
+                        Logger.Error("Publish Interrupted Exception", ex);
                     }
                 }
             }
             else
             {
-                clientCommandDispatcher.Invoke(model =>
-                {
-                    var properties = model.CreateBasicProperties();
-                    rawMessage.Properties.CopyTo(properties);
-                    model.BasicPublish(exchange.Name, routingKey, mandatory, properties, rawMessage.Body);
-                });
+                clientCommandDispatcher.Invoke(model => { BasicPublish(model); });
             }
-            eventBus.Publish(new PublishedMessageEvent(exchange.Name, routingKey, rawMessage.Properties, rawMessage.Body));
-            Logger.Debug("Published to exchange: '{0}', routing key: '{1}', correlationId: '{2}'",
-                exchange.Name, routingKey, msgProperties.CorrelationId);
+
+            EventPublishAndLog();
+        }        
+
+        public async Task PublishAsync(bool mandatory)
+        {
+            this.mandatory = mandatory;            
+            if (connectionConfiguration.PublisherConfirms)
+            {
+                var timeBudget = new TimeBudget(TimeSpan.FromSeconds(connectionConfiguration.Timeout)).Start();
+                while (!timeBudget.IsExpired())
+                {
+                    var confirmsWaiter = await clientCommandDispatcher.InvokeAsync(model =>
+                    {
+                        return GetConfirmationWaiter(model);
+                    }).ConfigureAwait(false);
+                    try
+                    {
+                        await confirmsWaiter.WaitAsync(timeBudget.GetRemainingTime()).ConfigureAwait(false);
+                        break;
+                    }
+                    catch (PublishInterruptedException ex)
+                    {
+                        Logger.Error("Publish Interrupted Exception", ex);
+                    }
+                }
+            }
+            else
+            {
+                await clientCommandDispatcher.InvokeAsync(model => { BasicPublish(model); }).ConfigureAwait(false);
+            }
+            EventPublishAndLog();
         }
 
-        //public virtual async Task PublishAsync(
-        //   IExchange exchange,
-        //   string routingKey,
-        //   bool mandatory,
-        //   MessageProperties messageProperties,
-        //   byte[] body)
-        //{
-        //    //Preconditions.CheckNotNull(exchange, "exchange");
-        //    //Preconditions.CheckShortString(routingKey, "routingKey");
-        //    //Preconditions.CheckNotNull(messageProperties, "messageProperties");
-        //    //Preconditions.CheckNotNull(body, "body");
+        private void EventPublishAndLog()
+        {
+            var publishedMsg = new PublishedMessageEvent(
+                exchange.Name, routingKey, RawMessage.Properties, RawMessage.Body);
+            eventBus.Publish(publishedMsg);
 
-        //    //// Fix me: It's very hard now to move publish logic to separate abstraction, just leave it here. 
-        //    //var rawMessage = produceConsumeInterceptor.OnProduce(new RawMessage(messageProperties, body));
-        //    //if (connectionConfiguration.PublisherConfirms)
-        //    //{
-        //    //    var timeBudget = new TimeBudget(TimeSpan.FromSeconds(connectionConfiguration.Timeout)).Start();
-        //    //    while (!timeBudget.IsExpired())
-        //    //    {
-        //    //        var confirmsWaiter = await clientCommandDispatcher.InvokeAsync(model =>
-        //    //        {
-        //    //            var properties = model.CreateBasicProperties();
-        //    //            rawMessage.Properties.CopyTo(properties);
-        //    //            var waiter = confirmationListener.GetWaiter(model);
+            var msgTemplate = "Published to exchange: '{0}', routing key: '{1}', correlationId: '{2}'";
+            Logger.Debug(msgTemplate, exchange.Name, routingKey, msgProperties.CorrelationId);
+        }
 
-        //    //            try
-        //    //            {
-        //    //                model.BasicPublish(exchange.Name, routingKey, mandatory, properties, rawMessage.Body);
-        //    //            }
-        //    //            catch (Exception)
-        //    //            {
-        //    //                waiter.Cancel();
-        //    //                throw;
-        //    //            }
+        private IPublishConfirmationWaiter GetConfirmationWaiter(IModel model)
+        {
+            var waiter = confirmationListener.GetWaiter(model);                  
+            try
+            {
+                BasicPublish(model);
+            }
+            catch (Exception ex)
+            {
+                waiter.Cancel();
+                Logger.Error("Basic Publish Exception", ex);
+                throw;
+            }
+            return waiter;
+        }
 
-        //    //            return waiter;
-        //    //        }).ConfigureAwait(false);
-
-        //    //        try
-        //    //        {
-        //    //            await confirmsWaiter.WaitAsync(timeBudget.GetRemainingTime()).ConfigureAwait(false);
-        //    //            break;
-        //    //        }
-        //    //        catch (PublishInterruptedException)
-        //    //        {
-        //    //        }
-        //    //    }
-        //    //}
-        //    //else
-        //    //{
-        //    //    await clientCommandDispatcher.InvokeAsync(model =>
-        //    //    {
-        //    //        var properties = model.CreateBasicProperties();
-        //    //        rawMessage.Properties.CopyTo(properties);
-        //    //        model.BasicPublish(exchange.Name, routingKey, mandatory, properties, rawMessage.Body);
-        //    //    }).ConfigureAwait(false);
-        //    //}
-        //    //eventBus.Publish(new PublishedMessageEvent(exchange.Name, routingKey, rawMessage.Properties, rawMessage.Body));
-        //    //logger.DebugWrite("Published to exchange: '{0}', routing key: '{1}', correlationId: '{2}'", exchange.Name, routingKey, messageProperties.CorrelationId);
-        //}
+        private void BasicPublish(IModel model)
+        {
+            var properties = model.CreateBasicProperties();
+            RawMessage.Properties.CopyTo(properties);
+            model.BasicPublish(exchange.Name, routingKey, mandatory, properties, RawMessage.Body);
+        }
     }
 }

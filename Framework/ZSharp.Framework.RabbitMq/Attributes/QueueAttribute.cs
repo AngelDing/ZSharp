@@ -12,6 +12,7 @@ namespace ZSharp.Framework.RabbitMq
         }
 
         public string QueueName { get; private set; }
+
         public string ExchangeName { get; set; }
     }
 }

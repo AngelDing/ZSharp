@@ -105,9 +105,9 @@ namespace ZSharp.Framework.Caching
             redisWrapper.ClearAll();
         }
 
-        public override bool IsSingleton()
+        public override bool IsThreadSafety()
         {
-            return false;
+            return true;
         }       
     }
 }

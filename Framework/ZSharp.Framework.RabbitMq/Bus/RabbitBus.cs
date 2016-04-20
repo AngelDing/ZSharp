@@ -33,7 +33,7 @@ namespace ZSharp.Framework.RabbitMq
             GuardHelper.ArgumentNotNull(() => topic);
 
             var messageType = typeof(T);
-            var easyNetQMessage = new Message<T>(message)
+            var rabbitMessage = new Message<T>(message)
             {
                 Properties =
                 {
@@ -42,7 +42,7 @@ namespace ZSharp.Framework.RabbitMq
             };
             var exchange = publishExchangeDeclareStrategy.DeclareExchange(
                 advancedBus, messageType, ExchangeType.Topic);
-            advancedBus.Publish(exchange, topic, false, easyNetQMessage);
+            advancedBus.Publish(exchange, topic, false, rabbitMessage);
         }
 
         public Task PublishAsync<T>(T message) where T : class
@@ -55,7 +55,7 @@ namespace ZSharp.Framework.RabbitMq
             GuardHelper.ArgumentNotNull(() => message);
             GuardHelper.ArgumentNotNull(() => topic);
             var messageType = typeof(T);
-            var easyNetQMessage = new Message<T>(message)
+            var rabbitMessage = new Message<T>(message)
             {
                 Properties =
                 {
@@ -64,7 +64,7 @@ namespace ZSharp.Framework.RabbitMq
             };
             var exchange = await publishExchangeDeclareStrategy.DeclareExchangeAsync(
                 advancedBus, messageType, ExchangeType.Topic).ConfigureAwait(false);
-            await advancedBus.PublishAsync(exchange, topic, false, easyNetQMessage).ConfigureAwait(false);
+            await advancedBus.PublishAsync(exchange, topic, false, rabbitMessage).ConfigureAwait(false);
         }
 
         protected override void Dispose(bool disposing)

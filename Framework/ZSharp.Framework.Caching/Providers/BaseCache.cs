@@ -26,7 +26,7 @@ namespace ZSharp.Framework.Caching
             return cacheKey.Key;
         }
 
-        public abstract bool IsSingleton();
+        public abstract bool IsThreadSafety();
 
         public abstract T Get<T>(string key);
 
@@ -36,12 +36,12 @@ namespace ZSharp.Framework.Caching
 
         public IDisposable EnterReadLock()
         {
-            return IsSingleton() ? rwLock.GetUpgradeableReadLock() : ActionDisposable.Empty;
+            return IsThreadSafety() ? ActionDisposable.Empty : rwLock.GetUpgradeableReadLock();
         }
 
         public IDisposable EnterWriteLock()
         {
-            return IsSingleton() ? rwLock.GetWriteLock() : ActionDisposable.Empty;
+            return IsThreadSafety() ? rwLock.GetWriteLock() : ActionDisposable.Empty;
         }
 
         public virtual void Expire(CacheTag cacheTag)

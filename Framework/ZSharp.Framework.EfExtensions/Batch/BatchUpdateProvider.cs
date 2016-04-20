@@ -12,22 +12,29 @@ namespace ZSharp.Framework.EfExtensions.Batch
 {
     public class BatchUpdateProvider : BaseBatch, IBatchUpdate
     {
-        public int Update<T>(ObjectContext objectContext,
-            ObjectQuery<T> query, Expression<Func<T, T>> updateExpression)
+        public int Update<T>(
+            ObjectContext objectContext, 
+            ObjectQuery<T> query, 
+            Expression<Func<T, T>> updateExpression)
             where T : class
         {
             return InternalUpdate(objectContext, query, updateExpression, false).Result;
         }
 
-        public Task<int> UpdateAsync<T>(ObjectContext objectContext,
-            ObjectQuery<T> query, Expression<Func<T, T>> updateExpression)
+        public Task<int> UpdateAsync<T>(
+            ObjectContext objectContext,
+            ObjectQuery<T> query,
+            Expression<Func<T, T>> updateExpression)
             where T : class
         {
             return InternalUpdate(objectContext, query, updateExpression, true);
         }
 
-        private async Task<int> InternalUpdate<T>(ObjectContext objectContext, 
-            ObjectQuery<T> query, Expression<Func<T, T>> updateExpression, bool async = false)
+        private async Task<int> InternalUpdate<T>(
+            ObjectContext objectContext, 
+            ObjectQuery<T> query, 
+            Expression<Func<T, T>> updateExpression,
+            bool async = false)
             where T : class
         {
             DbConnection updateConnection = null;

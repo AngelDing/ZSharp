@@ -56,9 +56,14 @@
     <Compile Include="Core\IQueue.cs" />
     <Compile Include="Core\Queue.cs" />
     <Compile Include="Events\PublishedMessageEvent.cs" />
+    <Compile Include="Interception\CompositeInterceptor.cs" />
     <Compile Include="Interception\DefaultInterceptor.cs" />
+    <Compile Include="Interception\GZipInterceptor.cs" />
+    <Compile Include="Interception\InterceptionExtensions.cs" />
+    <Compile Include="Interception\InterceptorRegistrator.cs" />
     <Compile Include="Interception\IProduceConsumeInterceptor.cs" />
     <Compile Include="Interception\RawMessage.cs" />
+    <Compile Include="Interception\TripleDESInterceptor.cs" />
     <Compile Include="Message\IMessage.cs" />
     <Compile Include="Message\MessageFactory.cs" />
     <Compile Include="Message\MessageProperties.cs" />

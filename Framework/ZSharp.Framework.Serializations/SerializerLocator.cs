@@ -1,5 +1,4 @@
 ﻿using ZSharp.Framework.Dependency;
-using System.Configuration;
 using ZSharp.Framework.Extensions;
 using ZSharp.Framework.Configurations;
 
@@ -9,9 +8,9 @@ namespace ZSharp.Framework.Serializations
     {
         public override void RegisterDefaults(IContainer container)
         {
-            container.Register<JsonSerializer>(() => new JsonSerializer());
-            container.Register<XmlSerializer>(() => new XmlSerializer());
-            container.Register<BinarySerializer>(() => new BinarySerializer());
+            container.Register(p => new JsonSerializer());
+            container.Register(p => new XmlSerializer());
+            container.Register(p => new BinarySerializer());
             
             //需要在appsetting中定義採用的額外的序列化方式:
             var formatType = CommonConfig.SerializationFormatType;
@@ -25,17 +24,17 @@ namespace ZSharp.Framework.Serializations
 
             if (formatType == SerializationFormat.Jil.GetDescription().ToUpper() || formatType == allType)
             {
-                container.Register<JilSerializer>(() => new JilSerializer());
+                container.Register(p => new JilSerializer());
             }
 
             if (formatType == SerializationFormat.MsgPack.GetDescription().ToUpper() || formatType == allType)
             {
-                container.Register<MsgPackSerializer>(() => new MsgPackSerializer());
+                container.Register(p => new MsgPackSerializer());
             }
 
             if (formatType == SerializationFormat.ProtoBuf.GetDescription().ToUpper() || formatType == allType)
             {
-                container.Register<ProtoBufSerializer>(() => new ProtoBufSerializer());
+                container.Register(p => new ProtoBufSerializer());
             }
         }
     }

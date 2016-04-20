@@ -9,8 +9,9 @@ namespace ZSharp.Framework.EfExtensions.Batch
 {
     public class BatchDeleteProvider : BaseBatch, IBatchDelete
     {
-        private   const string StopInvalidQueryString = @"SELECT1AS[C1],CAST(NULLASint)AS[C2]FROM(SELECT1ASX)AS[SingleRowTable1]WHERE1=0";
-        /// </returns>
+        private const string StopInvalidQueryString = 
+            @"SELECT1AS[C1],CAST(NULLASint)AS[C2]FROM(SELECT1ASX)AS[SingleRowTable1]WHERE1=0";
+
         public int Delete<T>(ObjectContext objectContext, ObjectQuery<T> query) 
             where T : class
         {
@@ -23,8 +24,7 @@ namespace ZSharp.Framework.EfExtensions.Batch
             return InternalDelete(objectContext, query, true);
         }
 
-        private async Task<int> InternalDelete<T>(ObjectContext objectContext, 
-            ObjectQuery<T> query, bool async = false)
+        private async Task<int> InternalDelete<T>(ObjectContext objectContext, ObjectQuery<T> query, bool async = false)
             where T : class
         {
             DbConnection deleteConnection = null;

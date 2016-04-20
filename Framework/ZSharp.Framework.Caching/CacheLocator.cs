@@ -6,17 +6,13 @@ using ZSharp.Framework.Extensions;
 namespace ZSharp.Framework.Caching
 {
     public class CacheLocator : SimpleLocator
-    {  
+    {
         public override void RegisterDefaults(IContainer container)
         {
-            container.Register<CacheManager<AspNetCache>>(
-                () => new CacheManager<AspNetCache>(t => { return new AspNetCache(); }));
-            container.Register<CacheManager<StaticCache>>(
-                () => new CacheManager<StaticCache>(t => { return new StaticCache(); }));          
-            container.Register<CacheManager<LRUCache>>(
-                () => new CacheManager<LRUCache>(t => { return new LRUCache(); }));
-            container.Register<CacheManager<RedisCache>>(
-                () => new CacheManager<RedisCache>(t => { return new RedisCache(GetSerializer()); }));
+            container.Register(p => new CacheManager<AspNetCache>(t => { return new AspNetCache(); }));
+            container.Register(p => new CacheManager<StaticCache>(t => { return new StaticCache(); }));
+            container.Register(p => new CacheManager<LRUCache>(t => { return new LRUCache(); }));
+            container.Register(p => new CacheManager<RedisCache>(t => { return new RedisCache(GetSerializer()); }));
         }
 
         private ISerializer GetSerializer()

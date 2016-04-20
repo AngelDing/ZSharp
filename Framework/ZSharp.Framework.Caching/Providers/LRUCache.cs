@@ -4,9 +4,6 @@ using System.Threading;
 using System.Linq;
 using System;
 using System.Threading.Tasks;
-using System.Collections;
-using System.Configuration;
-using ZSharp.Framework.Extensions;
 using ZSharp.Framework.Configurations;
 
 namespace ZSharp.Framework.Caching
@@ -88,9 +85,9 @@ namespace ZSharp.Framework.Caching
             cache.TryRemove(key, out old);
         }
 
-        public override bool IsSingleton()
+        public override bool IsThreadSafety()
         {
-            return false;
+            return true;
         }
 
         #endregion 
