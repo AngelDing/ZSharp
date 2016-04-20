@@ -43,6 +43,7 @@
     <Compile Include="Dependency\SimpleContainer.cs" />
     <Compile Include="Dependency\SimpleLocator.cs" />
     <Compile Include="DisposableObject.cs" />
+    <Compile Include="SystemLinqDynamic.cs" />
     <Compile Include="Entities\Auditing\AuditedEntity.cs" />
     <Compile Include="Entities\Auditing\CreationAuditedEntity.cs" />
     <Compile Include="Entities\Auditing\FullAuditedEntity.cs" />

@@ -38,9 +38,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Linq.Dynamic">
-      <HintPath>..\..\Dll\System.Linq.Dynamic.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audit\AduitAction.cs" />

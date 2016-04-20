@@ -124,7 +124,7 @@ namespace ZSharp.Framework.Dependency
 
         private void CheckDependencyLifecycle(DependencyLifecycle lifecycle)
         {
-            if (lifecycle != DependencyLifecycle.Singleton || lifecycle != DependencyLifecycle.Transient)
+            if (lifecycle != DependencyLifecycle.Singleton && lifecycle != DependencyLifecycle.Transient)
             {
                 var msg = "Simple container only support to register singleton and transient lifecycle!";
                 throw new FrameworkException(msg);
