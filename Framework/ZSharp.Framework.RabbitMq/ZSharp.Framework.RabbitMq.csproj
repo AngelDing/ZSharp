@@ -39,7 +39,10 @@
     <Compile Include="Attributes\DeliveryModeAttribute.cs" />
     <Compile Include="Attributes\QueueAttribute.cs" />
     <Compile Include="Attributes\TimeoutSecondsAttribute.cs" />
+    <Compile Include="Bus\BaseRabbitMq.cs" />
     <Compile Include="Bus\IAdvancedBus.cs" />
+    <Compile Include="Bus\IEventBus.cs" />
+    <Compile Include="Bus\PublishManager.cs" />
     <Compile Include="Bus\RabbitAdvancedBus.cs" />
     <Compile Include="Bus\RabbitBus.cs" />
     <Compile Include="Connection\ConnectionConfiguration.cs" />
@@ -52,12 +55,22 @@
     <Compile Include="Core\IExchange.cs" />
     <Compile Include="Core\IQueue.cs" />
     <Compile Include="Core\Queue.cs" />
+    <Compile Include="Events\PublishedMessageEvent.cs" />
+    <Compile Include="Interception\DefaultInterceptor.cs" />
+    <Compile Include="Interception\IProduceConsumeInterceptor.cs" />
+    <Compile Include="Interception\RawMessage.cs" />
     <Compile Include="Message\IMessage.cs" />
     <Compile Include="Message\MessageFactory.cs" />
     <Compile Include="Message\MessageProperties.cs" />
     <Compile Include="Message\MessageReceivedInfo.cs" />
+    <Compile Include="Producer\IClientCommandDispatcher.cs" />
+    <Compile Include="Producer\IPublishConfirmationListener.cs" />
+    <Compile Include="Producer\IPublishConfirmationWaiter.cs" />
     <Compile Include="Producer\IPublishExchangeDeclareStrategy.cs" />
     <Compile Include="Producer\PublishExchangeDeclareStrategy.cs" />
+    <Compile Include="Producer\PublishInterruptedException.cs" />
+    <Compile Include="Producer\PublishNackedException.cs" />
+    <Compile Include="TimeBudget.cs" />
     <Compile Include="ZRabbitMqException.cs" />
     <Compile Include="Bus\IBus.cs" />
     <Compile Include="Message\MessageDeliveryMode.cs" />
@@ -74,6 +87,10 @@
     <ProjectReference Include="..\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
       <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
       <Name>ZSharp.Framework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.Infrastructure\ZSharp.Framework.Infrastructure.csproj">
+      <Project>{66b2f2cc-da8f-4615-9933-6edcdfc52a6c}</Project>
+      <Name>ZSharp.Framework.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\ZSharp.Framework.Logging\ZSharp.Framework.Logging.csproj">
       <Project>{2d8850ae-67c7-4448-87b2-f3f084f36b55}</Project>
