@@ -33,13 +33,16 @@
     <Reference Include="RabbitMQ.Client">
       <HintPath>..\..\Dll\RabbitMq\RabbitMQ.Client.dll</HintPath>
     </Reference>
+    <Reference Include="Sprache">
+      <HintPath>..\..\Dll\RabbitMq\Sprache.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\DeliveryModeAttribute.cs" />
     <Compile Include="Attributes\QueueAttribute.cs" />
     <Compile Include="Attributes\TimeoutSecondsAttribute.cs" />
-    <Compile Include="Bus\BaseRabbitMq.cs" />
+    <Compile Include="BaseRabbitMq.cs" />
     <Compile Include="Bus\IAdvancedBus.cs" />
     <Compile Include="Bus\IEventBus.cs" />
     <Compile Include="Bus\PublishManager.cs" />
@@ -68,7 +71,12 @@
     <Compile Include="Message\MessageFactory.cs" />
     <Compile Include="Message\MessageProperties.cs" />
     <Compile Include="Message\MessageReceivedInfo.cs" />
+    <Compile Include="Producer\ClientCommandDispatcher.cs" />
+    <Compile Include="Producer\ClientCommandDispatcherSingleton.cs" />
     <Compile Include="Producer\IClientCommandDispatcher.cs" />
+    <Compile Include="Producer\IPersistentChannel.cs" />
+    <Compile Include="Producer\IPersistentChannelFactory.cs" />
+    <Compile Include="Connection\IPersistentConnection.cs" />
     <Compile Include="Producer\IPublishConfirmationListener.cs" />
     <Compile Include="Producer\IPublishConfirmationWaiter.cs" />
     <Compile Include="Producer\IPublishExchangeDeclareStrategy.cs" />
