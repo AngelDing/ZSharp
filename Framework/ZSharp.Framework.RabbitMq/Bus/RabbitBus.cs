@@ -69,10 +69,10 @@ namespace ZSharp.Framework.RabbitMq
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                advancedBus.Dispose();
-            }
+            //if (disposing)
+            //{
+            //    advancedBus.Dispose();
+            //}
         }
     }
 }

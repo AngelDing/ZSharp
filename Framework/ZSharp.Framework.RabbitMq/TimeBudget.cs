@@ -5,15 +5,16 @@ namespace ZSharp.Framework.RabbitMq
 {
     public sealed class TimeBudget
     {
+        public TimeBudget(TimeSpan budget) : this(budget, TimeSpan.FromMilliseconds(5))
+        {
+        }
+
         public TimeBudget(TimeSpan budget, TimeSpan precision)
         {
             this.budget = budget;
             this.precision = precision;
             watch = new Stopwatch();
-        }
-
-        public TimeBudget(TimeSpan budget)
-            : this(budget, TimeSpan.FromMilliseconds(5)) { }
+        }       
 
         public TimeBudget Start()
         {

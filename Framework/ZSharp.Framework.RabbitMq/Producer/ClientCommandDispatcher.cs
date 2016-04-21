@@ -13,9 +13,9 @@ namespace ZSharp.Framework.RabbitMq
 
         public ClientCommandDispatcher(ConnectionConfiguration configuration, IPersistentConnection connection, IPersistentChannelFactory persistentChannelFactory)
         {
-            Preconditions.CheckNotNull(configuration, "configuration");
-            Preconditions.CheckNotNull(connection, "connection");
-            Preconditions.CheckNotNull(persistentChannelFactory, "persistentChannelFactory");
+            //Preconditions.CheckNotNull(configuration, "configuration");
+            //Preconditions.CheckNotNull(connection, "connection");
+            //Preconditions.CheckNotNull(persistentChannelFactory, "persistentChannelFactory");
 
             dispatcher = new Lazy<IClientCommandDispatcher>(
                 () => new ClientCommandDispatcherSingleton(configuration, connection, persistentChannelFactory));
@@ -23,25 +23,25 @@ namespace ZSharp.Framework.RabbitMq
 
         public T Invoke<T>(Func<IModel, T> channelAction)
         {
-            Preconditions.CheckNotNull(channelAction, "channelAction");
+            //Preconditions.CheckNotNull(channelAction, "channelAction");
             return dispatcher.Value.Invoke(channelAction);
         }
 
         public void Invoke(Action<IModel> channelAction)
         {
-            Preconditions.CheckNotNull(channelAction, "channelAction");
+            //Preconditions.CheckNotNull(channelAction, "channelAction");
             dispatcher.Value.Invoke(channelAction);
         }
 
         public Task<T> InvokeAsync<T>(Func<IModel, T> channelAction)
         {
-            Preconditions.CheckNotNull(channelAction, "channelAction");
+            //Preconditions.CheckNotNull(channelAction, "channelAction");
             return dispatcher.Value.InvokeAsync(channelAction);
         }
 
         public Task InvokeAsync(Action<IModel> channelAction)
         {
-            Preconditions.CheckNotNull(channelAction, "channelAction");
+            //Preconditions.CheckNotNull(channelAction, "channelAction");
             return dispatcher.Value.InvokeAsync(channelAction);
         }
 

@@ -18,9 +18,9 @@ namespace ZSharp.Framework.RabbitMq
             IPersistentConnection connection,
             IPersistentChannelFactory persistentChannelFactory)
         {
-            Preconditions.CheckNotNull(configuration, "configuration");
-            Preconditions.CheckNotNull(connection, "connection");
-            Preconditions.CheckNotNull(persistentChannelFactory, "persistentChannelFactory");
+            //Preconditions.CheckNotNull(configuration, "configuration");
+            //Preconditions.CheckNotNull(connection, "connection");
+            //Preconditions.CheckNotNull(persistentChannelFactory, "persistentChannelFactory");
 
             persistentChannel = persistentChannelFactory.CreatePersistentChannel(connection);
 
@@ -53,7 +53,7 @@ namespace ZSharp.Framework.RabbitMq
 
         public Task<T> InvokeAsync<T>(Func<IModel, T> channelAction)
         {
-            Preconditions.CheckNotNull(channelAction, "channelAction");
+            //Preconditions.CheckNotNull(channelAction, "channelAction");
 
             var tcs = new TaskCompletionSource<T>();
 
@@ -85,7 +85,7 @@ namespace ZSharp.Framework.RabbitMq
 
         public Task InvokeAsync(Action<IModel> channelAction)
         {
-            Preconditions.CheckNotNull(channelAction, "channelAction");
+            //Preconditions.CheckNotNull(channelAction, "channelAction");
 
             return InvokeAsync(x =>
             {

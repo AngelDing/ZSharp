@@ -25,9 +25,8 @@ namespace ZSharp.Framework.RabbitMq
         {
         }
 
-        protected PublishNackedException(
-            SerializationInfo info,
-            StreamingContext context) : base(info, context)
+        protected PublishNackedException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
     }

@@ -1,4 +1,5 @@
-﻿using ZSharp.Framework.Logging;
+﻿using System;
+using ZSharp.Framework.Logging;
 
 namespace ZSharp.Framework.RabbitMq
 {
@@ -12,23 +13,15 @@ namespace ZSharp.Framework.RabbitMq
 
         protected readonly ConnectionConfiguration connectionConfiguration;
 
-        public BaseRabbitMq(ConnectionConfiguration connectionConfiguration)
+        public BaseRabbitMq()
         {
             Logger = LogManager.GetLogger(GetType());
-            this.connectionConfiguration = connectionConfiguration;
+            connectionConfiguration = GetConnectionConfiguration();
         }
 
-        protected override void Dispose(bool disposing)
+        private ConnectionConfiguration GetConnectionConfiguration()
         {
-            if (disposing)
-            {
-                //consumerFactory.Dispose();
-                //confirmationListener.Dispose();
-                clientCommandDispatcher.Dispose();
-                //connection.Dispose();
-
-                Logger.Debug("Connection disposed");
-            }
+            throw new NotImplementedException();
         }
     }
 }

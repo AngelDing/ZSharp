@@ -9,5 +9,10 @@ namespace ZSharp.Framework.Extensions
             exc.StackTrace.Dump();
             exc.Message.Dump();
         }
+
+        public static TimeSpan Double(this TimeSpan timeSpan)
+        {
+            return timeSpan + timeSpan;
+        }
     }
 }

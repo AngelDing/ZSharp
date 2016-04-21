@@ -29,10 +29,7 @@ namespace ZSharp.Framework.RabbitMq
             }
         }
 
-        public PublishManager(
-            ConnectionConfiguration connectionConfiguration, 
-            IExchange exchange, string routingKey, IMessage<T> message)
-            : base(connectionConfiguration)
+        public PublishManager(IExchange exchange, string routingKey, IMessage<T> message)
         {
             GuardHelper.ArgumentNotNull(() => exchange);
             GuardHelper.ArgumentNotNull(() => routingKey);
@@ -143,6 +140,11 @@ namespace ZSharp.Framework.RabbitMq
             var properties = model.CreateBasicProperties();
             RawMessage.Properties.CopyTo(properties);
             model.BasicPublish(exchange.Name, routingKey, mandatory, properties, RawMessage.Body);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            throw new NotImplementedException();
         }
     }
 }

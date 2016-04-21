@@ -27,9 +27,7 @@ namespace ZSharp.Framework.RabbitMq
         {
         }
 
-        protected PublishInterruptedException(
-            SerializationInfo info,
-            StreamingContext context)
+        protected PublishInterruptedException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

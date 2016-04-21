@@ -21,7 +21,6 @@ namespace ZSharp.Framework.RabbitMq
         public ushort PrefetchCount { get; set; }
         public Uri AMQPConnectionString { get; set; }
         public IDictionary<string, object> ClientProperties { get; private set; } 
-
         public IEnumerable<HostConfiguration> Hosts { get; set; }
         public SslOption Ssl { get; private set; }
         /// <summary>

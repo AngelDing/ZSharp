@@ -62,7 +62,7 @@ namespace ZSharp.Framework.RabbitMq
                             ? attr.QueueName
                             : string.Format("{0}_{1}", attr.QueueName, subscriptionId);
                     };
-            ErrorQueueNamingConvention = () => "EasyNetQ_Default_Error_Queue";
+            ErrorQueueNamingConvention = () => "ZRabbitMq_Default_Error_Queue";
             ErrorExchangeNamingConvention = info => "ErrorExchange_" + info.RoutingKey;
             ConsumerTagConvention = () => Guid.NewGuid().ToString();
         }
