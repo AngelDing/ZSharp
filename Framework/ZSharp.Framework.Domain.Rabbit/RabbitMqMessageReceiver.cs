@@ -1,5 +1,4 @@
-﻿using EasyNetQ;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace ZSharp.Framework.Domain
@@ -18,11 +17,11 @@ namespace ZSharp.Framework.Domain
 
         protected override bool ReceiveMessage()
         {
-            var bus = RabbitHutch.CreateBus("host=localhost");
-            foreach (var topic in this.Topics)
-            {
-                bus.Subscribe<Envelope<IMessage>>(SysCode, HandleWaitMessage, p => p.WithTopic(topic));
-            }
+            //var bus = RabbitHutch.CreateBus("host=localhost");
+            //foreach (var topic in this.Topics)
+            //{
+            //    bus.Subscribe<Envelope<IMessage>>(SysCode, HandleWaitMessage, p => p.WithTopic(topic));
+            //}
             return true;
         }
 

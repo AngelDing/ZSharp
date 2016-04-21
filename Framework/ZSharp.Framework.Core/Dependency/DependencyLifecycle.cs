@@ -5,8 +5,6 @@ namespace ZSharp.Framework.Dependency
     {
         Singleton,
 
-        Transient,
-
-        PerRequest
+        Transient
     }
 }

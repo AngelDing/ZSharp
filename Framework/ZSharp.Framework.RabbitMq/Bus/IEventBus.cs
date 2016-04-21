@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace ZSharp.Framework.RabbitMq
 {
     /// <summary>
-    /// An internal pub-sub bus to distribute events within EasyNetQ
+    /// An internal pub-sub bus to distribute events
     /// </summary>
     public interface IEventBus
     {

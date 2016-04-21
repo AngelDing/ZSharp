@@ -85,7 +85,7 @@ namespace ZSharp.Framework.RabbitMq
             var product = Product ?? applicationName;
             var platform = Platform ?? hostname;
 
-            clientProperties.Add("client_api", "EasyNetQ");
+            clientProperties.Add("client_api", "ZRabbitMq");
             clientProperties.Add("product", product);
             clientProperties.Add("platform", platform);
             clientProperties.Add("version", version);

@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="BaseService.cs" />
     <Compile Include="CommonServices.cs" />
+    <Compile Include="CustomUnityContainer.cs" />
     <Compile Include="ICommonServices.cs" />
     <Compile Include="Locking\LockFactory.cs" />
     <Compile Include="Locking\IDistributedLock.cs" />

@@ -1,4 +1,6 @@
-﻿namespace System.Collections.Generic
+﻿using System.Collections.Concurrent;
+
+namespace System.Collections.Generic
 {
     /// <summary>
     /// Usability extensions for dictionaries.
@@ -24,6 +26,16 @@
                 return defaultValue;
 
             return result;
+        }
+
+        public static void Remove<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> source, TKey key)
+        {
+            ((IDictionary<TKey, TValue>)source).Remove(key);
+        }
+
+        public static void Add<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> source, TKey key, TValue value)
+        {
+            ((IDictionary<TKey, TValue>)source).Add(key, value);
         }
     }
 }

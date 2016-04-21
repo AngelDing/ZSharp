@@ -3,7 +3,7 @@
     /// <summary>
     /// This event is fired when the logical consumer stops consuming.
     /// 
-    /// This is _not_ fired when a connection interruption causes EasyNetQ to re-create
+    /// This is _not_ fired when a connection interruption causes RabbitMq to re-create
     /// a PersistentConsumer.
     /// </summary>
     public class StoppedConsumingEvent

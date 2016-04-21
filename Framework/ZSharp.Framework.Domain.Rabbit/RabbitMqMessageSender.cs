@@ -1,5 +1,4 @@
-﻿using EasyNetQ;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ZSharp.Framework.Domain
 {
@@ -7,18 +6,18 @@ namespace ZSharp.Framework.Domain
     {
         public override void Send<T>(Envelope<T> message)
         {
-            using (var bus = RabbitHutch.CreateBus("host=localhost"))
-            {
-                bus.Publish(message);
-            }
+            //using (var bus = RabbitHutch.CreateBus("host=localhost"))
+            //{
+            //    bus.Publish(message);
+            //}
         }
 
         public override void Send<T>(IEnumerable<Envelope<T>> messages)
         {
-            using (var bus = RabbitHutch.CreateBus("host=localhost"))
-            {
-                bus.Publish(messages);
-            }
+            //using (var bus = RabbitHutch.CreateBus("host=localhost"))
+            //{
+            //    bus.Publish(messages);
+            //}
         }
     }
 }
