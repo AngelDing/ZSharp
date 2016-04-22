@@ -35,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonConfig.cs" />
+    <Compile Include="RabbitMq\RabbitMqConfiguration.cs" />
     <Compile Include="Settings\ISettingEntity.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,6 +57,7 @@
       <Name>ZSharp.Framework.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

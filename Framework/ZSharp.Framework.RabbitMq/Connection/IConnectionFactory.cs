@@ -1,4 +1,5 @@
 ﻿using RabbitMQ.Client;
+using ZSharp.Framework.Configurations;
 
 namespace ZSharp.Framework.RabbitMq
 {
@@ -6,7 +7,7 @@ namespace ZSharp.Framework.RabbitMq
     {
         IConnection CreateConnection();
 
-        ConnectionConfiguration Configuration { get; }
+        RabbitMqConfiguration Configuration { get; }
 
         HostConfiguration CurrentHost { get; }
 
@@ -21,10 +22,10 @@ namespace ZSharp.Framework.RabbitMq
 
     public class ConnectionFactoryWrapper : IConnectionFactory
     {
-        public virtual ConnectionConfiguration Configuration { get; private set; }
+        public virtual RabbitMqConfiguration Configuration { get; private set; }
         private readonly IClusterHostSelectionStrategy<ConnectionFactoryInfo> clusterHostSelectionStrategy;
 
-        public ConnectionFactoryWrapper(ConnectionConfiguration connectionConfiguration, IClusterHostSelectionStrategy<ConnectionFactoryInfo> clusterHostSelectionStrategy)
+        public ConnectionFactoryWrapper(RabbitMqConfiguration connectionConfiguration, IClusterHostSelectionStrategy<ConnectionFactoryInfo> clusterHostSelectionStrategy)
         {
             this.clusterHostSelectionStrategy = clusterHostSelectionStrategy;
             Configuration = connectionConfiguration;
@@ -56,13 +57,6 @@ namespace ZSharp.Framework.RabbitMq
 
                 if (connectionFactory.Port == -1)
                     connectionFactory.Port = hostConfiguration.Port;
-
-                if (hostConfiguration.Ssl.Enabled)
-                    connectionFactory.Ssl = hostConfiguration.Ssl;
-
-                //Prefer SSL configurations per each host but fall back to ConnectionConfiguration's SSL configuration for backwards compatibility
-                else if (Configuration.Ssl.Enabled)
-                    connectionFactory.Ssl = Configuration.Ssl;
 
                 connectionFactory.RequestedHeartbeat = Configuration.RequestedHeartbeat;
                 connectionFactory.ClientProperties = Configuration.ClientProperties;

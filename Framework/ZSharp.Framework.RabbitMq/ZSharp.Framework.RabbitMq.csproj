@@ -69,7 +69,6 @@
     <Compile Include="Events\PublishChannelCreatedEvent.cs" />
     <Compile Include="Events\ConnectionCreatedEvent.cs" />
     <Compile Include="Events\ConnectionDisconnectedEvent.cs" />
-    <Compile Include="Connection\ConnectionConfiguration.cs" />
     <Compile Include="Conventions.cs" />
     <Compile Include="Core\Binding.cs" />
     <Compile Include="Core\Exchange.cs" />
@@ -122,6 +121,10 @@
     <Compile Include="Strategies\RandomClusterHostSelectionStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ZSharp.Framework.Configurations\ZSharp.Framework.Configurations.csproj">
+      <Project>{91437b74-1818-4727-b189-b1cf2cfb2f09}</Project>
+      <Name>ZSharp.Framework.Configurations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
       <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
       <Name>ZSharp.Framework.Core</Name>

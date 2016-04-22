@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using RabbitMQ.Client;
 
-namespace ZSharp.Framework.RabbitMq
+namespace ZSharp.Framework.Configurations
 {
-    public class ConnectionConfiguration
+    public class RabbitMqConfiguration
     {
         private const int DefaultPort = 5672;
         public ushort Port { get; set; }
@@ -22,7 +21,6 @@ namespace ZSharp.Framework.RabbitMq
         public Uri AMQPConnectionString { get; set; }
         public IDictionary<string, object> ClientProperties { get; private set; } 
         public IEnumerable<HostConfiguration> Hosts { get; set; }
-        public SslOption Ssl { get; private set; }
         /// <summary>
         /// Operation timeout seconds. (default is 10)
         /// </summary>
@@ -34,7 +32,14 @@ namespace ZSharp.Framework.RabbitMq
         public string Platform { get; set; }
         public bool UseBackgroundThreads { get; set; }
 
-        public ConnectionConfiguration()
+        /// <summary>
+        /// This flag tells the server how to react if the message cannot be routed to a queue. 
+        /// If this flag is true, the server will return an unroutable message with a BasicReturn method. 
+        /// If this flag is false, the server silently drops the message.
+        /// </summary>
+        public bool Mandatory { get; set; }
+
+        public RabbitMqConfiguration()
         {
             // set default values
             Port = DefaultPort;
@@ -46,7 +51,8 @@ namespace ZSharp.Framework.RabbitMq
             PublisherConfirms = false;
             PersistentMessages = true;
             CancelOnHaFailover = false;
-            UseBackgroundThreads = false;             
+            UseBackgroundThreads = false;
+            Mandatory = false;
             // prefetchCount determines how many messages will be allowed in the local in-memory queue
             // setting to zero makes this infinite, but risks an out-of-memory exception.
             // set to 50 based on this blog post:
@@ -55,7 +61,7 @@ namespace ZSharp.Framework.RabbitMq
             
             Hosts = new List<HostConfiguration>();
 
-            Ssl = new SslOption();
+            //Ssl = new SslOption();
         }
 
         private void SetDefaultClientProperties(IDictionary<string, object> clientProperties)
@@ -111,7 +117,7 @@ namespace ZSharp.Framework.RabbitMq
             }
             if (!Hosts.Any())
             {
-                throw new ZRabbitMqException("Invalid connection string. 'host' value must be supplied. e.g: \"host=myserver\"");
+                throw new FrameworkException("Invalid connection string. 'host' value must be supplied. e.g: \"host=myserver\"");
             }
             foreach (var hostConfiguration in Hosts)
             {
@@ -128,13 +134,8 @@ namespace ZSharp.Framework.RabbitMq
 
     public class HostConfiguration
     {
-        public HostConfiguration()
-        {
-            Ssl = new SslOption();
-        }
-
         public string Host { get; set; }
+
         public ushort Port { get; set; }
-        public SslOption Ssl { get; private set; }
     }
 }

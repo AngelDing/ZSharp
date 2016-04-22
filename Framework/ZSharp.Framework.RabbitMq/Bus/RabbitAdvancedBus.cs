@@ -41,17 +41,17 @@ namespace ZSharp.Framework.RabbitMq
 
         #region Publish       
 
-        public void Publish<T>(IExchange exchange, string routingKey, bool mandatory, IMessage<T> message)
+        public void Publish<T>(IExchange exchange, string routingKey, IMessage<T> message)
             where T : class
         {
-            new PublishManager<T>(exchange, routingKey, message).Publish(mandatory);
+            new PublishManager<T>(exchange, routingKey, message).Publish();
         }
 
-        public Task PublishAsync<T>(IExchange exchange, string routingKey, bool mandatory, IMessage<T> message)
+        public Task PublishAsync<T>(IExchange exchange, string routingKey, IMessage<T> message)
             where T : class
         {
             var manager = new PublishManager<T>(exchange, routingKey, message);
-            return manager.PublishAsync(mandatory);
+            return manager.PublishAsync();
         }
 
         #endregion

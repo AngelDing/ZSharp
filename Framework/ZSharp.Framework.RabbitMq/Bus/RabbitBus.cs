@@ -42,7 +42,7 @@ namespace ZSharp.Framework.RabbitMq
             };
             var exchange = publishExchangeDeclareStrategy.DeclareExchange(
                 advancedBus, messageType, ExchangeType.Topic);
-            advancedBus.Publish(exchange, topic, false, rabbitMessage);
+            advancedBus.Publish(exchange, topic, rabbitMessage);
         }
 
         public Task PublishAsync<T>(T message) where T : class
@@ -64,7 +64,7 @@ namespace ZSharp.Framework.RabbitMq
             };
             var exchange = await publishExchangeDeclareStrategy.DeclareExchangeAsync(
                 advancedBus, messageType, ExchangeType.Topic).ConfigureAwait(false);
-            await advancedBus.PublishAsync(exchange, topic, false, rabbitMessage).ConfigureAwait(false);
+            await advancedBus.PublishAsync(exchange, topic, rabbitMessage).ConfigureAwait(false);
         }
 
         protected override void Dispose(bool disposing)

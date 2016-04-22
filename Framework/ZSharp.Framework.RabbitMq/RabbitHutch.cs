@@ -1,4 +1,5 @@
 ﻿using System;
+using ZSharp.Framework.Configurations;
 using ZSharp.Framework.Dependency;
 using ZSharp.Framework.Infrastructure;
 
@@ -21,7 +22,7 @@ namespace ZSharp.Framework.RabbitMq
             return container.Resolve<IBus>();
         }
 
-        private static ConnectionConfiguration GetConnectionConfiguration()
+        private static RabbitMqConfiguration GetConnectionConfiguration()
         {
             throw new NotImplementedException();
         }

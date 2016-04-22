@@ -109,7 +109,7 @@ namespace ZSharp.Framework.RabbitMq
 
         private void WireUpChannelEvents(IModel channel)
         {
-            if (connectionConfiguration.PublisherConfirms)
+            if (RabbitMqConfiguration.PublisherConfirms)
             {
                 channel.ConfirmSelect();
                 channel.BasicAcks += OnAck;
@@ -143,7 +143,7 @@ namespace ZSharp.Framework.RabbitMq
                 {
                     return;
                 }
-                if (connectionConfiguration.PublisherConfirms)
+                if (RabbitMqConfiguration.PublisherConfirms)
                 {
                     internalChannel.BasicAcks -= OnAck;
                     internalChannel.BasicNacks -= OnNack;
@@ -158,7 +158,7 @@ namespace ZSharp.Framework.RabbitMq
 
         private bool IsTimedOut(DateTime startTime)
         {
-            return !connectionConfiguration.Timeout.Equals(0) && startTime.AddSeconds(connectionConfiguration.Timeout) < DateTime.UtcNow;
+            return !RabbitMqConfiguration.Timeout.Equals(0) && startTime.AddSeconds(RabbitMqConfiguration.Timeout) < DateTime.UtcNow;
         }
     }
 }

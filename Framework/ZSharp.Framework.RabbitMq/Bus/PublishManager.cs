@@ -36,6 +36,7 @@ namespace ZSharp.Framework.RabbitMq
             GuardHelper.ArgumentNotNull(() => message);
             this.exchange = exchange;
             this.routingKey = routingKey;
+            mandatory = RabbitMqConfiguration.Mandatory;
             SerializeMessage(message);
             confirmationListener = ServiceLocator.GetInstance<IPublishConfirmationListener>();
         }
@@ -48,12 +49,11 @@ namespace ZSharp.Framework.RabbitMq
             body = serializedMessage.Body;
         }
 
-        public void Publish(bool mandatory)
+        public void Publish()
         {
-            this.mandatory = mandatory;
-            if (connectionConfiguration.PublisherConfirms)
+            if (RabbitMqConfiguration.PublisherConfirms)
             {
-                var timeBudget = new TimeBudget(TimeSpan.FromSeconds(connectionConfiguration.Timeout)).Start();
+                var timeBudget = new TimeBudget(TimeSpan.FromSeconds(RabbitMqConfiguration.Timeout)).Start();
                 while (!timeBudget.IsExpired())
                 {
                     var confirmsWaiter = clientCommandDispatcher.Invoke(model =>
@@ -76,15 +76,14 @@ namespace ZSharp.Framework.RabbitMq
                 clientCommandDispatcher.Invoke(model => { BasicPublish(model); });
             }
 
-            EventPublishAndLog();
+            InternalEventPublishAndLog();
         }        
 
-        public async Task PublishAsync(bool mandatory)
-        {
-            this.mandatory = mandatory;            
-            if (connectionConfiguration.PublisherConfirms)
+        public async Task PublishAsync()
+        { 
+            if (RabbitMqConfiguration.PublisherConfirms)
             {
-                var timeBudget = new TimeBudget(TimeSpan.FromSeconds(connectionConfiguration.Timeout)).Start();
+                var timeBudget = new TimeBudget(TimeSpan.FromSeconds(RabbitMqConfiguration.Timeout)).Start();
                 while (!timeBudget.IsExpired())
                 {
                     var confirmsWaiter = await clientCommandDispatcher.InvokeAsync(model =>
@@ -106,10 +105,10 @@ namespace ZSharp.Framework.RabbitMq
             {
                 await clientCommandDispatcher.InvokeAsync(model => { BasicPublish(model); }).ConfigureAwait(false);
             }
-            EventPublishAndLog();
+            InternalEventPublishAndLog();
         }
 
-        private void EventPublishAndLog()
+        private void InternalEventPublishAndLog()
         {
             var publishedMsg = new PublishedMessageEvent(
                 exchange.Name, routingKey, RawMessage.Properties, RawMessage.Body);

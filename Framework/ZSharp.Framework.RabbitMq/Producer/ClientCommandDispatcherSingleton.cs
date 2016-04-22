@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
 using RabbitMQ.Client;
+using ZSharp.Framework.Configurations;
 
 namespace ZSharp.Framework.RabbitMq
 {
@@ -14,7 +15,7 @@ namespace ZSharp.Framework.RabbitMq
         private readonly BlockingCollection<Action> queue = new BlockingCollection<Action>(queueSize);
 
         public ClientCommandDispatcherSingleton(
-            ConnectionConfiguration configuration,
+            RabbitMqConfiguration configuration,
             IPersistentConnection connection,
             IPersistentChannelFactory persistentChannelFactory)
         {
@@ -100,7 +101,7 @@ namespace ZSharp.Framework.RabbitMq
             persistentChannel.Dispose();
         }
 
-        private void StartDispatcherThread(ConnectionConfiguration configuration)
+        private void StartDispatcherThread(RabbitMqConfiguration configuration)
         {
             var thread = new Thread(() =>
             {

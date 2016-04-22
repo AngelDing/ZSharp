@@ -1,4 +1,5 @@
 ﻿using System;
+using ZSharp.Framework.Configurations;
 using ZSharp.Framework.Utils;
 
 namespace ZSharp.Framework.RabbitMq
@@ -10,9 +11,9 @@ namespace ZSharp.Framework.RabbitMq
 
     public class MessageDeliveryModeStrategy : IMessageDeliveryModeStrategy
     {
-        private readonly ConnectionConfiguration connectionConfiguration;
+        private readonly RabbitMqConfiguration connectionConfiguration;
 
-        public MessageDeliveryModeStrategy(ConnectionConfiguration connectionConfiguration)
+        public MessageDeliveryModeStrategy(RabbitMqConfiguration connectionConfiguration)
         {
             //Preconditions.CheckNotNull(connectionConfiguration, "connectionConfiguration");
             this.connectionConfiguration = connectionConfiguration;

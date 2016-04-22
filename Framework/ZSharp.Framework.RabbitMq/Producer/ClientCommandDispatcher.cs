@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using RabbitMQ.Client;
+using ZSharp.Framework.Configurations;
 
 namespace ZSharp.Framework.RabbitMq
 {
@@ -11,7 +12,7 @@ namespace ZSharp.Framework.RabbitMq
     {
         private readonly Lazy<IClientCommandDispatcher> dispatcher;
 
-        public ClientCommandDispatcher(ConnectionConfiguration configuration, IPersistentConnection connection, IPersistentChannelFactory persistentChannelFactory)
+        public ClientCommandDispatcher(RabbitMqConfiguration configuration, IPersistentConnection connection, IPersistentChannelFactory persistentChannelFactory)
         {
             //Preconditions.CheckNotNull(configuration, "configuration");
             //Preconditions.CheckNotNull(connection, "connection");

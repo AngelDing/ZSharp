@@ -1,5 +1,6 @@
-﻿using System;
+﻿using ZSharp.Framework.Configurations;
 using ZSharp.Framework.Logging;
+using ZSharp.Framework.Infrastructure;
 
 namespace ZSharp.Framework.RabbitMq
 {
@@ -11,17 +12,22 @@ namespace ZSharp.Framework.RabbitMq
 
         protected IClientCommandDispatcher clientCommandDispatcher { get; set; }
 
-        protected readonly ConnectionConfiguration connectionConfiguration;
+        private RabbitMqConfiguration rabbitMqConfiguration;
+        protected RabbitMqConfiguration RabbitMqConfiguration
+        {
+            get
+            {
+                if (rabbitMqConfiguration == null)
+                {
+                    rabbitMqConfiguration = ServiceLocator.GetInstance<RabbitMqConfiguration>();
+                }
+                return rabbitMqConfiguration;
+            }
+        }
 
         public BaseRabbitMq()
         {
             Logger = LogManager.GetLogger(GetType());
-            connectionConfiguration = GetConnectionConfiguration();
-        }
-
-        private ConnectionConfiguration GetConnectionConfiguration()
-        {
-            throw new NotImplementedException();
         }
     }
 }
