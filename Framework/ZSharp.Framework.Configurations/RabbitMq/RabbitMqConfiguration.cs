@@ -21,13 +21,27 @@ namespace ZSharp.Framework.Configurations
         public Uri AMQPConnectionString { get; set; }
         public IDictionary<string, object> ClientProperties { get; private set; } 
         public IEnumerable<HostConfiguration> Hosts { get; set; }
+
         /// <summary>
         /// Operation timeout seconds. (default is 10)
         /// </summary>
         public ushort Timeout { get; set; }
+
+        /// <summary>
+        /// 消息发送后是否需要RabbitMq服务器回复确认信息
+        /// </summary>
         public bool PublisherConfirms { get; set; }
+
+        /// <summary>
+        /// 是否持久化消息
+        /// </summary>
         public bool PersistentMessages { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public bool CancelOnHaFailover { get; set; }
+
         public string Product { get; set; }
         public string Platform { get; set; }
         public bool UseBackgroundThreads { get; set; }

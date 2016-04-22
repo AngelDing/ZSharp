@@ -36,6 +36,8 @@
   <ItemGroup>
     <Compile Include="CommonConfig.cs" />
     <Compile Include="RabbitMq\RabbitMqConfiguration.cs" />
+    <Compile Include="RabbitMq\RabbitMqConfigurationHandler.cs" />
+    <Compile Include="RabbitMq\RabbitMqHostGroupCollection.cs" />
     <Compile Include="Settings\ISettingEntity.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -49,6 +51,7 @@
     <Compile Include="Settings\JsonPersistAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="RabbitMq\App.config" />
     <None Include="Redis\App.config" />
   </ItemGroup>
   <ItemGroup>
