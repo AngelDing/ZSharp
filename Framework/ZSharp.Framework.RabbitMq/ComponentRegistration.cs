@@ -30,7 +30,7 @@ namespace ZSharp.Framework.RabbitMq
                 .Register<IPublishConfirmationListener, PublishConfirmationListener>()
                 //.Register<IHandlerCollectionFactory, HandlerCollectionFactory>()
                 .Register<IAdvancedBus, RabbitAdvancedBus>()
-                //.Register<ISendReceive, SendReceive>()
+                .Register<ISendReceive, SendReceive>()
                 //.Register<IScheduler, ExternalScheduler>()
                 .Register<IBus, RabbitBus>();
         }

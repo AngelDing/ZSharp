@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZSharp.Framework.Utils;
 
@@ -23,80 +24,74 @@ namespace ZSharp.Framework.RabbitMq
 
         #region Exchagne
 
-        public IExchange ExchangeDeclare(
-            string name,
-            string type,
-            bool passive = false,
-            bool durable = true,
-            bool autoDelete = false,
-            bool @internal = false,
-            string alternateExchange = null,
-            bool delayed = false)
+        public IExchange ExchangeDeclare(ExchangeDeclareParam param)
         {
-            GuardHelper.CheckStringLength(() => name, 255);
-            GuardHelper.CheckStringLength(() => type, 255);
-            if (passive)
+            var name = param.Name;    
+            if (param.Passive)
             {
                 clientCommandDispatcher.Invoke(x => x.ExchangeDeclarePassive(name));
                 return new Exchange(name);
             }
-            var arguments = GetExchangeArguments(ref type, alternateExchange, delayed);
+            var arguments = GetExchangeArguments(param);
             clientCommandDispatcher.Invoke(x =>
             {
-                x.ExchangeDeclare(name, type, durable, autoDelete, arguments);
+                x.ExchangeDeclare(name, param.Type, param.Durable, param.AutoDelete, arguments);
             });
-            LogExchangeDeclare(name, type, durable, autoDelete, delayed);
+            LogExchangeDeclare(param);
             return new Exchange(name);
         }       
 
-        public async Task<IExchange> ExchangeDeclareAsync(
-            string name,
-            string type,
-            bool passive = false,
-            bool durable = true,
-            bool autoDelete = false,
-            bool @internal = false,
-            string alternateExchange = null,
-            bool delayed = false)
+        public async Task<IExchange> ExchangeDeclareAsync(ExchangeDeclareParam param)
         {
-            GuardHelper.CheckStringLength(() => name, 255);
-            GuardHelper.CheckStringLength(() => type, 255);
-
-            if (passive)
+            var name = param.Name;
+            if (param.Passive)
             {
                 await clientCommandDispatcher
                     .InvokeAsync(x => x.ExchangeDeclarePassive(name))
                     .ConfigureAwait(false);
                 return new Exchange(name);
             }
-            var arguments = GetExchangeArguments(ref type, alternateExchange, delayed);
+            var arguments = GetExchangeArguments(param);
             await clientCommandDispatcher
-                .InvokeAsync(x => x.ExchangeDeclare(name, type, durable, autoDelete, arguments))
+                .InvokeAsync(x => x.ExchangeDeclare(name, param.Type, param.Durable, param.AutoDelete, arguments))
                 .ConfigureAwait(false);
-            LogExchangeDeclare(name, type, durable, autoDelete, delayed);
+            LogExchangeDeclare(param);
             return new Exchange(name);
         }
 
-        private void LogExchangeDeclare(string name, string type, bool durable, bool autoDelete, bool delayed)
+        private void LogExchangeDeclare(ExchangeDeclareParam param)
         {
             var msgTemplate = "Declared Exchange: {0} type:{1}, durable:{2}, autoDelete:{3}, delayed:{4}";
-            Logger.Debug(msgTemplate, name, type, durable, autoDelete, delayed);
+            Logger.Debug(msgTemplate, param.Name, param.Type, param.Durable, param.AutoDelete, param.Delayed);
         }
 
-        private IDictionary<string, object> GetExchangeArguments(
-            ref string type, string alternateExchange, bool delayed)
+        private IDictionary<string, object> GetExchangeArguments(ExchangeDeclareParam param)
         {
             IDictionary<string, object> arguments = new Dictionary<string, object>();
-            if (alternateExchange != null)
+            if (param.AlternateExchange != null)
             {
-                arguments.Add("alternate-exchange", alternateExchange);
+                arguments.Add("alternate-exchange", param.AlternateExchange);
             }
-            if (delayed)
+            if (param.Delayed)
             {
-                arguments.Add("x-delayed-type", type);
-                type = "x-delayed-message";
+                arguments.Add("x-delayed-type", param.Type);
+                param.Type = "x-delayed-message";
             }
             return arguments;
+        }
+
+        #endregion
+
+        #region Queue
+
+        public IQueue QueueDeclare(QueueDeclareParam param)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IQueue> QueueDeclareAsync(QueueDeclareParam param)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
@@ -133,6 +128,6 @@ namespace ZSharp.Framework.RabbitMq
 
             disposed = true;
             Logger.Debug("Connection disposed");
-        }
+        }        
     }
 }

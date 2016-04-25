@@ -12,5 +12,9 @@ namespace ZSharp.Framework.RabbitMq
         Task PublishAsync<T>(T message) where T : class;
 
         Task PublishAsync<T>(T message, string topic) where T : class;
+
+        void Send<T>(string queue, T message) where T : class;
+
+        Task SendAsync<T>(string queue, T message) where T : class;
     }
 }

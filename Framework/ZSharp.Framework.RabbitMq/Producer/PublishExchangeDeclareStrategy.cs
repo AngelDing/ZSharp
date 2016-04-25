@@ -24,7 +24,8 @@ namespace ZSharp.Framework.RabbitMq
                 {
                     return exchange;
                 }
-                exchange = advancedBus.ExchangeDeclare(exchangeName, exchangeType);
+                var param = new ExchangeDeclareParam(exchangeName, exchangeType);
+                exchange = advancedBus.ExchangeDeclare(param);
                 exchanges[exchangeName] = exchange;
                 return exchange;
             }
@@ -55,7 +56,8 @@ namespace ZSharp.Framework.RabbitMq
                 {
                     return exchange;
                 }
-                exchange = await advancedBus.ExchangeDeclareAsync(exchangeName, exchangeType).ConfigureAwait(false);
+                var param = new ExchangeDeclareParam(exchangeName, exchangeType);
+                exchange = await advancedBus.ExchangeDeclareAsync(param).ConfigureAwait(false);
                 exchanges[exchangeName] = exchange;
                 return exchange;
             }

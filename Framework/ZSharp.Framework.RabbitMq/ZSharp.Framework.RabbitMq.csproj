@@ -92,6 +92,7 @@
     <Compile Include="Message\MessageFactory.cs" />
     <Compile Include="Message\MessageProperties.cs" />
     <Compile Include="Message\MessageReceivedInfo.cs" />
+    <Compile Include="Params\QueueDeclareParam.cs" />
     <Compile Include="Producer\ClientCommandDispatcher.cs" />
     <Compile Include="Producer\ClientCommandDispatcherSingleton.cs" />
     <Compile Include="Producer\IClientCommandDispatcher.cs" />
@@ -103,11 +104,13 @@
     <Compile Include="Producer\IPublishConfirmationWaiter.cs" />
     <Compile Include="Producer\IPublishExchangeDeclareStrategy.cs" />
     <Compile Include="Channel\PersistentChannel.cs" />
+    <Compile Include="SendReceive\ISendReceive.cs" />
     <Compile Include="Producer\PublishConfirmationListener.cs" />
     <Compile Include="Producer\PublishConfirmationWaiter.cs" />
     <Compile Include="Producer\PublishExchangeDeclareStrategy.cs" />
     <Compile Include="Producer\PublishInterruptedException.cs" />
     <Compile Include="Producer\PublishNackedException.cs" />
+    <Compile Include="SendReceive\SendReceive.cs" />
     <Compile Include="RabbitHutch.cs" />
     <Compile Include="TimeBudget.cs" />
     <Compile Include="ZRabbitMqException.cs" />
@@ -144,6 +147,7 @@
       <Name>ZSharp.Framework.Serializations</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
