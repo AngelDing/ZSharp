@@ -1,4 +1,6 @@
-﻿namespace ZSharp.Framework.Configurations
+﻿using System.Collections.Generic;
+
+namespace ZSharp.Framework.Configurations
 {
     public interface IRabbitMqConfiguration
     {
@@ -47,6 +49,8 @@
 
         RabbitMqHostCollection RabbitMqHosts { get; }
 
-        RabbitMqClientPropertyCollection RabbitMqClientProperties { get; }
+        RabbitMqClientPropertyCollection ClientPropertyCollection { get; }
+
+        IDictionary<string, object> ClientProperties { get; }
     }
 }

@@ -98,6 +98,7 @@
     <Compile Include="Channel\IPersistentChannel.cs" />
     <Compile Include="Channel\IPersistentChannelFactory.cs" />
     <Compile Include="Connection\IPersistentConnection.cs" />
+    <Compile Include="Producer\IClientCommandDispatcherFactory.cs" />
     <Compile Include="Producer\IPublishConfirmationListener.cs" />
     <Compile Include="Producer\IPublishConfirmationWaiter.cs" />
     <Compile Include="Producer\IPublishExchangeDeclareStrategy.cs" />

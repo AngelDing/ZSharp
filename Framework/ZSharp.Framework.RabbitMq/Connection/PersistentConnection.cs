@@ -139,48 +139,47 @@ namespace ZSharp.Framework.RabbitMq
         {
             Logger.Info("Connection blocked. Reason: '{0}'", e.Reason);
 
-            eventBus.Publish(new ConnectionBlockedEvent(e.Reason));
+            EventBus.Publish(new ConnectionBlockedEvent(e.Reason));
         }
 
         void OnConnectionUnblocked(object sender, EventArgs e)
         {
             Logger.Info("Connection unblocked.");
 
-            eventBus.Publish(new ConnectionUnblockedEvent());
+            EventBus.Publish(new ConnectionUnblockedEvent());
         }
 
         public void OnConnected()
         {
             Logger.Debug("OnConnected event fired");
-            eventBus.Publish(new ConnectionCreatedEvent());
+            EventBus.Publish(new ConnectionCreatedEvent());
         }
 
         public void OnDisconnected()
         {
-            eventBus.Publish(new ConnectionDisconnectedEvent());
+            EventBus.Publish(new ConnectionDisconnectedEvent());
         }
 
         private bool disposed = false;
-        protected override void Dispose(bool disposing)
+        public void Dispose()
         {
-            if (disposing)
+            if (disposed)
             {
-                if (disposed)
-                    return;
-                disposed = true;
-                if (connection != null)
+                return;
+            }
+            disposed = true;
+            if (connection != null)
+            {
+                try
                 {
-                    try
-                    {
-                        connection.Dispose();
-                    }
-                    catch (IOException exception)
-                    {
-                        Logger.Debug(
-                            "IOException thrown on connection dispose. Message: '{0}'. " +
-                            "This is not normally a cause for concern.",
-                            exception.Message);
-                    }
+                    connection.Dispose();
+                }
+                catch (IOException exception)
+                {
+                    Logger.Debug(
+                        "IOException thrown on connection dispose. Message: '{0}'. " +
+                        "This is not normally a cause for concern.",
+                        exception.Message);
                 }
             }
         }

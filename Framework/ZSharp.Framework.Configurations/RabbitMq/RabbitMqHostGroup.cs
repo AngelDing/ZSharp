@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 
 namespace ZSharp.Framework.Configurations
 {
@@ -217,11 +219,24 @@ namespace ZSharp.Framework.Configurations
         }
 
         [ConfigurationProperty("clientProperties")]
-        public RabbitMqClientPropertyCollection RabbitMqClientProperties
+        public RabbitMqClientPropertyCollection ClientPropertyCollection
         {
             get
             {
                 return this["clientProperties"] as RabbitMqClientPropertyCollection;
+            }
+        }
+
+        public IDictionary<string, object> ClientProperties
+        {
+            get
+            {
+                var clientProperties = new Dictionary<string, object>();
+                foreach (RabbitMqClientProperty p in ClientPropertyCollection)
+                {
+                    clientProperties.Add(p.Key, p.Value);
+                }
+                return clientProperties;
             }
         }
     }

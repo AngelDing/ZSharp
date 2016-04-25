@@ -7,7 +7,7 @@ namespace ZSharp.Framework.RabbitMq
     {
         IConnection CreateConnection();
 
-        RabbitMqConfiguration Configuration { get; }
+        IRabbitMqConfiguration Configuration { get; }
 
         RabbitMqHost CurrentHost { get; }
 
@@ -22,10 +22,12 @@ namespace ZSharp.Framework.RabbitMq
 
     public class ConnectionFactoryWrapper : IConnectionFactory
     {
-        public virtual RabbitMqConfiguration Configuration { get; private set; }
+        public virtual IRabbitMqConfiguration Configuration { get; private set; }
         private readonly IClusterHostSelectionStrategy<ConnectionFactoryInfo> clusterHostSelectionStrategy;
 
-        public ConnectionFactoryWrapper(RabbitMqConfiguration connectionConfiguration, IClusterHostSelectionStrategy<ConnectionFactoryInfo> clusterHostSelectionStrategy)
+        public ConnectionFactoryWrapper(
+            IRabbitMqConfiguration connectionConfiguration, 
+            IClusterHostSelectionStrategy<ConnectionFactoryInfo> clusterHostSelectionStrategy)
         {
             this.clusterHostSelectionStrategy = clusterHostSelectionStrategy;
             Configuration = connectionConfiguration;

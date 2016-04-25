@@ -9,8 +9,9 @@ namespace ZSharp.Framework.RabbitMq
     public class PublishManager<T> : BaseRabbitMq where T: class
     {
         private readonly IPublishConfirmationListener confirmationListener;
-        private readonly IExchange exchange;
-        private readonly string routingKey;
+        private readonly IClientCommandDispatcher clientCommandDispatcher;
+        private IExchange exchange;
+        private string routingKey;
         private bool mandatory;
         private MessageProperties msgProperties;
         private byte[] body;
@@ -29,28 +30,16 @@ namespace ZSharp.Framework.RabbitMq
             }
         }
 
-        public PublishManager(IExchange exchange, string routingKey, IMessage<T> message)
+        public PublishManager(IClientCommandDispatcher clientCommandDispatcher,
+            IPublishConfirmationListener confirmationListener)
         {
-            GuardHelper.ArgumentNotNull(() => exchange);
-            GuardHelper.ArgumentNotNull(() => routingKey);
-            GuardHelper.ArgumentNotNull(() => message);
-            this.exchange = exchange;
-            this.routingKey = routingKey;
-            mandatory = RabbitMqConfiguration.Mandatory;
-            SerializeMessage(message);
-            confirmationListener = ServiceLocator.GetInstance<IPublishConfirmationListener>();
-        }
+            this.clientCommandDispatcher = clientCommandDispatcher;
+            this.confirmationListener = confirmationListener;
+        }     
 
-        private void SerializeMessage(IMessage<T> message)
+        public void Publish(IExchange exchange, string routingKey, IMessage<T> message)
         {
-            var serializationStrategy = ServiceLocator.GetInstance<IMessageSerializationStrategy>();
-            var serializedMessage = serializationStrategy.SerializeMessage(message);
-            msgProperties = serializedMessage.Properties;
-            body = serializedMessage.Body;
-        }
-
-        public void Publish()
-        {
+            PreparePublish(exchange, routingKey, message);
             if (RabbitMqConfiguration.PublisherConfirms)
             {
                 var timeBudget = new TimeBudget(TimeSpan.FromSeconds(RabbitMqConfiguration.Timeout)).Start();
@@ -77,9 +66,9 @@ namespace ZSharp.Framework.RabbitMq
             }
 
             InternalEventPublishAndLog();
-        }        
+        }      
 
-        public async Task PublishAsync()
+        public async Task PublishAsync(IExchange exchange, string routingKey, IMessage<T> message)
         { 
             if (RabbitMqConfiguration.PublisherConfirms)
             {
@@ -112,7 +101,7 @@ namespace ZSharp.Framework.RabbitMq
         {
             var publishedMsg = new PublishedMessageEvent(
                 exchange.Name, routingKey, RawMessage.Properties, RawMessage.Body);
-            eventBus.Publish(publishedMsg);
+            EventBus.Publish(publishedMsg);
 
             var msgTemplate = "Published to exchange: '{0}', routing key: '{1}', correlationId: '{2}'";
             Logger.Debug(msgTemplate, exchange.Name, routingKey, msgProperties.CorrelationId);
@@ -141,9 +130,24 @@ namespace ZSharp.Framework.RabbitMq
             model.BasicPublish(exchange.Name, routingKey, mandatory, properties, RawMessage.Body);
         }
 
-        protected override void Dispose(bool disposing)
+        private void PreparePublish(IExchange exchange, string routingKey, IMessage<T> message)
         {
-            throw new NotImplementedException();
+            GuardHelper.ArgumentNotNull(() => exchange);
+            GuardHelper.ArgumentNotNull(() => routingKey);
+            GuardHelper.ArgumentNotNull(() => message);
+            this.exchange = exchange;
+            this.routingKey = routingKey;
+
+            mandatory = RabbitMqConfiguration.Mandatory;
+            SerializeMessage(message);
+        }
+
+        private void SerializeMessage(IMessage<T> message)
+        {
+            var serializationStrategy = ServiceLocator.GetInstance<IMessageSerializationStrategy>();
+            var serializedMessage = serializationStrategy.SerializeMessage(message);
+            msgProperties = serializedMessage.Properties;
+            body = serializedMessage.Body;
         }
     }
 }

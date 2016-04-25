@@ -4,13 +4,22 @@ using ZSharp.Framework.Infrastructure;
 
 namespace ZSharp.Framework.RabbitMq
 {
-    public abstract class BaseRabbitMq : DisposableObject
+    public abstract class BaseRabbitMq
     {
-        protected ILogger Logger{ get; private set; }        
-        
-        protected IEventBus eventBus { get; set; }
+        protected ILogger Logger{ get; private set; }
 
-        protected IClientCommandDispatcher clientCommandDispatcher { get; set; }
+        private IEventBus eventBus;
+        protected IEventBus EventBus
+        {
+            get
+            {
+                if (eventBus == null)
+                {
+                    eventBus = ServiceLocator.GetInstance<IEventBus>();
+                }
+                return eventBus;
+            }
+        }
 
         private IRabbitMqConfiguration rabbitMqConfiguration;
         protected IRabbitMqConfiguration RabbitMqConfiguration

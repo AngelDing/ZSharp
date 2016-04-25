@@ -49,19 +49,16 @@ namespace ZSharp.Framework.RabbitMq
             throw new TimeoutException("The operation requested on PersistentChannel timed out.");
         }
 
-        protected override void Dispose(bool disposing)
+        public void Dispose()
         {
-            if (disposing)
-            {
-                CloseChannel();
-                Logger.Debug("Persistent internalChannel disposed.");
-            }
+            CloseChannel();
+            Logger.Debug("Persistent internalChannel disposed.");
         }
 
         private void WireUpEvents()
         {
-            eventBus.Subscribe<ConnectionDisconnectedEvent>(OnConnectionDisconnected);
-            eventBus.Subscribe<ConnectionCreatedEvent>(ConnectionOnConnected);
+            EventBus.Subscribe<ConnectionDisconnectedEvent>(OnConnectionDisconnected);
+            EventBus.Subscribe<ConnectionCreatedEvent>(ConnectionOnConnected);
         }
 
         private void OnConnectionDisconnected(ConnectionDisconnectedEvent @event)
@@ -98,7 +95,7 @@ namespace ZSharp.Framework.RabbitMq
 
                 WireUpChannelEvents(channel);
 
-                eventBus.Publish(new PublishChannelCreatedEvent(channel));
+                EventBus.Publish(new PublishChannelCreatedEvent(channel));
 
                 internalChannel = channel;
             }
@@ -120,19 +117,19 @@ namespace ZSharp.Framework.RabbitMq
 
         private void OnReturn(object sender, BasicReturnEventArgs args)
         {
-            eventBus.Publish(new ReturnedMessageEvent(args.Body,
+            EventBus.Publish(new ReturnedMessageEvent(args.Body,
                 new MessageProperties(args.BasicProperties),
                 new MessageReturnedInfo(args.Exchange, args.RoutingKey, args.ReplyText)));
         }
 
         private void OnAck(object sender, BasicAckEventArgs args)
         {
-            eventBus.Publish(MessageConfirmationEvent.Ack((IModel)sender, args.DeliveryTag, args.Multiple));
+            EventBus.Publish(MessageConfirmationEvent.Ack((IModel)sender, args.DeliveryTag, args.Multiple));
         }
 
         private void OnNack(object sender, BasicNackEventArgs args)
         {
-            eventBus.Publish(MessageConfirmationEvent.Nack((IModel)sender, args.DeliveryTag, args.Multiple));
+            EventBus.Publish(MessageConfirmationEvent.Nack((IModel)sender, args.DeliveryTag, args.Multiple));
         }
 
         private void CloseChannel()

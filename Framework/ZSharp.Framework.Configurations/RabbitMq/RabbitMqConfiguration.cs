@@ -22,7 +22,9 @@ namespace ZSharp.Framework.Configurations
 
         public ushort Timeout { get; private set; }
 
-        public RabbitMqClientPropertyCollection RabbitMqClientProperties { get; private set; } 
+        public RabbitMqClientPropertyCollection ClientPropertyCollection { get; }
+
+        public IDictionary<string, object> ClientProperties { get; private set; }
 
         public RabbitMqHostCollection RabbitMqHosts { get; private set; }   
 
@@ -36,9 +38,7 @@ namespace ZSharp.Framework.Configurations
 
         public bool UseBackgroundThreads { get; private set; }
 
-        #endregion
-
-        public IDictionary<string, object> ClientProperties { get; private set; }
+        #endregion        
 
         public RabbitMqConfiguration(string rabbitMqConfigName)
         {
@@ -56,13 +56,13 @@ namespace ZSharp.Framework.Configurations
             UseBackgroundThreads = configuration.UseBackgroundThreads;
             Mandatory = configuration.Mandatory;
             PrefetchCount = configuration.PrefetchCount;
-            RabbitMqClientProperties = configuration.RabbitMqClientProperties;
+            ClientProperties = configuration.ClientProperties;
             RabbitMqHosts = configuration.RabbitMqHosts;
 
-            SetClientProperties();
+            SetClientDefaultProperties();
         }
 
-        private void SetClientProperties()
+        private void SetClientDefaultProperties()
         {
             var clientProperties = new Dictionary<string, object>();
             var version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -101,10 +101,7 @@ namespace ZSharp.Framework.Configurations
             clientProperties.Add("publisher_confirms", PublisherConfirms.ToString());
             clientProperties.Add("persistent_messages", PersistentMessages.ToString());
 
-            foreach (RabbitMqClientProperty p in RabbitMqClientProperties)
-            {
-                clientProperties.Add(p.Key, p.Value);
-            }
+            ClientProperties.AddRange(clientProperties);
         }
     }
 }

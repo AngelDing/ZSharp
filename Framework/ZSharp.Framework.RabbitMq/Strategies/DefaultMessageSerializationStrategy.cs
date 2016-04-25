@@ -8,11 +8,13 @@ namespace ZSharp.Framework.RabbitMq
         private readonly ISerializer serializer;
         private readonly ICorrelationIdGenerationStrategy correlationIdGenerator;
 
-        public DefaultMessageSerializationStrategy(ITypeNameSerializer typeNameSerializer, ISerializer serializer, ICorrelationIdGenerationStrategy correlationIdGenerator)
+        public DefaultMessageSerializationStrategy(
+            ITypeNameSerializer typeNameSerializer, 
+            ICorrelationIdGenerationStrategy correlationIdGenerator)
         {
             this.typeNameSerializer = typeNameSerializer;
-            this.serializer = serializer;
             this.correlationIdGenerator = correlationIdGenerator;
+            serializer = SerializationHelper.MsgPack;
         }
 
         public SerializedMessage SerializeMessage(IMessage message)

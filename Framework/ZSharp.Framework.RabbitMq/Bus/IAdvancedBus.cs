@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace ZSharp.Framework.RabbitMq
 {
-    public interface IAdvancedBus //: IDisposable
+    public interface IAdvancedBus : IDisposable
     {
         /// <summary>
         /// Declare an exchange

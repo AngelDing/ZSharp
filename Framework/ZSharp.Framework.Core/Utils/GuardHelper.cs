@@ -67,6 +67,17 @@ namespace ZSharp.Framework.Utils
         private static string GetParamName<T>(Func<T> expression)
         {
             return expression.Method.Name;
-        }  
+        }
+
+        [DebuggerStepThrough]
+        public static void CheckStringLength(Func<string> arg, int length)
+        {
+            ArgumentNotNull(arg);            
+            if (arg().Length > length)
+            {
+                var msgTemplate = "Argument '{0}' must be less than or equal to {1} characters.";
+                throw new ArgumentException(string.Format(msgTemplate, GetParamName(arg), length));
+            }
+        }
     }
 }

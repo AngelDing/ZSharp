@@ -26,7 +26,7 @@ namespace ZSharp.Framework.RabbitMq
                 //.Register<IConsumerFactory, ConsumerFactory>()
                 .Register<IConnectionFactory, ConnectionFactoryWrapper>()
                 .Register<IPersistentChannelFactory, PersistentChannelFactory>()
-                //.Register<IClientCommandDispatcherFactory, ClientCommandDispatcherFactory>()
+                .Register<IClientCommandDispatcherFactory, ClientCommandDispatcherFactory>()
                 .Register<IPublishConfirmationListener, PublishConfirmationListener>()
                 //.Register<IHandlerCollectionFactory, HandlerCollectionFactory>()
                 .Register<IAdvancedBus, RabbitAdvancedBus>()
