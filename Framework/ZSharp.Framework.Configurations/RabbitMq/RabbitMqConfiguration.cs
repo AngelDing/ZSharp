@@ -1,85 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
+using ZSharp.Framework.Utils;
 
 namespace ZSharp.Framework.Configurations
 {
-    public class RabbitMqConfiguration
+    public class RabbitMqConfiguration : IRabbitMqConfiguration
     {
-        private const int DefaultPort = 5672;
-        public ushort Port { get; set; }
-        public string VirtualHost { get; set; }
+        #region IRabbitMqConfiguration
+
+        public string VirtualHost { get; private set; }
+
         public string UserName { get; set; }
-        public string Password { get; set; }
-        /// <summary>
-        /// Heartbeat interval seconds. (default is 10)
-        /// </summary>
-        public ushort RequestedHeartbeat { get; set; }
-        public ushort PrefetchCount { get; set; }
-        public Uri AMQPConnectionString { get; set; }
-        public IDictionary<string, object> ClientProperties { get; private set; } 
-        public IEnumerable<HostConfiguration> Hosts { get; set; }
 
-        /// <summary>
-        /// Operation timeout seconds. (default is 10)
-        /// </summary>
-        public ushort Timeout { get; set; }
+        public string Password { get; private set; }
 
-        /// <summary>
-        /// 消息发送后是否需要RabbitMq服务器回复确认信息
-        /// </summary>
-        public bool PublisherConfirms { get; set; }
+        public ushort RequestedHeartbeat { get; private set; }
 
-        /// <summary>
-        /// 是否持久化消息
-        /// </summary>
-        public bool PersistentMessages { get; set; }
+        public ushort PrefetchCount { get; private set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool CancelOnHaFailover { get; set; }
+        public ushort Timeout { get; private set; }
 
-        public string Product { get; set; }
-        public string Platform { get; set; }
-        public bool UseBackgroundThreads { get; set; }
+        public RabbitMqClientPropertyCollection RabbitMqClientProperties { get; private set; } 
 
-        /// <summary>
-        /// This flag tells the server how to react if the message cannot be routed to a queue. 
-        /// If this flag is true, the server will return an unroutable message with a BasicReturn method. 
-        /// If this flag is false, the server silently drops the message.
-        /// </summary>
+        public RabbitMqHostCollection RabbitMqHosts { get; private set; }   
+
+        public bool PublisherConfirms { get; private set; }
+
+        public bool PersistentMessages { get; private set; }
+
+        public bool CancelOnHaFailover { get; private set; }
+
         public bool Mandatory { get; set; }
 
-        public RabbitMqConfiguration()
-        {
-            // set default values
-            Port = DefaultPort;
-            VirtualHost = "/";
-            UserName = "guest";
-            Password = "guest";
-            RequestedHeartbeat = 10;
-            Timeout = 10; // seconds
-            PublisherConfirms = false;
-            PersistentMessages = true;
-            CancelOnHaFailover = false;
-            UseBackgroundThreads = false;
-            Mandatory = false;
-            // prefetchCount determines how many messages will be allowed in the local in-memory queue
-            // setting to zero makes this infinite, but risks an out-of-memory exception.
-            // set to 50 based on this blog post:
-            // http://www.rabbitmq.com/blog/2012/04/25/rabbitmq-performance-measurements-part-2/
-            PrefetchCount = 50;
-            
-            Hosts = new List<HostConfiguration>();
+        public bool UseBackgroundThreads { get; private set; }
 
-            //Ssl = new SslOption();
+        #endregion
+
+        public IDictionary<string, object> ClientProperties { get; private set; }
+
+        public RabbitMqConfiguration(string rabbitMqConfigName)
+        {
+            GuardHelper.ArgumentNotNull(() => rabbitMqConfigName);
+            var configuration = RabbitMqConfigurationHandler.GetConfig(rabbitMqConfigName);
+
+            VirtualHost = configuration.VirtualHost;
+            UserName = configuration.UserName;
+            Password = configuration.UserName;
+            RequestedHeartbeat = configuration.RequestedHeartbeat;
+            Timeout = configuration.Timeout;
+            PublisherConfirms = configuration.PublisherConfirms;
+            PersistentMessages = configuration.PersistentMessages;
+            CancelOnHaFailover = configuration.CancelOnHaFailover;
+            UseBackgroundThreads = configuration.UseBackgroundThreads;
+            Mandatory = configuration.Mandatory;
+            PrefetchCount = configuration.PrefetchCount;
+           
+            SetClientProperties();
         }
 
-        private void SetDefaultClientProperties(IDictionary<string, object> clientProperties)
+        private void SetClientProperties()
         {
+            var clientProperties = new Dictionary<string, object>();
             var version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             var applicationNameAndPath = Environment.GetCommandLineArgs()[0];
 
@@ -102,54 +85,24 @@ namespace ZSharp.Framework.Configurations
             }
 
             var hostname = Environment.MachineName;
-            var product = Product ?? applicationName;
-            var platform = Platform ?? hostname;
+            var product = applicationName;
+            var platform = hostname;
 
-            clientProperties.Add("client_api", "ZRabbitMq");
             clientProperties.Add("product", product);
             clientProperties.Add("platform", platform);
-            clientProperties.Add("version", version);
-            clientProperties.Add("rabbitmq_version", version);
             clientProperties.Add("application", applicationName);
             clientProperties.Add("application_location", applicationPath);
             clientProperties.Add("machine_name", hostname);
-            clientProperties.Add("user", UserName);
-            clientProperties.Add("connected", DateTime.UtcNow.ToString("u")); // UniversalSortableDateTimePattern: yyyy'-'MM'-'dd HH':'mm':'ss'Z'
+            clientProperties.Add("connected", DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss")); 
             clientProperties.Add("requested_heartbeat", RequestedHeartbeat.ToString());
             clientProperties.Add("timeout", Timeout.ToString());
             clientProperties.Add("publisher_confirms", PublisherConfirms.ToString());
             clientProperties.Add("persistent_messages", PersistentMessages.ToString());
+
+            foreach (RabbitMqClientProperty p in RabbitMqClientProperties)
+            {
+                clientProperties.Add(p.Key, p.Value);
+            }
         }
-
-        public void Validate()
-        {
-            if (AMQPConnectionString != null && !Hosts.Any(h => h.Host == AMQPConnectionString.Host))
-            {
-                if(Port == DefaultPort && AMQPConnectionString.Port > 0) 
-                        Port = (ushort) AMQPConnectionString.Port;
-                Hosts = Hosts.Concat(new[] {new HostConfiguration {Host = AMQPConnectionString.Host}});
-            }
-            if (!Hosts.Any())
-            {
-                throw new FrameworkException("Invalid connection string. 'host' value must be supplied. e.g: \"host=myserver\"");
-            }
-            foreach (var hostConfiguration in Hosts)
-            {
-                if (hostConfiguration.Port == 0)
-                {
-                    hostConfiguration.Port = Port;
-                }
-            }
-
-            ClientProperties = new Dictionary<string, object>();
-            SetDefaultClientProperties(ClientProperties);
-        }
-    }
-
-    public class HostConfiguration
-    {
-        public string Host { get; set; }
-
-        public ushort Port { get; set; }
     }
 }

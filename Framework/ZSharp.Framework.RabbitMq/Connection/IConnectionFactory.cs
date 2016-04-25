@@ -9,7 +9,7 @@ namespace ZSharp.Framework.RabbitMq
 
         RabbitMqConfiguration Configuration { get; }
 
-        HostConfiguration CurrentHost { get; }
+        RabbitMqHost CurrentHost { get; }
 
         bool Next();
 
@@ -30,7 +30,7 @@ namespace ZSharp.Framework.RabbitMq
             this.clusterHostSelectionStrategy = clusterHostSelectionStrategy;
             Configuration = connectionConfiguration;
 
-            foreach (var hostConfiguration in Configuration.Hosts)
+            foreach (RabbitMqHost hostConfiguration in Configuration.RabbitMqHosts)
             {
                 var connectionFactory = new ConnectionFactory
                 {
@@ -39,12 +39,7 @@ namespace ZSharp.Framework.RabbitMq
                     TopologyRecoveryEnabled = false
                 };
 
-                if (connectionConfiguration.AMQPConnectionString != null)
-                {
-                    connectionFactory.uri = connectionConfiguration.AMQPConnectionString;
-                }
-
-                connectionFactory.HostName = hostConfiguration.Host;
+                connectionFactory.HostName = hostConfiguration.Ip;
                 
                 if(connectionFactory.VirtualHost == "/")
                     connectionFactory.VirtualHost = Configuration.VirtualHost;
@@ -69,7 +64,7 @@ namespace ZSharp.Framework.RabbitMq
             return clusterHostSelectionStrategy.Current().ConnectionFactory.CreateConnection();
         }
 
-        public virtual HostConfiguration CurrentHost
+        public virtual RabbitMqHost CurrentHost
         {
             get { return clusterHostSelectionStrategy.Current().HostConfiguration; }
         }
@@ -97,14 +92,14 @@ namespace ZSharp.Framework.RabbitMq
 
     public class ConnectionFactoryInfo
     {
-        public ConnectionFactoryInfo(ConnectionFactory connectionFactory, HostConfiguration hostConfiguration)
+        public ConnectionFactoryInfo(ConnectionFactory connectionFactory, RabbitMqHost hostConfiguration)
         {
             ConnectionFactory = connectionFactory;
             HostConfiguration = hostConfiguration;
         }
 
         public ConnectionFactory ConnectionFactory { get; private set; }
-        public HostConfiguration HostConfiguration { get; private set; }
+        public RabbitMqHost HostConfiguration { get; private set; }
     }
 
 }

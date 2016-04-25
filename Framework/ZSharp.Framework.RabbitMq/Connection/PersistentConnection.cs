@@ -99,7 +99,7 @@ namespace ZSharp.Framework.RabbitMq
 
                 OnConnected();
                 Logger.Info("Connected to RabbitMQ. Broker: '{0}', Port: {1}, VHost: '{2}'",
-                    connectionFactory.CurrentHost.Host,
+                    connectionFactory.CurrentHost.Ip,
                     connectionFactory.CurrentHost.Port,
                     connectionFactory.Configuration.VirtualHost);
             }
@@ -118,7 +118,7 @@ namespace ZSharp.Framework.RabbitMq
         {
             Logger.Error("Failed to connect to Broker: '{0}', Port: {1} VHost: '{2}'. " +
                     "ExceptionMessage: '{3}'",
-                connectionFactory.CurrentHost.Host,
+                connectionFactory.CurrentHost.Ip,
                 connectionFactory.CurrentHost.Port,
                 connectionFactory.Configuration.VirtualHost,
                 exception.Message);

@@ -12,14 +12,14 @@ namespace ZSharp.Framework.RabbitMq
 
         protected IClientCommandDispatcher clientCommandDispatcher { get; set; }
 
-        private RabbitMqConfiguration rabbitMqConfiguration;
-        protected RabbitMqConfiguration RabbitMqConfiguration
+        private IRabbitMqConfiguration rabbitMqConfiguration;
+        protected IRabbitMqConfiguration RabbitMqConfiguration
         {
             get
             {
                 if (rabbitMqConfiguration == null)
                 {
-                    rabbitMqConfiguration = ServiceLocator.GetInstance<RabbitMqConfiguration>();
+                    rabbitMqConfiguration = ServiceLocator.GetInstance<IRabbitMqConfiguration>();
                 }
                 return rabbitMqConfiguration;
             }

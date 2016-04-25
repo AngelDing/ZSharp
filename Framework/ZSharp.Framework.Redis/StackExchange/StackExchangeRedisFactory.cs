@@ -128,7 +128,7 @@ namespace ZSharp.Framework.Redis
 
             foreach (RedisHost redisHost in redisConfiguration.RedisHosts)
             {
-                redisOptions.EndPoints.Add(redisHost.IP, redisHost.Port);
+                redisOptions.EndPoints.Add(redisHost.Ip, redisHost.Port);
             }
             return redisOptions;
         }

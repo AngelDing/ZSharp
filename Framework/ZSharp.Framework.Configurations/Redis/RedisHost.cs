@@ -6,7 +6,7 @@ namespace ZSharp.Framework.Configurations
 	public class RedisHost : ConfigurationElement
 	{
 		[ConfigurationProperty("ip", IsRequired = true)]
-		public string IP
+		public string Ip
 		{
 			get
 			{
@@ -43,7 +43,7 @@ namespace ZSharp.Framework.Configurations
         {
             get
             {
-                return string.Format("{0}:{1}", this.IP, this.Port);
+                return string.Format("{0}:{1}", this.Ip, this.Port);
             }
         }
 	}

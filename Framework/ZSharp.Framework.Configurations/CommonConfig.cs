@@ -78,6 +78,17 @@ namespace ZSharp.Framework.Configurations
             }
         }
 
+        /// <summary>
+        /// 連接RabbitMq集群所使用的名稱
+        /// </summary>
+        public static string RabbitMqConfigName
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["RabbitMqConfigName"];
+            }
+        }
+
         public static string EngineTypeSetting
         {
             get

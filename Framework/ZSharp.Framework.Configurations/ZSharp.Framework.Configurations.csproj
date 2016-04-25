@@ -35,8 +35,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonConfig.cs" />
+    <Compile Include="RabbitMq\IRabbitMqConfiguration.cs" />
+    <Compile Include="RabbitMq\RabbitMqClientPropertyCollection.cs" />
     <Compile Include="RabbitMq\RabbitMqConfiguration.cs" />
     <Compile Include="RabbitMq\RabbitMqConfigurationHandler.cs" />
+    <Compile Include="RabbitMq\RabbitMqClientProperty.cs" />
+    <Compile Include="RabbitMq\RabbitMqHostGroup.cs" />
+    <Compile Include="RabbitMq\RabbitMqHostCollection.cs" />
+    <Compile Include="RabbitMq\RabbitMqHost.cs" />
     <Compile Include="RabbitMq\RabbitMqHostGroupCollection.cs" />
     <Compile Include="Settings\ISettingEntity.cs" />
     <Compile Include="Settings\ISettings.cs" />
