@@ -1,5 +1,4 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 
 namespace ZSharp.Framework.Configurations
 {
@@ -224,6 +223,6 @@ namespace ZSharp.Framework.Configurations
             {
                 return this["clientProperties"] as RabbitMqClientPropertyCollection;
             }
-        }     
+        }
     }
 }

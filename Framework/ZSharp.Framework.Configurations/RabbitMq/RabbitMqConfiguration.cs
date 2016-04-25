@@ -56,7 +56,9 @@ namespace ZSharp.Framework.Configurations
             UseBackgroundThreads = configuration.UseBackgroundThreads;
             Mandatory = configuration.Mandatory;
             PrefetchCount = configuration.PrefetchCount;
-           
+            RabbitMqClientProperties = configuration.RabbitMqClientProperties;
+            RabbitMqHosts = configuration.RabbitMqHosts;
+
             SetClientProperties();
         }
 

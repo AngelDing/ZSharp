@@ -5,8 +5,6 @@ namespace ZSharp.Framework.Configurations
 {
     public class RabbitMqHost : ConfigurationElement
     {
-        private const int DefaultPort = 5672;
-
         [ConfigurationProperty("ip", IsRequired = true)]
         public string Ip
         {
@@ -21,7 +19,7 @@ namespace ZSharp.Framework.Configurations
         {
             get
             {
-                var port = DefaultPort;
+                var port = 5672;
                 var config = this["port"];
                 if (config != null)
                 {
@@ -29,7 +27,7 @@ namespace ZSharp.Framework.Configurations
 
                     if (!value.IsNullOrEmpty())
                     {
-                        port = value.ToInt(5672);                      
+                        port = value.ToInt(port);                      
                     }
                 }
                 return port;

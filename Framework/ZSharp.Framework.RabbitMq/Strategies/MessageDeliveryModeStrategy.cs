@@ -11,20 +11,20 @@ namespace ZSharp.Framework.RabbitMq
 
     public class MessageDeliveryModeStrategy : IMessageDeliveryModeStrategy
     {
-        private readonly RabbitMqConfiguration connectionConfiguration;
+        private readonly IRabbitMqConfiguration connectionConfiguration;
 
-        public MessageDeliveryModeStrategy(RabbitMqConfiguration connectionConfiguration)
+        public MessageDeliveryModeStrategy(IRabbitMqConfiguration connectionConfiguration)
         {
-            //Preconditions.CheckNotNull(connectionConfiguration, "connectionConfiguration");
             this.connectionConfiguration = connectionConfiguration;
         }
 
         public byte GetDeliveryMode(Type messageType)
         {
-            //Preconditions.CheckNotNull(messageType, "messageType");
             var deliveryModeAttribute = messageType.GetAttribute<DeliveryModeAttribute>();
             if (deliveryModeAttribute == null)
+            {
                 return GetDeliveryModeInternal(connectionConfiguration.PersistentMessages);
+            }
             return GetDeliveryModeInternal(deliveryModeAttribute.IsPersistent);
         }
 

@@ -3,7 +3,6 @@ using ZSharp.Framework.Configurations;
 using ZSharp.Framework.Dependency;
 using ZSharp.Framework.Infrastructure;
 using ZSharp.Framework.Extensions;
-using ZSharp.Framework.Utils;
 
 namespace ZSharp.Framework.RabbitMq
 {

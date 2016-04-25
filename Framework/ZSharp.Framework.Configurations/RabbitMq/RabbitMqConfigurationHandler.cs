@@ -18,7 +18,8 @@ namespace ZSharp.Framework.Configurations
         public static IRabbitMqConfiguration GetConfig(string rabbitMqConfigName)
         {
             GuardHelper.ArgumentNotNull(() => rabbitMqConfigName);
-            var handler = ConfigurationManager.GetSection("rabbitMqConfig") as RabbitMqConfigurationHandler;
+            var section = ConfigurationManager.GetSection("rabbitMqConfig");
+            var handler = section as RabbitMqConfigurationHandler;
             GuardHelper.ArgumentNotNull(() => handler);
             RabbitMqHostGroup group = null;
 

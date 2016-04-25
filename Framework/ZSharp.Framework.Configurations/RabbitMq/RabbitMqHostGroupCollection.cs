@@ -11,12 +11,12 @@ namespace ZSharp.Framework.Configurations
 
         protected override ConfigurationElement CreateNewElement()
         {
-            return new RedisHostGroup();
+            return new RabbitMqHostGroup();
         }
 
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return ((RedisHostGroup)element).Name;
+            return ((RabbitMqHostGroup)element).VirtualHost;
         }
 
         protected override string ElementName

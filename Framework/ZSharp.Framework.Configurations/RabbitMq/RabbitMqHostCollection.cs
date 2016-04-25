@@ -14,7 +14,7 @@ namespace ZSharp.Framework.Configurations
 
         protected override ConfigurationElement CreateNewElement()
         {
-            return new RedisHost();
+            return new RabbitMqHost();
         }
 
         protected override object GetElementKey(ConfigurationElement element)
