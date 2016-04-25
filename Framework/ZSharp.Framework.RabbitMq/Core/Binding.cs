@@ -8,7 +8,7 @@ namespace ZSharp.Framework.RabbitMq
         {
             GuardHelper.ArgumentNotNull(() => bindable);
             GuardHelper.ArgumentNotNull(() => exchange);
-            GuardHelper.ArgumentNotNull(() => routingKey);
+            GuardHelper.ArgumentNotEmpty(() => routingKey);
 
             Bindable = bindable;
             Exchange = exchange;

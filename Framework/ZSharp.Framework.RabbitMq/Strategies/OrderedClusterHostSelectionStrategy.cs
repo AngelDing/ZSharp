@@ -14,7 +14,6 @@ namespace ZSharp.Framework.RabbitMq
 
         public virtual void Add(T item)
         {
-            //Preconditions.CheckNotNull(item, "item");
             items.Add(item);
             startIndex = items.Count-1;
         }
@@ -25,7 +24,6 @@ namespace ZSharp.Framework.RabbitMq
             {
                 throw new ZRabbitMqException("No items in collection");
             }
-
             return items[currentIndex];
         }
 

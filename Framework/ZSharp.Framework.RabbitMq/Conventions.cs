@@ -30,8 +30,6 @@ namespace ZSharp.Framework.RabbitMq
     {
         public Conventions(ITypeNameSerializer typeNameSerializer)
         {
-            GuardHelper.ArgumentNotNull(() => typeNameSerializer);
-
             // Establish default conventions.
             ExchangeNamingConvention = messageType =>
             {

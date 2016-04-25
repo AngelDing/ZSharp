@@ -30,7 +30,6 @@ namespace ZSharp.Framework.RabbitMq
         public void Publish<T>(T message, string topic) where T : class
         {
             GuardHelper.ArgumentNotNull(() => message);
-            GuardHelper.ArgumentNotNull(() => topic);
 
             var messageType = typeof(T);
             var rabbitMessage = new Message<T>(message)
@@ -53,7 +52,7 @@ namespace ZSharp.Framework.RabbitMq
         public async Task PublishAsync<T>(T message, string topic) where T : class
         {
             GuardHelper.ArgumentNotNull(() => message);
-            GuardHelper.ArgumentNotNull(() => topic);
+            GuardHelper.ArgumentNotEmpty(() => topic);
             var messageType = typeof(T);
             var rabbitMessage = new Message<T>(message)
             {

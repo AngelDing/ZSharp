@@ -6,7 +6,7 @@ namespace ZSharp.Framework.RabbitMq
     {
         public Queue(string name, bool isExclusive)
         {
-            GuardHelper.ArgumentNotNull(() => name);
+            GuardHelper.ArgumentNotEmpty(() => name);
             Name = name;
             IsExclusive = isExclusive;
         }

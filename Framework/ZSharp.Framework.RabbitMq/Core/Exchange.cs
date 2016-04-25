@@ -15,7 +15,7 @@ namespace ZSharp.Framework.RabbitMq
 
         public Exchange(string name)
         {
-            GuardHelper.ArgumentNotNull(() => name);
+            GuardHelper.ArgumentNotEmpty(() => name);
             Name = name;
         }
     }

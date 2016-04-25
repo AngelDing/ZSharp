@@ -10,7 +10,6 @@ namespace ZSharp.Framework.RabbitMq
     {
         public IPersistentChannel CreatePersistentChannel(IPersistentConnection connection)
         {
-            GuardHelper.ArgumentNotNull(() => connection);
             return new PersistentChannel(connection);
         }
     }

@@ -15,16 +15,11 @@ namespace ZSharp.Framework.RabbitMq
         private readonly BlockingCollection<Action> queue = new BlockingCollection<Action>(queueSize);
 
         public ClientCommandDispatcherSingleton(
-            RabbitMqConfiguration configuration,
+            IRabbitMqConfiguration configuration,
             IPersistentConnection connection,
             IPersistentChannelFactory persistentChannelFactory)
         {
-            //Preconditions.CheckNotNull(configuration, "configuration");
-            //Preconditions.CheckNotNull(connection, "connection");
-            //Preconditions.CheckNotNull(persistentChannelFactory, "persistentChannelFactory");
-
             persistentChannel = persistentChannelFactory.CreatePersistentChannel(connection);
-
             StartDispatcherThread(configuration);
         }
 
@@ -54,10 +49,7 @@ namespace ZSharp.Framework.RabbitMq
 
         public Task<T> InvokeAsync<T>(Func<IModel, T> channelAction)
         {
-            //Preconditions.CheckNotNull(channelAction, "channelAction");
-
             var tcs = new TaskCompletionSource<T>();
-
             try
             {
                 queue.Add(() =>
@@ -86,8 +78,6 @@ namespace ZSharp.Framework.RabbitMq
 
         public Task InvokeAsync(Action<IModel> channelAction)
         {
-            //Preconditions.CheckNotNull(channelAction, "channelAction");
-
             return InvokeAsync(x =>
             {
                 channelAction(x);
@@ -101,7 +91,7 @@ namespace ZSharp.Framework.RabbitMq
             persistentChannel.Dispose();
         }
 
-        private void StartDispatcherThread(RabbitMqConfiguration configuration)
+        private void StartDispatcherThread(IRabbitMqConfiguration configuration)
         {
             var thread = new Thread(() =>
             {

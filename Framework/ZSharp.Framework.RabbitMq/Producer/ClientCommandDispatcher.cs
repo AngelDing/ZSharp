@@ -12,37 +12,29 @@ namespace ZSharp.Framework.RabbitMq
     {
         private readonly Lazy<IClientCommandDispatcher> dispatcher;
 
-        public ClientCommandDispatcher(RabbitMqConfiguration configuration, IPersistentConnection connection, IPersistentChannelFactory persistentChannelFactory)
+        public ClientCommandDispatcher(IRabbitMqConfiguration configuration, IPersistentConnection connection, IPersistentChannelFactory persistentChannelFactory)
         {
-            //Preconditions.CheckNotNull(configuration, "configuration");
-            //Preconditions.CheckNotNull(connection, "connection");
-            //Preconditions.CheckNotNull(persistentChannelFactory, "persistentChannelFactory");
-
             dispatcher = new Lazy<IClientCommandDispatcher>(
                 () => new ClientCommandDispatcherSingleton(configuration, connection, persistentChannelFactory));
         }
 
         public T Invoke<T>(Func<IModel, T> channelAction)
         {
-            //Preconditions.CheckNotNull(channelAction, "channelAction");
             return dispatcher.Value.Invoke(channelAction);
         }
 
         public void Invoke(Action<IModel> channelAction)
         {
-            //Preconditions.CheckNotNull(channelAction, "channelAction");
             dispatcher.Value.Invoke(channelAction);
         }
 
         public Task<T> InvokeAsync<T>(Func<IModel, T> channelAction)
         {
-            //Preconditions.CheckNotNull(channelAction, "channelAction");
             return dispatcher.Value.InvokeAsync(channelAction);
         }
 
         public Task InvokeAsync(Action<IModel> channelAction)
         {
-            //Preconditions.CheckNotNull(channelAction, "channelAction");
             return dispatcher.Value.InvokeAsync(channelAction);
         }
 
