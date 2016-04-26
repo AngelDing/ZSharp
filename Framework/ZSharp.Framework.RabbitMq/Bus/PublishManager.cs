@@ -1,6 +1,5 @@
 ﻿using System;
 using ZSharp.Framework.Utils;
-using ZSharp.Framework.Infrastructure;
 using System.Threading.Tasks;
 using RabbitMQ.Client;
 
@@ -22,9 +21,8 @@ namespace ZSharp.Framework.RabbitMq
             get
             {
                 if (rawMsg == null)
-                {
-                    var produceConsumeInterceptor = ServiceLocator.GetInstance<IProduceConsumeInterceptor>();
-                    rawMsg = produceConsumeInterceptor.OnProduce(new RawMessage(msgProperties, body));
+                {                    
+                    rawMsg = ProduceConsumeInterceptor.OnProduce(new RawMessage(msgProperties, body));
                 }
                 return rawMsg;
             }
@@ -143,9 +141,8 @@ namespace ZSharp.Framework.RabbitMq
         }
 
         private void SerializeMessage(IMessage<T> message)
-        {
-            var serializationStrategy = ServiceLocator.GetInstance<IMessageSerializationStrategy>();
-            var serializedMessage = serializationStrategy.SerializeMessage(message);
+        {            
+            var serializedMessage = SerializationStrategy.SerializeMessage(message);
             msgProperties = serializedMessage.Properties;
             body = serializedMessage.Body;
         }

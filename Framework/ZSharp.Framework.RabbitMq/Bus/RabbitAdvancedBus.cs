@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using ZSharp.Framework.Infrastructure;
 using ZSharp.Framework.Utils;
 
 namespace ZSharp.Framework.RabbitMq
@@ -86,13 +88,84 @@ namespace ZSharp.Framework.RabbitMq
 
         public IQueue QueueDeclare(QueueDeclareParam param)
         {
-            throw new NotImplementedException();
+            var name = param.Name;
+            var queue = new Queue(name, param.Exclusive);
+            var arguments = new Dictionary<string, object>();
+            if (param.Passive)
+            {
+                clientCommandDispatcher.Invoke(x => x.QueueDeclarePassive(name));
+            }
+            else
+            {
+                arguments = GetQueueDeclareArguments(param);
+                clientCommandDispatcher.Invoke(
+                    x => x.QueueDeclare(name, param.Durable, param.Exclusive, param.AutoDelete, arguments));
+            }
+            LogQueueDeclare(param, arguments);
+            return queue;
         }
 
-        public Task<IQueue> QueueDeclareAsync(QueueDeclareParam param)
+        public async Task<IQueue> QueueDeclareAsync(QueueDeclareParam param)
         {
-            throw new NotImplementedException();
+            var name = param.Name;
+            var queue = new Queue(name, param.Exclusive);
+            var arguments = new Dictionary<string, object>();
+            if (param.Passive)
+            {
+                await clientCommandDispatcher.InvokeAsync(x => x.QueueDeclarePassive(name)).ConfigureAwait(false);
+            }
+            else
+            {
+                arguments = GetQueueDeclareArguments(param);
+                await clientCommandDispatcher.InvokeAsync(
+                    x => x.QueueDeclare(name, param.Durable, param.Exclusive, param.AutoDelete, arguments))
+                    .ConfigureAwait(false);
+            }
+            LogQueueDeclare(param, arguments);
+            return queue;
         }
+
+        private void LogQueueDeclare(QueueDeclareParam param, Dictionary<string, object> arguments)
+        {
+            var msgTemplate = "Declared Queue: '{0}', durable:{1}, exclusive:{2}, autoDelete:{3}, args:{4}";
+            var args = string.Join(", ", arguments.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)));
+            Logger.Debug(msgTemplate, param.Name, param.Durable, param.Exclusive, param.AutoDelete, args);
+        }
+
+        private Dictionary<string, object> GetQueueDeclareArguments(QueueDeclareParam param)
+        {
+            var arguments = new Dictionary<string, object>();
+            if (param.PerQueueMessageTtl.HasValue)
+            {
+                arguments.Add("x-message-ttl", param.PerQueueMessageTtl.Value);
+            }
+            if (param.Expires.HasValue)
+            {
+                arguments.Add("x-expires", param.Expires);
+            }
+            if (param.MaxPriority.HasValue)
+            {
+                arguments.Add("x-max-priority", param.MaxPriority.Value);
+            }
+            if (!string.IsNullOrEmpty(param.DeadLetterExchange))
+            {
+                arguments.Add("x-dead-letter-exchange", param.DeadLetterExchange);
+            }
+            if (!string.IsNullOrEmpty(param.DeadLetterRoutingKey))
+            {
+                arguments.Add("x-dead-letter-routing-key", param.DeadLetterRoutingKey);
+            }
+            if (param.MaxLength.HasValue)
+            {
+                arguments.Add("x-max-length", param.MaxLength.Value);
+            }
+            if (param.MaxLengthBytes.HasValue)
+            {
+                arguments.Add("x-max-length-bytes", param.MaxLengthBytes.Value);
+            }
+
+            return arguments;
+        }        
 
         #endregion
 
@@ -110,6 +183,55 @@ namespace ZSharp.Framework.RabbitMq
         {
             var manager = new PublishManager<T>(clientCommandDispatcher, confirmationListener);
             return manager.PublishAsync(exchange, routingKey, message);
+        }
+
+        #endregion
+
+        #region Consume
+
+        public IDisposable Consume<T>(IQueue queue, Func<IMessage<T>, MessageReceivedInfo, Task> onMessage)
+            where T : class
+        {
+            return Consume(queue, onMessage, x => { });
+        }
+
+        public IDisposable Consume<T>(IQueue queue, Func<IMessage<T>, MessageReceivedInfo, Task> onMessage, Action<IConsumerConfiguration> configure) where T : class
+        {
+            return Consume(queue, x => x.Add(onMessage), configure);
+        }
+
+        public IDisposable Consume(IQueue queue, Action<IHandlerRegistration> addHandlers, Action<IConsumerConfiguration> configure)
+        {
+            var handlerCollection = new HandlerCollection();
+            addHandlers(handlerCollection);
+
+            return Consume(queue, (body, properties, messageReceivedInfo) =>
+            {
+                var deserializedMessage = SerializationStrategy.DeserializeMessage(properties, body);
+                var handler = handlerCollection.GetHandler(deserializedMessage.MessageType);
+                return handler(deserializedMessage, messageReceivedInfo);
+            }, configure);
+        }
+
+        public IDisposable Consume(IQueue queue, Func<byte[], MessageProperties, MessageReceivedInfo, Task> onMessage, Action<IConsumerConfiguration> configure)
+        {
+            GuardHelper.ArgumentNotNull(() => queue);
+            GuardHelper.ArgumentNotNull(() => onMessage);
+            GuardHelper.ArgumentNotNull(() => configure);
+            if (disposed)
+            {
+                throw new ZRabbitMqException("This bus has been disposed");
+            }
+
+            var consumerConfiguration = new ConsumerConfiguration(RabbitMqConfiguration.PrefetchCount);
+            configure(consumerConfiguration);
+            var consumerFactory = ServiceLocator.GetInstance<IConsumerFactory>();
+            var consumer = consumerFactory.CreateConsumer(queue, (body, properties, receviedInfo) =>
+            {
+                var rawMessage = ProduceConsumeInterceptor.OnConsume(new RawMessage(properties, body));
+                return onMessage(rawMessage.Body, rawMessage.Properties, receviedInfo);
+            }, connection, consumerConfiguration);
+            return consumer.StartConsuming();
         }
 
         #endregion

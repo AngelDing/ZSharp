@@ -5,6 +5,9 @@ namespace ZSharp.Framework.Configurations
 {
     public class RabbitMqHost : ConfigurationElement
     {
+        /// <summary>
+        /// 可以是Ip，也可以是域名
+        /// </summary>
         [ConfigurationProperty("ip", IsRequired = true)]
         public string Ip
         {

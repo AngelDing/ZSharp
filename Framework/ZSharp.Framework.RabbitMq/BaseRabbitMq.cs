@@ -21,6 +21,32 @@ namespace ZSharp.Framework.RabbitMq
             }
         }
 
+        private IMessageSerializationStrategy serializationStrategy;
+        protected IMessageSerializationStrategy SerializationStrategy
+        {
+            get
+            {
+                if (serializationStrategy == null)
+                {
+                    serializationStrategy = ServiceLocator.GetInstance<IMessageSerializationStrategy>();
+                }
+                return serializationStrategy;
+            }
+        }
+
+        private IProduceConsumeInterceptor produceConsumeInterceptor;
+        protected IProduceConsumeInterceptor ProduceConsumeInterceptor
+        {
+            get
+            {
+                if (produceConsumeInterceptor == null)
+                {
+                    produceConsumeInterceptor = ServiceLocator.GetInstance<IProduceConsumeInterceptor>();
+                }
+                return produceConsumeInterceptor;
+            }
+        }
+
         private IRabbitMqConfiguration rabbitMqConfiguration;
         protected IRabbitMqConfiguration RabbitMqConfiguration
         {

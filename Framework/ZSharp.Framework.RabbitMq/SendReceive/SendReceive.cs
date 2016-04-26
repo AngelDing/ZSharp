@@ -47,13 +47,17 @@ namespace ZSharp.Framework.RabbitMq
             return wrappedMessage;
         }
 
-        public IDisposable Receive<T>(string queue, Action<T> onMessage)
-            where T : class
-        {
-            Preconditions.CheckNotNull(queue, "queue");
-            Preconditions.CheckNotNull(onMessage, "onMessage");
-
+        public IDisposable Receive<T>(string queue, Action<T> onMessage) where T : class
+        {          
             return Receive<T>(queue, message => TaskHelpers.ExecuteSynchronously(() => onMessage(message)));
+        }
+
+        public IDisposable Receive<T>(string queue, Func<T, Task> onMessage) where T : class
+        {
+            GuardHelper.ArgumentNotEmpty(() => queue);
+            GuardHelper.ArgumentNotNull(() => onMessage);
+            var declaredQueue = DeclareQueue(queue);
+            return advancedBus.Consume<T>(declaredQueue, (message, info) => onMessage(message.Body));
         }
 
         //public IDisposable Receive<T>(string queue, Action<T> onMessage, Action<IConsumerConfiguration> configure)
@@ -64,17 +68,7 @@ namespace ZSharp.Framework.RabbitMq
         //    Preconditions.CheckNotNull(configure, "configure");
 
         //    return Receive<T>(queue, message => TaskHelpers.ExecuteSynchronously(() => onMessage(message)), configure);
-        //}
-
-        public IDisposable Receive<T>(string queue, Func<T, Task> onMessage)
-            where T : class
-        {
-            Preconditions.CheckNotNull(queue, "queue");
-            Preconditions.CheckNotNull(onMessage, "onMessage");
-
-            var declaredQueue = DeclareQueue(queue);
-            return advancedBus.Consume<T>(declaredQueue, (message, info) => onMessage(message.Body));
-        }
+        //}       
 
         //public IDisposable Receive<T>(string queue, Func<T, Task> onMessage, Action<IConsumerConfiguration> configure)
         //    where T : class
@@ -106,9 +100,10 @@ namespace ZSharp.Framework.RabbitMq
         private IQueue DeclareQueue(string queueName)
         {
             IQueue queue = null;
+            var param = new QueueDeclareParam(queueName);
             declaredQueues.AddOrUpdate(
                 queueName, 
-                key => queue = advancedBus.QueueDeclare(queueName), 
+                key => queue = advancedBus.QueueDeclare(param), 
                 (key, value) => queue = value);
 
             return queue;
