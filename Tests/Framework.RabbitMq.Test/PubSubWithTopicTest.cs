@@ -86,7 +86,7 @@ namespace Framework.RabbitMq.Test
                 {
                     bus.Publish(GetMyTestMessage("topic.A.XX"), "topic.A.XX");
                     bus.Publish(GetMyTestMessage("topic.B.YY"), "topic.B.YY");
-                    bus.Publish(GetMyTestMessage("topic.B.YY.MM"), "topic.B.YY.MM");
+                    bus.Publish(GetMyTestMessage("topic.B.YY.MM"), "topic.B.YY.MM"); //無訂閱者
                     bus.Publish(GetMyTestMessage("topic.C.ZZ"), "topic.C.ZZ");
                     bus.Publish(GetMyTestMessage("topic.C.MM.NN"), "topic.C.MM.NN");
                     Thread.Sleep(1000);
