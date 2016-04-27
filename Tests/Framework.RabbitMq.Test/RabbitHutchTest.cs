@@ -28,6 +28,63 @@ namespace Framework.RabbitMq.Test
         }
 
         [Fact]
+        public void bus_sub_test()
+        {
+            Task.Factory.StartNew(
+                () => PublishMessages());
+
+            Thread.Sleep(1000);
+
+            Task.Factory.StartNew(
+                () => SubscribeMessagesA());
+
+            Thread.Sleep(1000);
+
+            Task.Factory.StartNew(
+                () => SubscribeMessagesB());
+
+            while (true)
+            {
+            }
+        }
+
+        private void SubscribeMessagesA()
+        {
+            using (var bus = RabbitHutch.CreateBus())
+            {
+                bus.Subscribe<MyTestMessage>("A", message => MyTestMessageHandlerAsync(message));
+                while (true)
+                {
+                    Thread.Sleep(1000);
+                }
+            }
+        }
+
+        private void SubscribeMessagesB()
+        {
+            using (var bus = RabbitHutch.CreateBus())
+            {
+                bus.Subscribe<MyTestMessage>("B", message => MyTestMessageHandlerAsync(message));
+                while (true)
+                {
+                    Thread.Sleep(1000);
+                }
+            }
+        }
+
+        private void PublishMessages()
+        {
+            using (var bus = RabbitHutch.CreateBus())
+            {
+                while (true)
+                {
+                    bus.Publish(GetMyTestMessage());
+                    Thread.Sleep(1000);
+                }
+            }
+        }
+
+        [Fact]
         public void bus_send_test()
         {
             using (var bus = RabbitHutch.CreateBus())
@@ -54,7 +111,7 @@ namespace Framework.RabbitMq.Test
                 .Add<string>(message => { StringHandler(message); })
                 .Add<MyTestMessage>(message => MyTestMessageHandlerAsync(message)));
             Thread.Sleep(TimeSpan.FromSeconds(10));
-        }
+        }       
 
         private void MyTestMessageHandler(MyTestMessage message)
         {
