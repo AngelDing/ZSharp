@@ -165,7 +165,18 @@ namespace ZSharp.Framework.RabbitMq
             }
 
             return arguments;
-        }        
+        }
+
+        #endregion
+
+        #region Bind
+
+        public IBinding Bind(IExchange exchange, IQueue queue, string routingKey)
+        {
+            clientCommandDispatcher.Invoke(x => x.QueueBind(queue.Name, exchange.Name, routingKey));
+            Logger.Debug("Bound queue {0} to exchange {1} with routing key {2}", queue.Name, exchange.Name, routingKey);
+            return new Binding(queue, exchange, routingKey);
+        }
 
         #endregion
 
@@ -174,14 +185,14 @@ namespace ZSharp.Framework.RabbitMq
         public void Publish<T>(IExchange exchange, string routingKey, IMessage<T> message)
             where T : class
         {
-            new PublishManager<T>(clientCommandDispatcher, confirmationListener)
+            new PublisherManager<T>(clientCommandDispatcher, confirmationListener)
                 .Publish(exchange, routingKey, message);
         }
 
         public Task PublishAsync<T>(IExchange exchange, string routingKey, IMessage<T> message)
             where T : class
         {
-            var manager = new PublishManager<T>(clientCommandDispatcher, confirmationListener);
+            var manager = new PublisherManager<T>(clientCommandDispatcher, confirmationListener);
             return manager.PublishAsync(exchange, routingKey, message);
         }
 
@@ -256,6 +267,6 @@ namespace ZSharp.Framework.RabbitMq
 
             disposed = true;
             Logger.Debug("Connection disposed");
-        }        
+        }
     }
 }

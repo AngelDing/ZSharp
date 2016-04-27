@@ -41,12 +41,10 @@ namespace ZSharp.Framework.RabbitMq
     /// 
     /// Each exchange is bound to the central EasyNetQ error queue.
     /// </summary>
-    public class DefaultConsumerErrorStrategy : IConsumerErrorStrategy
+    public class DefaultConsumerErrorStrategy : BaseRabbitMq, IConsumerErrorStrategy
     {
         private readonly IConnectionFactory connectionFactory;
         private readonly ISerializer serializer;
-        private readonly ILogger logger;
-        private readonly IConventions conventions;
         private readonly ITypeNameSerializer typeNameSerializer;
         private readonly object syncLock = new object();
 
@@ -56,13 +54,10 @@ namespace ZSharp.Framework.RabbitMq
 
         public DefaultConsumerErrorStrategy(
             IConnectionFactory connectionFactory, 
-            IConventions conventions, 
             ITypeNameSerializer typeNameSerializer)
         {
             this.connectionFactory = connectionFactory;
             serializer = SerializationHelper.MsgPack;
-            logger = LogManager.GetLogger(GetType());
-            this.conventions = conventions;
             this.typeNameSerializer = typeNameSerializer;
             errorExchanges = new ConcurrentDictionary<string, string>();
         }
@@ -90,7 +85,7 @@ namespace ZSharp.Framework.RabbitMq
                             {
                                 if (connection.CloseReason != null)
                                 {
-                                    logger.Info("Connection '{0}' has shutdown. Reason: '{1}'", 
+                                    Logger.Info("Connection '{0}' has shutdown. Reason: '{1}'", 
                                         connection, connection.CloseReason.Cause);
                                 }
                                 else
@@ -117,7 +112,7 @@ namespace ZSharp.Framework.RabbitMq
             if (!errorQueueDeclared)
             {
                 model.QueueDeclare(
-                    queue: conventions.ErrorQueueNamingConvention(),
+                    queue: Conventions.ErrorQueueNamingConvention(),
                     durable: true,
                     exclusive: false,
                     autoDelete: false,
@@ -132,9 +127,9 @@ namespace ZSharp.Framework.RabbitMq
 
             return errorExchanges.GetOrAdd(originalRoutingKey, _ =>
             {
-                var exchangeName = conventions.ErrorExchangeNamingConvention(context.Info);
+                var exchangeName = Conventions.ErrorExchangeNamingConvention(context.Info);
                 model.ExchangeDeclare(exchangeName, ExchangeType.Direct, durable: true);
-                model.QueueBind(conventions.ErrorQueueNamingConvention(), exchangeName, originalRoutingKey);
+                model.QueueBind(Conventions.ErrorQueueNamingConvention(), exchangeName, originalRoutingKey);
                 return exchangeName;
             });
         }
@@ -149,7 +144,7 @@ namespace ZSharp.Framework.RabbitMq
         {
             if (disposed || disposing)
             {
-                logger.Error(
+                Logger.Error(
                     "EasyNetQ Consumer Error Handler: DefaultConsumerErrorStrategy was already disposed, when attempting to handle consumer error.  This can occur when messaging is being shut down through disposal of the IBus.  Message will not be ackd to RabbitMQ server and will remain on the RabbitMQ queue.  Error message will not be published to error queue.\n" +
                     "ConsumerTag: {0}, DeliveryTag: {1}\n",
                     context.Info.ConsumerTag,
@@ -176,20 +171,20 @@ namespace ZSharp.Framework.RabbitMq
             catch (BrokerUnreachableException)
             {
                 // thrown if the broker is unreachable during initial creation.
-                logger.Error("EasyNetQ Consumer Error Handler cannot connect to Broker\n" +
+                Logger.Error("EasyNetQ Consumer Error Handler cannot connect to Broker\n" +
                     CreateConnectionCheckMessage());
             }
             catch (OperationInterruptedException interruptedException)
             {
                 // thrown if the broker connection is broken during declare or publish.
-                logger.Error("EasyNetQ Consumer Error Handler: Broker connection was closed while attempting to publish Error message.\n" +
+                Logger.Error("EasyNetQ Consumer Error Handler: Broker connection was closed while attempting to publish Error message.\n" +
                     string.Format("Exception was: '{0}'\n", interruptedException.Message) +
                     CreateConnectionCheckMessage());
             }
             catch (Exception unexpectedException)
             {
                 // Something else unexpected has gone wrong :(
-                logger.Error("EasyNetQ Consumer Error Handler: Failed to publish error message\nException is:\n"
+                Logger.Error("EasyNetQ Consumer Error Handler: Failed to publish error message\nException is:\n"
                     + unexpectedException);
             }
             return AckStrategies.Ack;

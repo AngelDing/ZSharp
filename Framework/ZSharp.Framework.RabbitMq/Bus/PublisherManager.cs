@@ -5,7 +5,7 @@ using RabbitMQ.Client;
 
 namespace ZSharp.Framework.RabbitMq
 {
-    public class PublishManager<T> : BaseRabbitMq where T: class
+    public class PublisherManager<T> : BaseRabbitMq where T: class
     {
         private readonly IPublishConfirmationListener confirmationListener;
         private readonly IClientCommandDispatcher clientCommandDispatcher;
@@ -28,7 +28,8 @@ namespace ZSharp.Framework.RabbitMq
             }
         }
 
-        public PublishManager(IClientCommandDispatcher clientCommandDispatcher,
+        public PublisherManager(
+            IClientCommandDispatcher clientCommandDispatcher,
             IPublishConfirmationListener confirmationListener)
         {
             this.clientCommandDispatcher = clientCommandDispatcher;

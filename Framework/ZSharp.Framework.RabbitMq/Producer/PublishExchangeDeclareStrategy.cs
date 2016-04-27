@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using ZSharp.Framework.Infrastructure;
 
 namespace ZSharp.Framework.RabbitMq
 {
-    public class PublishExchangeDeclareStrategy : IPublishExchangeDeclareStrategy
+    public class PublishExchangeDeclareStrategy : BaseRabbitMq, IPublishExchangeDeclareStrategy
     {
         private readonly ConcurrentDictionary<string, IExchange> exchanges = new ConcurrentDictionary<string, IExchange>();
         private readonly AsyncSemaphore semaphore = new AsyncSemaphore(1);
@@ -37,8 +36,7 @@ namespace ZSharp.Framework.RabbitMq
 
         public IExchange DeclareExchange(IAdvancedBus advancedBus, Type messageType, string exchangeType)
         {
-            var conventions = ServiceLocator.GetInstance<IConventions>();
-            var exchangeName = conventions.ExchangeNamingConvention(messageType);
+            var exchangeName = Conventions.ExchangeNamingConvention(messageType);
             return DeclareExchange(advancedBus, exchangeName, exchangeType);
         }
 
@@ -69,8 +67,7 @@ namespace ZSharp.Framework.RabbitMq
 
         public Task<IExchange> DeclareExchangeAsync(IAdvancedBus advancedBus, Type messageType, string exchangeType)
         {
-            var conventions = ServiceLocator.GetInstance<IConventions>();
-            var exchangeName = conventions.ExchangeNamingConvention(messageType);
+            var exchangeName = Conventions.ExchangeNamingConvention(messageType);
             return DeclareExchangeAsync(advancedBus, exchangeName, exchangeType);
         }
     }

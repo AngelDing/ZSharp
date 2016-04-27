@@ -74,6 +74,29 @@ namespace ZSharp.Framework.RabbitMq
         #endregion
 
         #region Sub
+
+        public ISubscriptionResult Subscribe<T>(
+            string subscriptionId, 
+            Action<T> onMessage, 
+            Action<ISubscriptionConfiguration> configure = null)
+           where T : class
+        {
+            return SubscribeAsync<T>(
+                subscriptionId, 
+                msg => TaskHelpers.ExecuteSynchronously(() => onMessage(msg)),
+                configure);
+        }
+
+        public ISubscriptionResult SubscribeAsync<T>(
+            string subscriptionId,
+            Func<T, Task> onMessage,
+            Action<ISubscriptionConfiguration> configure = null)
+            where T : class
+        {
+            var manager = new SubscriberManager(advancedBus, configure);
+            return manager.SubscribeAsync(subscriptionId, onMessage);
+        }
+
         #endregion
 
         #region Send
@@ -94,10 +117,10 @@ namespace ZSharp.Framework.RabbitMq
 
         public IDisposable Receive<T>(string queue, Action<T> onMessage, Action<IConsumerConfiguration> configure = null) where T : class
         {
-            return Receive<T>(queue, message => TaskHelpers.ExecuteSynchronously(() => onMessage(message)), configure);
+            return ReceiveAsync<T>(queue, message => TaskHelpers.ExecuteSynchronously(() => onMessage(message)), configure);
         }
 
-        public IDisposable Receive<T>(string queue, Func<T, Task> onMessage, Action<IConsumerConfiguration> configure = null) where T : class
+        public IDisposable ReceiveAsync<T>(string queue, Func<T, Task> onMessage, Action<IConsumerConfiguration> configure = null) where T : class
         {
             return sendReceive.Receive(queue, onMessage, configure);
         }

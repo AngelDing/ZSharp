@@ -21,6 +21,12 @@ namespace ZSharp.Framework.RabbitMq
 
         #endregion
 
+        #region Bind
+
+        IBinding Bind(IExchange exchange, IQueue queue, string routingKey);
+
+        #endregion
+
         #region Publish
 
         /// <summary>
@@ -35,7 +41,7 @@ namespace ZSharp.Framework.RabbitMq
         /// <param name="message">The message to publish</param>
         void Publish<T>(IExchange exchange, string routingKey, IMessage<T> message) where T : class;
 
-        Task PublishAsync<T>(IExchange exchange, string routingKey, IMessage<T> message) where T : class;
+        Task PublishAsync<T>(IExchange exchange, string routingKey, IMessage<T> message) where T : class;        
 
         #endregion
 

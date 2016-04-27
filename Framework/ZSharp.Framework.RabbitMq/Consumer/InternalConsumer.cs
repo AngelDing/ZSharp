@@ -21,8 +21,6 @@ namespace ZSharp.Framework.RabbitMq
     {
         private readonly IHandlerRunner handlerRunner;
         private readonly IConsumerDispatcher consumerDispatcher;
-        private readonly IConventions conventions;
-
         private Func<byte[], MessageProperties, MessageReceivedInfo, Task> onMessage;
         private IQueue queue;
 
@@ -34,12 +32,10 @@ namespace ZSharp.Framework.RabbitMq
 
         public InternalConsumer(
             IHandlerRunner handlerRunner,
-            IConsumerDispatcher consumerDispatcher,
-            IConventions conventions)
+            IConsumerDispatcher consumerDispatcher)
         {
             this.handlerRunner = handlerRunner;
             this.consumerDispatcher = consumerDispatcher;
-            this.conventions = conventions;
         }
 
         public StartConsumingStatus StartConsuming(
@@ -50,7 +46,7 @@ namespace ZSharp.Framework.RabbitMq
         {
             this.queue = queue;
             this.onMessage = onMessage;
-            var consumerTag = conventions.ConsumerTagConvention();
+            var consumerTag = Conventions.ConsumerTagConvention();
             IDictionary<string, object> arguments = new Dictionary<string, object>
                 {
                     {"x-priority", configuration.Priority},

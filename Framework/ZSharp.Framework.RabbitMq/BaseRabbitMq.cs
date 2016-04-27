@@ -6,7 +6,18 @@ namespace ZSharp.Framework.RabbitMq
 {
     public abstract class BaseRabbitMq
     {
-        protected ILogger Logger{ get; private set; }
+        private ILogger logger;
+        protected ILogger Logger
+        {
+            get
+            {
+                if (logger == null)
+                {
+                    logger = LogManager.GetLogger(GetType());
+                }
+                return logger;
+            }
+        }
 
         private IEventBus eventBus;
         protected IEventBus EventBus
@@ -60,9 +71,17 @@ namespace ZSharp.Framework.RabbitMq
             }
         }
 
-        public BaseRabbitMq()
+        private IConventions conventions;
+        protected IConventions Conventions
         {
-            Logger = LogManager.GetLogger(GetType());
-        }
+            get
+            {
+                if (conventions == null)
+                {
+                    conventions = ServiceLocator.GetInstance<IConventions>();
+                }
+                return conventions;
+            }
+        } 
     }
 }
