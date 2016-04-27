@@ -26,11 +26,6 @@ namespace ZSharp.Framework.RabbitMq
             string routingKey,
             string queue)
         {
-            GuardHelper.ArgumentNotEmpty(() => consumerTag);
-            GuardHelper.ArgumentNotEmpty(() => exchange);
-            GuardHelper.ArgumentNotEmpty(() => routingKey);
-            GuardHelper.ArgumentNotEmpty(() => queue);
-
             ConsumerTag = consumerTag;
             DeliverTag = deliverTag;
             Redelivered = redelivered;

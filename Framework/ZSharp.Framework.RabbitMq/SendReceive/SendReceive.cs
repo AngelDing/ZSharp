@@ -30,6 +30,25 @@ namespace ZSharp.Framework.RabbitMq
         {
             var wrappedMessage = PrepareSend(queue, message);
             return advancedBus.PublishAsync(Exchange.GetDefault(), queue, wrappedMessage);
+        }      
+
+        public IDisposable Receive<T>(
+            string queue, 
+            Func<T, Task> onMessage,
+            Action<IConsumerConfiguration> configure = null)
+            where T : class
+        {
+            var declaredQueue = DeclareQueue(queue);
+            return advancedBus.Consume<T>(declaredQueue, (message, info) => onMessage(message.Body), configure);
+        }
+
+        public IDisposable Receive(
+            string queue,
+            Action<IReceiveRegistration> addHandlers, 
+            Action<IConsumerConfiguration> configure = null)
+        {
+            var declaredQueue = DeclareQueue(queue);
+            return advancedBus.Consume(declaredQueue, x => addHandlers(new HandlerAdder(x)), configure);
         }
 
         private Message<T> PrepareSend<T>(string queue, T message) where T : class
@@ -47,88 +66,16 @@ namespace ZSharp.Framework.RabbitMq
             return wrappedMessage;
         }
 
-        public IDisposable Receive<T>(string queue, Action<T> onMessage) where T : class
-        {          
-            return Receive<T>(queue, message => TaskHelpers.ExecuteSynchronously(() => onMessage(message)));
-        }
-
-        public IDisposable Receive<T>(string queue, Func<T, Task> onMessage) where T : class
-        {
-            GuardHelper.ArgumentNotEmpty(() => queue);
-            GuardHelper.ArgumentNotNull(() => onMessage);
-            var declaredQueue = DeclareQueue(queue);
-            return advancedBus.Consume<T>(declaredQueue, (message, info) => onMessage(message.Body));
-        }
-
-        //public IDisposable Receive<T>(string queue, Action<T> onMessage, Action<IConsumerConfiguration> configure)
-        //    where T : class
-        //{
-        //    Preconditions.CheckNotNull(queue, "queue");
-        //    Preconditions.CheckNotNull(onMessage, "onMessage");
-        //    Preconditions.CheckNotNull(configure, "configure");
-
-        //    return Receive<T>(queue, message => TaskHelpers.ExecuteSynchronously(() => onMessage(message)), configure);
-        //}       
-
-        //public IDisposable Receive<T>(string queue, Func<T, Task> onMessage, Action<IConsumerConfiguration> configure)
-        //    where T : class
-        //{
-        //    Preconditions.CheckNotNull(queue, "queue");
-        //    Preconditions.CheckNotNull(onMessage, "onMessage");
-        //    Preconditions.CheckNotNull(configure, "configure");
-
-        //    var declaredQueue = DeclareQueue(queue);
-        //    return advancedBus.Consume<T>(declaredQueue, (message, info) => onMessage(message.Body), configure);
-        //}
-
-        //public IDisposable Receive(string queue, Action<IReceiveRegistration> addHandlers)
-        //{
-        //    var declaredQueue = DeclareQueue(queue);
-        //    return advancedBus.Consume(declaredQueue, x => addHandlers(new HandlerAdder(x)));
-        //}
-
-        //public IDisposable Receive(string queue, Action<IReceiveRegistration> addHandlers, Action<IConsumerConfiguration> configure)
-        //{
-        //    Preconditions.CheckNotNull(queue, "queue");
-        //    Preconditions.CheckNotNull(addHandlers, "addHandlers");
-        //    Preconditions.CheckNotNull(configure, "configure");
-
-        //    var declaredQueue = DeclareQueue(queue);
-        //    return advancedBus.Consume(declaredQueue, x => addHandlers(new HandlerAdder(x)), configure);
-        //}
-
         private IQueue DeclareQueue(string queueName)
         {
             IQueue queue = null;
-            var param = new QueueDeclareParam(queueName);
-            declaredQueues.AddOrUpdate(
-                queueName, 
-                key => queue = advancedBus.QueueDeclare(param), 
-                (key, value) => queue = value);
-
+            if (!declaredQueues.TryGetValue(queueName, out queue))
+            {
+                var param = new QueueDeclareParam(queueName);
+                queue = advancedBus.QueueDeclare(param);
+                declaredQueues.TryAdd(queueName, queue);
+            }  
             return queue;
         }
-
-        //private class HandlerAdder : IReceiveRegistration
-        //{
-        //    private readonly IHandlerRegistration handlerRegistration;
-
-        //    public HandlerAdder(IHandlerRegistration handlerRegistration)
-        //    {
-        //        this.handlerRegistration = handlerRegistration;
-        //    }
-
-        //    public IReceiveRegistration Add<T>(Func<T, Task> onMessage) where T : class
-        //    {
-        //        handlerRegistration.Add<T>((message, info) => onMessage(message.Body));
-        //        return this;
-        //    }
-
-        //    public IReceiveRegistration Add<T>(Action<T> onMessage) where T : class
-        //    {
-        //        handlerRegistration.Add<T>((message, info) => onMessage(message.Body));
-        //        return this;
-        //    }
-        //}
     }
 }

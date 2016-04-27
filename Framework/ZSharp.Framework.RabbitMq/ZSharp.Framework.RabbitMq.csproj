@@ -122,6 +122,7 @@
     <Compile Include="Producer\IPublishConfirmationWaiter.cs" />
     <Compile Include="Producer\IPublishExchangeDeclareStrategy.cs" />
     <Compile Include="Channel\PersistentChannel.cs" />
+    <Compile Include="SendReceive\IReceiveRegistration.cs" />
     <Compile Include="SendReceive\ISendReceive.cs" />
     <Compile Include="Producer\PublishConfirmationListener.cs" />
     <Compile Include="Producer\PublishConfirmationWaiter.cs" />

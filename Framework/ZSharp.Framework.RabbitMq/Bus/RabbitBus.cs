@@ -26,7 +26,7 @@ namespace ZSharp.Framework.RabbitMq
             this.messageDeliveryModeStrategy = messageDeliveryModeStrategy;
         }
 
-        #region Pub/Sub
+        #region Pub
 
         public void Publish<T>(T message) where T : class
         {
@@ -73,7 +73,11 @@ namespace ZSharp.Framework.RabbitMq
 
         #endregion
 
-        #region Send/Receive
+        #region Sub
+        #endregion
+
+        #region Send
+
         public void Send<T>(string queue, T message) where T : class
         {
             sendReceive.Send(queue, message);
@@ -86,12 +90,31 @@ namespace ZSharp.Framework.RabbitMq
 
         #endregion
 
+        #region Receive
+
+        public IDisposable Receive<T>(string queue, Action<T> onMessage, Action<IConsumerConfiguration> configure = null) where T : class
+        {
+            return Receive<T>(queue, message => TaskHelpers.ExecuteSynchronously(() => onMessage(message)), configure);
+        }
+
+        public IDisposable Receive<T>(string queue, Func<T, Task> onMessage, Action<IConsumerConfiguration> configure = null) where T : class
+        {
+            return sendReceive.Receive(queue, onMessage, configure);
+        }
+
+        public IDisposable Receive(string queue, Action<IReceiveRegistration> addHandlers, Action<IConsumerConfiguration> configure = null)
+        {
+            return sendReceive.Receive(queue, addHandlers, configure);
+        }
+
+        #endregion
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
                 advancedBus.Dispose();
             }
-        }
+        }       
     }
 }

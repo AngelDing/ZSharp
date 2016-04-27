@@ -15,16 +15,15 @@ namespace ZSharp.Framework.RabbitMq
 
     public class ConsumerFactory : IConsumerFactory
     {
-        private readonly IInternalConsumerFactory internalConsumerFactory;
         private readonly IEventBus eventBus;
-
-        private readonly ConcurrentDictionary<IConsumer, object> consumers = new ConcurrentDictionary<IConsumer, object>();
+        private readonly IInternalConsumerFactory internalConsumerFactory;
+        private readonly ConcurrentDictionary<IConsumer, object> consumers;
 
         public ConsumerFactory(IInternalConsumerFactory internalConsumerFactory, IEventBus eventBus)
         {
             this.internalConsumerFactory = internalConsumerFactory;
             this.eventBus = eventBus;
-            
+            consumers = new ConcurrentDictionary<IConsumer, object>();
             eventBus.Subscribe<StoppedConsumingEvent>(stoppedConsumingEvent =>
                 {
                     object value;
@@ -36,8 +35,7 @@ namespace ZSharp.Framework.RabbitMq
             IQueue queue, 
             Func<byte[], MessageProperties, MessageReceivedInfo, Task> onMessage, 
             IPersistentConnection connection, 
-            IConsumerConfiguration configuration
-            )
+            IConsumerConfiguration configuration)
         {
             var consumer = CreateConsumerInstance(queue, onMessage, connection, configuration);
             consumers.TryAdd(consumer, null);
@@ -62,8 +60,10 @@ namespace ZSharp.Framework.RabbitMq
             {
                 return new TransientConsumer(queue, onMessage, connection, configuration, internalConsumerFactory, eventBus);
             }
-            if(configuration.IsExclusive)
+            if (configuration.IsExclusive)
+            {
                 return new ExclusiveConsumer(queue, onMessage, connection, configuration, internalConsumerFactory, eventBus);
+            }
             return new PersistentConsumer(queue, onMessage, connection, configuration, internalConsumerFactory, eventBus);
         }
 

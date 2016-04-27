@@ -189,22 +189,22 @@ namespace ZSharp.Framework.RabbitMq
 
         #region Consume
 
-        public IDisposable Consume<T>(IQueue queue, Func<IMessage<T>, MessageReceivedInfo, Task> onMessage)
+        public IDisposable Consume<T>(
+            IQueue queue, 
+            Func<IMessage<T>, MessageReceivedInfo, Task> onMessage,
+            Action<IConsumerConfiguration> configure = null) 
             where T : class
-        {
-            return Consume(queue, onMessage, x => { });
-        }
-
-        public IDisposable Consume<T>(IQueue queue, Func<IMessage<T>, MessageReceivedInfo, Task> onMessage, Action<IConsumerConfiguration> configure) where T : class
         {
             return Consume(queue, x => x.Add(onMessage), configure);
         }
 
-        public IDisposable Consume(IQueue queue, Action<IHandlerRegistration> addHandlers, Action<IConsumerConfiguration> configure)
+        public IDisposable Consume(
+            IQueue queue, 
+            Action<IHandlerRegistration> addHandlers,
+            Action<IConsumerConfiguration> configure = null)
         {
             var handlerCollection = new HandlerCollection();
             addHandlers(handlerCollection);
-
             return Consume(queue, (body, properties, messageReceivedInfo) =>
             {
                 var deserializedMessage = SerializationStrategy.DeserializeMessage(properties, body);
@@ -213,18 +213,24 @@ namespace ZSharp.Framework.RabbitMq
             }, configure);
         }
 
-        public IDisposable Consume(IQueue queue, Func<byte[], MessageProperties, MessageReceivedInfo, Task> onMessage, Action<IConsumerConfiguration> configure)
+        private IDisposable Consume(
+            IQueue queue, 
+            Func<byte[], MessageProperties, MessageReceivedInfo, Task> onMessage, 
+            Action<IConsumerConfiguration> configure)
         {
             GuardHelper.ArgumentNotNull(() => queue);
             GuardHelper.ArgumentNotNull(() => onMessage);
-            GuardHelper.ArgumentNotNull(() => configure);
             if (disposed)
             {
                 throw new ZRabbitMqException("This bus has been disposed");
             }
 
             var consumerConfiguration = new ConsumerConfiguration(RabbitMqConfiguration.PrefetchCount);
-            configure(consumerConfiguration);
+            if (configure != null)
+            {
+                configure(consumerConfiguration);
+            }
+
             var consumerFactory = ServiceLocator.GetInstance<IConsumerFactory>();
             var consumer = consumerFactory.CreateConsumer(queue, (body, properties, receviedInfo) =>
             {
