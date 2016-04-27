@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="BaseRabbitMqTest.cs" />
     <Compile Include="Messages\MyTestMessage.cs" />
+    <Compile Include="PubSubWithTopicTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RabbitHutchTest.cs" />
   </ItemGroup>

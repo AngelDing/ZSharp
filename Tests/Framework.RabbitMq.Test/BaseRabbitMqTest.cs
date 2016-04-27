@@ -1,7 +1,8 @@
-﻿
-using ZSharp.Framework;
+﻿using ZSharp.Framework;
 using System.Collections.Concurrent;
 using System;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Framework.RabbitMq.Test
 {
@@ -26,14 +27,32 @@ namespace Framework.RabbitMq.Test
             }
         }
 
-        protected MyTestMessage GetMyTestMessage()
+        protected MyTestMessage GetMyTestMessage(string name = null)
         {
+            if (name == null)
+            {
+                name = "Test";
+            }
             return new MyTestMessage
             {
-                Name = "Test Name",
+                Name = name,
                 Price = 1000,
                 Qty = 2
             };
         }
+
+        private void MyTestMessageHandler(MyTestMessage message)
+        {
+            Debug.WriteLine(message.ToString());
+        }
+
+        protected Task MyTestMessageHandlerAsync(MyTestMessage message)
+        {
+            Action aa = () => MyTestMessageHandler(message);
+            var task = new Task(aa);
+            task.Start();
+            return task;
+        }
+
     }
 }

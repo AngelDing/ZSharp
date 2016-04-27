@@ -19,5 +19,10 @@ namespace Framework.RabbitMq.Test
                 return Price * Qty;
             }
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0}-{1}-{2}", Name, Price, Qty);
+        }
     }
 }
