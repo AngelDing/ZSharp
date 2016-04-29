@@ -38,7 +38,5 @@ namespace ZSharp.Framework.RabbitMq
             consumerDispatcherFactory.Dispose();
             handlerRunner.Dispose();
         }
-
-
     }
 }

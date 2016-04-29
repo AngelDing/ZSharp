@@ -2,7 +2,9 @@
 
 namespace ZSharp.Framework.RabbitMq
 {
-    [Serializable]
+    /// <summary>
+    /// 指定消息是否需要持久化，默認採用Config中的值
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, AllowMultiple = false)]
     public class DeliveryModeAttribute : Attribute
     {

@@ -45,9 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvancedBusEventHandlers.cs" />
-    <Compile Include="Attributes\DeliveryModeAttribute.cs" />
-    <Compile Include="Attributes\QueueAttribute.cs" />
-    <Compile Include="Attributes\TimeoutSecondsAttribute.cs" />
+    <Compile Include="Core\DeliveryModeAttribute.cs" />
+    <Compile Include="Core\QueueAttribute.cs" />
     <Compile Include="BaseRabbitMq.cs" />
     <Compile Include="Bus\IAdvancedBus.cs" />
     <Compile Include="Bus\IEventBus.cs" />
@@ -58,7 +57,7 @@
     <Compile Include="ComponentRegistration.cs" />
     <Compile Include="Connection\IConnectionFactory.cs" />
     <Compile Include="Connection\PersistentConnection.cs" />
-    <Compile Include="Consumer\AckStrategies.cs" />
+    <Compile Include="Strategies\AckStrategies.cs" />
     <Compile Include="Consumer\ConsumerDispatcher.cs" />
     <Compile Include="Consumer\ConsumerExecutionContext.cs" />
     <Compile Include="Consumer\Factories\ConsumerDispatcherFactory.cs" />
@@ -91,11 +90,8 @@
     <Compile Include="Events\ConnectionCreatedEvent.cs" />
     <Compile Include="Events\ConnectionDisconnectedEvent.cs" />
     <Compile Include="Conventions.cs" />
-    <Compile Include="Core\Binding.cs" />
     <Compile Include="Core\Exchange.cs" />
     <Compile Include="Core\ExchangeType.cs" />
-    <Compile Include="Core\IBindable.cs" />
-    <Compile Include="Core\IBinding.cs" />
     <Compile Include="Core\IExchange.cs" />
     <Compile Include="Core\IQueue.cs" />
     <Compile Include="Core\Queue.cs" />
@@ -112,8 +108,8 @@
     <Compile Include="Message\MessageFactory.cs" />
     <Compile Include="Message\MessageProperties.cs" />
     <Compile Include="Message\MessageReceivedInfo.cs" />
-    <Compile Include="Params\ExchangeDeclareParam.cs" />
-    <Compile Include="Params\QueueDeclareParam.cs" />
+    <Compile Include="Core\ExchangeDeclareParam.cs" />
+    <Compile Include="Core\QueueDeclareParam.cs" />
     <Compile Include="Producer\ClientCommandDispatcher.cs" />
     <Compile Include="Producer\ClientCommandDispatcherSingleton.cs" />
     <Compile Include="Producer\IClientCommandDispatcher.cs" />

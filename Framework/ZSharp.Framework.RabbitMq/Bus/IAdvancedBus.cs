@@ -23,7 +23,7 @@ namespace ZSharp.Framework.RabbitMq
 
         #region Bind
 
-        IBinding Bind(IExchange exchange, IQueue queue, string routingKey);
+        void Bind(IExchange exchange, IQueue queue, string routingKey);
 
         #endregion
 

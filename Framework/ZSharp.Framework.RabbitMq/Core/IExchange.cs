@@ -1,6 +1,6 @@
 ﻿namespace ZSharp.Framework.RabbitMq
 {
-    public interface IExchange : IBindable
+    public interface IExchange 
     {
         string Name { get; }
     }

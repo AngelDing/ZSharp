@@ -171,11 +171,10 @@ namespace ZSharp.Framework.RabbitMq
 
         #region Bind
 
-        public IBinding Bind(IExchange exchange, IQueue queue, string routingKey)
+        public void Bind(IExchange exchange, IQueue queue, string routingKey)
         {
             clientCommandDispatcher.Invoke(x => x.QueueBind(queue.Name, exchange.Name, routingKey));
             Logger.Debug("Bound queue {0} to exchange {1} with routing key {2}", queue.Name, exchange.Name, routingKey);
-            return new Binding(queue, exchange, routingKey);
         }
 
         #endregion

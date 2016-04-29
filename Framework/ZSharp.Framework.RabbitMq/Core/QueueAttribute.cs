@@ -2,7 +2,9 @@
 
 namespace ZSharp.Framework.RabbitMq
 {
-    [Serializable]
+    /// <summary>
+    /// 定義消息的路由器，隊列名稱前綴，默認採用消息的類型名稱
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, AllowMultiple=false)]
     public class QueueAttribute : Attribute
     {

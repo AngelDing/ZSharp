@@ -156,7 +156,6 @@ namespace ZSharp.Framework.RabbitMq
         }
 
         private bool disposed;
-
         public void Dispose()
         {
             if (disposed) return;

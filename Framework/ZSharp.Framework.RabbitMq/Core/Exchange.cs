@@ -1,5 +1,4 @@
-﻿using ZSharp.Framework.Utils;
-
+﻿
 namespace ZSharp.Framework.RabbitMq
 {
     public class Exchange : IExchange

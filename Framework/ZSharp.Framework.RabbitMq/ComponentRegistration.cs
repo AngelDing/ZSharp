@@ -15,7 +15,6 @@ namespace ZSharp.Framework.RabbitMq
                 .Register<ICorrelationIdGenerationStrategy, DefaultCorrelationIdGenerationStrategy>()
                 .Register<IMessageSerializationStrategy, DefaultMessageSerializationStrategy>()
                 .Register<IMessageDeliveryModeStrategy, MessageDeliveryModeStrategy>()
-                //.Register<ITimeoutStrategy, TimeoutStrategy>()
                 .Register<IClusterHostSelectionStrategy<ConnectionFactoryInfo>, RandomClusterHostSelectionStrategy<ConnectionFactoryInfo>>()
                 .Register<IProduceConsumeInterceptor, DefaultInterceptor>()
                 .Register<IConsumerDispatcherFactory, ConsumerDispatcherFactory>()
@@ -28,10 +27,8 @@ namespace ZSharp.Framework.RabbitMq
                 .Register<IPersistentChannelFactory, PersistentChannelFactory>()
                 .Register<IClientCommandDispatcherFactory, ClientCommandDispatcherFactory>()
                 .Register<IPublishConfirmationListener, PublishConfirmationListener>()
-                //.Register<IHandlerCollectionFactory, HandlerCollectionFactory>()
                 .Register<IAdvancedBus, RabbitAdvancedBus>()
                 .Register<ISendReceive, SendReceive>()
-                //.Register<IScheduler, ExternalScheduler>()
                 .Register<IBus, RabbitBus>();
         }
 
