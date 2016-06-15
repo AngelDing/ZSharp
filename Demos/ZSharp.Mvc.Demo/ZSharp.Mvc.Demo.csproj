@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AsyncTestController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -108,6 +109,7 @@
     <Content Include="packages.config" />
     <Content Include="Views\FileUpload\Index.cshtml" />
     <Content Include="Scripts\jquery\jquery-2.2.3.min.map" />
+    <Content Include="Views\AsyncTest\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -40,10 +40,12 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsyncTest.cs" />
     <Compile Include="LockTest.cs" />
     <Compile Include="LoggerTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServicePointTest.cs" />
     <Compile Include="Stateless\BugTrackerTest.cs" />
     <Compile Include="Stateless\PhoneTest.cs" />
     <Compile Include="Stateless\SwitchTest.cs" />

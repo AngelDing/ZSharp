@@ -6,18 +6,20 @@ namespace Framework.ConsoleTest
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-            //DistributedLockTest();
-            //LoggerTest.Test();
-            //new StringTest().Test();
+        //static void Main(string[] args)
+        //{
+        //    //DistributedLockTest();
+        //    //LoggerTest.Test();
+        //    //new StringTest().Test();
 
-            PhoneTest.MainTest();
-            BugTracker.MainTest();
-            SwitchTest.MainTest();
+        //    //PhoneTest.MainTest();
+        //    //BugTracker.MainTest();
+        //    //SwitchTest.MainTest();
+        //    AsyncTest.Test6();
 
-            Console.ReadLine();
-        }
+
+        //    Console.ReadLine();
+        //}
 
         private static void InitUnityConfig()
         {
