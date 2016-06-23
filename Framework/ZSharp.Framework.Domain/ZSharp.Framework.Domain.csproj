@@ -39,7 +39,6 @@
     <Compile Include="Bus\EventBus.cs" />
     <Compile Include="Bus\IBus.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="DomainException.cs" />
     <Compile Include="Entities\BaseDomainEntity.cs" />
     <Compile Include="Entities\DomainEventEntity.cs" />
     <Compile Include="Entities\MessageLogEntity.cs" />

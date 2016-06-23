@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace ZSharp.Framework
+namespace ZSharp.Framework.Exceptions
 {
-    public class ValidationException  : FrameworkException
+    public class CustomValidationException : ValidationException
     {
         private IEnumerable<string> validationErrors;
 
@@ -14,7 +15,7 @@ namespace ZSharp.Framework
             }
         }
 
-        public ValidationException(IEnumerable<string> validationErrors)
+        public CustomValidationException(IEnumerable<string> validationErrors)
             : base(GetErrorMessage(validationErrors))
         {
             this.validationErrors = validationErrors;

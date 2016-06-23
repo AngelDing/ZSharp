@@ -1,8 +1,7 @@
 ﻿using System;
 
-namespace ZSharp.Framework
+namespace ZSharp.Framework.Exceptions
 {
-    [Serializable]
     public class FrameworkException : Exception
     {
         public FrameworkException() : base() { }

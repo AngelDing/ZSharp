@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using ZSharp.Framework.Validator;
 using ZSharp.Framework.Utils;
+using ZSharp.Framework.Exceptions;
 
 namespace ZSharp.Framework.ValueObjects
 {
@@ -47,7 +48,7 @@ namespace ZSharp.Framework.ValueObjects
             var validator = new EntityValidator();
             if (!validator.IsValid(this))
             {
-                throw new ValidationException(validator.GetInvalidMessages());
+                throw new CustomValidationException(validator.GetInvalidMessages());
             }
         }
 

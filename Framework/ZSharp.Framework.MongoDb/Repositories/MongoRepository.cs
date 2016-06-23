@@ -9,6 +9,7 @@ using ZSharp.Framework.Entities;
 using ZSharp.Framework.Validator;
 using System.Threading.Tasks;
 using ZSharp.Framework.Utils;
+using ZSharp.Framework.Exceptions;
 
 namespace ZSharp.Framework.MongoDb
 {
@@ -225,7 +226,7 @@ namespace ZSharp.Framework.MongoDb
             var validator = new EntityValidator();
             if (validator.IsValid(entity) == false)
             {
-                throw new ValidationException(validator.GetInvalidMessages());
+                throw new CustomValidationException(validator.GetInvalidMessages());
             }
         }
 
@@ -242,7 +243,7 @@ namespace ZSharp.Framework.MongoDb
             }
             if (errorList.Any())
             {
-                throw new ValidationException(errorList);
+                throw new CustomValidationException(errorList);
             }
         }
 

@@ -11,7 +11,7 @@ namespace ZSharp.Framework.Utils
     /// <summary>
     /// 密码加密解密操作相关类
     /// </summary>
-    public static class PassWordHelper
+    public static class CryptographyHelper
     {
         #region MD5 加密
 
@@ -20,7 +20,10 @@ namespace ZSharp.Framework.Utils
         /// </summary>
         public static string Md532(this string source)
         {
-            if (source.IsEmpty()) return null;
+            if (source.IsEmpty())
+            {
+                return null;
+            }
             var encoding = Encoding.UTF8;
             MD5 md5 = MD5.Create();
             return HashAlgorithmBase(md5, source, encoding);

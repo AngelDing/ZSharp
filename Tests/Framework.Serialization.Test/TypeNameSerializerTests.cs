@@ -2,7 +2,7 @@ using System;
 using Xunit;
 using FluentAssertions;
 using ZSharp.Framework.Serializations;
-using ZSharp.Framework;
+using ZSharp.Framework.Exceptions;
 
 namespace Framework.Serialization.Test
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using ZSharp.Framework.Exceptions;
 using ZSharp.Framework.Utils;
 
 namespace ZSharp.Framework.Serializations

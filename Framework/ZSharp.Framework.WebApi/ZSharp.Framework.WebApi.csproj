@@ -75,6 +75,9 @@
   <ItemGroup>
     <Compile Include="Compressions\CompressionHelper.cs" />
     <Compile Include="Compressions\DeflateCompressionAttribute.cs" />
+    <Compile Include="Concurrency\ConcurrencyAwareFilterAttribute.cs" />
+    <Compile Include="Concurrency\ConcurrencyExceptionFilterAttribute.cs" />
+    <Compile Include="Concurrency\IConcurrencyAware.cs" />
     <Compile Include="Cors\CorsPolicyAttribute .cs" />
     <Compile Include="Cors\CorsPolicyFactory.cs" />
     <Compile Include="Exception\CustomExceptionLogger.cs" />

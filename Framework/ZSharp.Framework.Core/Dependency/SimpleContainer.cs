@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Concurrent;
 using ZSharp.Framework.Utils;
+using ZSharp.Framework.Exceptions;
 
 namespace ZSharp.Framework.Dependency
 {

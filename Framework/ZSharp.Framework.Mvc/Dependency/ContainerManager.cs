@@ -4,6 +4,7 @@ using System.Linq;
 using Autofac;
 using Autofac.Builder;
 using ZSharp.Framework.Caching;
+using ZSharp.Framework.Exceptions;
 
 namespace ZSharp.Framework.Mvc
 {
