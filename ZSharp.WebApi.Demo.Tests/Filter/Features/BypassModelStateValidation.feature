@@ -1,0 +1,8 @@
+﻿Feature: BypassModelStateValidation
+给方法加上BypassModelStateValidationAttribute，不会执行ModelState验证，Response为空
+
+@mytag
+Scenario: BypassModelStateValidation
+	Given BypassModelStateValidationAttribute
+	When 执行OnActionExecuting方法
+	Then Response为空
