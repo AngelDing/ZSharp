@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{50E0DE5F-685F-4B1A-81B5-16FABC438754}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZSharp.Framework.Web</RootNamespace>
+    <AssemblyName>ZSharp.Framework.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Throttle\Core\IEnableThrottlingAttribute.cs" />
+    <Compile Include="Throttle\Core\IThrottleProcesser.cs" />
+    <Compile Include="Throttle\Core\ThrottleProcessResult.cs" />
+    <Compile Include="Throttle\Core\ThrottleProcesser.cs" />
+    <Compile Include="Throttle\Logging\DefaultThrottleLogger.cs" />
+    <Compile Include="Throttle\Logging\IThrottleLogger.cs" />
+    <Compile Include="Throttle\Logging\ThrottleLogEntry.cs" />
+    <Compile Include="Throttle\Models\IPAddressRange.cs" />
+    <Compile Include="Throttle\Models\RateLimitPeriod.cs" />
+    <Compile Include="Throttle\Models\RateLimits.cs" />
+    <Compile Include="Throttle\Models\RequestIdentity.cs" />
+    <Compile Include="Throttle\Models\ThrottleCounter.cs" />
+    <Compile Include="Throttle\Models\ThrottlePolicyRule.cs" />
+    <Compile Include="Throttle\Models\ThrottlePolicySettings.cs" />
+    <Compile Include="Throttle\Models\ThrottlePolicyType.cs" />
+    <Compile Include="Throttle\Models\ThrottlePolicyWhitelist.cs" />
+    <Compile Include="Throttle\Net\IpAddressBaseParser.cs" />
+    <Compile Include="Throttle\Net\IIpAddressParser.cs" />
+    <Compile Include="Throttle\Net\IpAddressUtil.cs" />
+    <Compile Include="Throttle\Providers\IThrottlePolicyProvider.cs" />
+    <Compile Include="Throttle\Providers\PolicyConfigurationProvider.cs" />
+    <Compile Include="Throttle\Repositories\PolicyBaseRepository.cs" />
+    <Compile Include="Throttle\Repositories\ThrottleBaseRepository.cs" />
+    <Compile Include="Throttle\Repositories\ThrottleWebCacheRepository.cs" />
+    <Compile Include="Throttle\Repositories\IPolicyRepository.cs" />
+    <Compile Include="Throttle\Repositories\IThrottleRepository.cs" />
+    <Compile Include="Throttle\Repositories\ThrottleMemoryCacheRepository.cs" />
+    <Compile Include="Throttle\Repositories\PolicyWebCacheRepository.cs" />
+    <Compile Include="Throttle\Repositories\PolicyMemoryCacheRepository.cs" />
+    <Compile Include="Throttle\Core\ThrottleManager.cs" />
+    <Compile Include="Throttle\Core\ThrottlePolicy.cs" />
+    <Compile Include="Throttle\Core\ThrottlingCore.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Throttle\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZSharp.Framework.Caching\ZSharp.Framework.Caching.csproj">
+      <Project>{4e6380c9-050b-4177-bb04-bf74c132e564}</Project>
+      <Name>ZSharp.Framework.Caching</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.Configurations\ZSharp.Framework.Configurations.csproj">
+      <Project>{91437b74-1818-4727-b189-b1cf2cfb2f09}</Project>
+      <Name>ZSharp.Framework.Configurations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.Logging\ZSharp.Framework.Logging.csproj">
+      <Project>{2d8850ae-67c7-4448-87b2-f3f084f36b55}</Project>
+      <Name>ZSharp.Framework.Logging</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

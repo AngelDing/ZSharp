@@ -55,10 +55,16 @@
     <Compile Include="Redis\RedisHostGroupCollection.cs" />
     <Compile Include="Settings\ISettingService.cs" />
     <Compile Include="Settings\JsonPersistAttribute.cs" />
+    <Compile Include="Throttle\PolicyConfiguration.cs" />
+    <Compile Include="Throttle\RuleConfigurationCollection.cs" />
+    <Compile Include="Throttle\RuleConfigurationElement.cs" />
+    <Compile Include="Throttle\WhitelistConfigurationCollection.cs" />
+    <Compile Include="Throttle\WhitelistConfigurationElement.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RabbitMq\App.config" />
     <None Include="Redis\App.config" />
+    <None Include="Throttle\App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
