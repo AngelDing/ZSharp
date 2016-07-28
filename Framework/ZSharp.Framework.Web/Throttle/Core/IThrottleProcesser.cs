@@ -1,8 +1,13 @@
-﻿
+﻿using System.Net;
+
 namespace ZSharp.Framework.Web.Throttle
 {
     public interface IThrottleProcesser
     {
-        ThrottleProcessResult Process(object actionContext);
+        ThrottlePolicy Policy { get; }
+
+        ThrottleProcessResult Process(RequestIdentity identity, IEnableThrottlingAttribute attrPolicy = null);
+
+        IPAddress GetClientIp(object request);
     }
 }

@@ -42,9 +42,6 @@
     <Compile Include="Throttle\MvcIpAddressParser.cs" />
     <Compile Include="Throttle\Attributes\DisableThrottingAttribute.cs" />
     <Compile Include="Throttle\Attributes\EnableThrottlingAttribute.cs" />
-    <Compile Include="Throttle\IThrottleProcesser.cs" />
-    <Compile Include="Throttle\ThrottleProcesser.cs" />
-    <Compile Include="Throttle\ThrottlingCore.cs" />
     <Compile Include="Throttle\ThrottlingFilter.cs" />
   </ItemGroup>
   <ItemGroup>

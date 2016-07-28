@@ -4,95 +4,60 @@ using System.Net;
 
 namespace ZSharp.Framework.Web.Throttle
 {
-    public abstract class ThrottleProcesser
-    {
-        private readonly ThrottlingCore core;
-        private IPolicyRepository policyRepository;
-        private ThrottlePolicy policy;
-        private ThrottleProcessResult processResult;
-
-        public ThrottleProcesser()
-        {
-            processResult = new ThrottleProcessResult { IsPass = true };
-        }
+    public class ThrottleProcesser : IThrottleProcesser
+    {        
+        private ThrottleProcessResult processResult;       
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ThrottleProcesser"/> class.
         /// By default, the <see cref="QuotaExceededResponseCode"/> property 
         /// is set to 429 (Too Many Requests).
-        /// </summary>
-        public ThrottleProcesser(IIpAddressParser ipAddressParser) : this()
-        {
-            QuotaExceededResponseCode = (HttpStatusCode)429;
-            Repository = new ThrottleWebCacheRepository();
-            core = new ThrottlingCore(ipAddressParser);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ThrottleProcesser"/> class.
-        /// Persists the policy object in cache using <see cref="IPolicyRepository"/> implementation.
-        /// The policy object can be updated by <see cref="ThrottleManager"/> at runtime. 
-        /// </summary>
-        /// <param name="policy">
-        /// The policy.
-        /// </param>
-        /// <param name="policyRepository">
-        /// The policy repository.
-        /// </param>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="logger">
-        /// The logger.
-        /// </param>
-        /// <param name="ipAddressParser">
-        /// The ip address provider
-        /// </param>
+        /// </summary>      
         public ThrottleProcesser(
             ThrottlePolicy policy,
-            IPolicyRepository policyRepository,
-            IThrottleRepository repository,
-            IThrottleLogger logger,
-            IIpAddressParser ipAddressParser) : this()
+            IIpAddressParser ipAddressParser,
+            IPolicyRepository policyRepo = null,
+            IThrottleRepository throttleRepo = null)
         {
-            core = new ThrottlingCore(ipAddressParser);
-            core.Repository = repository;
-            Repository = repository;
-            Logger = logger;
-
+            Logger = new DefaultThrottleLogger();
             QuotaExceededResponseCode = (HttpStatusCode)429;
+            processResult = new ThrottleProcessResult { IsPass = true };
 
-            this.policy = policy;
-            this.policyRepository = policyRepository;
-
-            if (policyRepository != null)
+            ThrottleRepo = throttleRepo;
+            if (ThrottleRepo == null)
             {
-                policyRepository.Save(ThrottleManager.GetPolicyKey(), policy);
+                ThrottleRepo = new WebCacheThrottleRepository();
             }
+            ThrottlingCore = new ThrottlingCore(ipAddressParser);
+            ThrottlingCore.ThrottleRepo = ThrottleRepo;
+
+            PolicyRepo = policyRepo;
+            if (PolicyRepo == null)
+            {
+                PolicyRepo = new WebCachePolicyRepository();
+            }
+            Policy = policy;
+            PolicyRepo.Save(ThrottleManager.GetPolicyKey(), policy);
         }
+
+        #region Property
 
         /// <summary>
         ///  Gets or sets a repository used to access throttling rate limits policy.
         /// </summary>
-        public IPolicyRepository PolicyRepository
-        {
-            get { return policyRepository; }
-            set { policyRepository = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the throttling rate limits policy
-        /// </summary>
-        public ThrottlePolicy Policy
-        {
-            get { return policy; }
-            set { policy = value; }
-        }
+        internal IPolicyRepository PolicyRepo { get; set; }       
 
         /// <summary>
         /// Gets or sets the throttle metrics storage
         /// </summary>
-        public IThrottleRepository Repository { get; set; }
+        internal IThrottleRepository ThrottleRepo { get; set; }
+
+        internal RequestIdentity Identity { get; set; }
+
+        /// <summary>
+        /// Gets or sets the throttling rate limits policy
+        /// </summary>
+        public ThrottlePolicy Policy { get; set; }
 
         /// <summary>
         /// Gets or sets an instance of <see cref="IThrottleLogger"/> that will log blocked requests
@@ -120,35 +85,42 @@ namespace ZSharp.Framework.Web.Throttle
         /// </summary>
         public HttpStatusCode QuotaExceededResponseCode { get; set; }
 
-        public ThrottleProcessResult Process(object actionContext)
-        {           
-            IEnableThrottlingAttribute attrPolicy = null;
-            var applyThrottling = ApplyThrottling(actionContext, out attrPolicy);
-            // get policy from repo
-            if (policyRepository != null)
+        protected ThrottlingCore ThrottlingCore { get; private set; }
+
+        #endregion
+
+        public IPAddress GetClientIp(object request)
+        {
+            return ThrottlingCore.GetClientIp(request);
+        }
+
+        public ThrottleProcessResult Process(RequestIdentity identity, IEnableThrottlingAttribute attrPolicy = null)
+        {
+            Identity = identity;
+            Policy = PolicyRepo.FirstOrDefault(ThrottleManager.GetPolicyKey());
+            if (Policy != null)
             {
-                policy = policyRepository.FirstOrDefault(ThrottleManager.GetPolicyKey());
-            }
-            if (Policy != null && applyThrottling)
-            {
-                var request = GetRequest(actionContext);
-                Checking(request, attrPolicy);
+                Checking(attrPolicy);
             }
             return processResult;
         }
 
-        private void Checking(object request, IEnableThrottlingAttribute attrPolicy)
+        private void Checking(IEnableThrottlingAttribute attrPolicy)
         {
-            core.Repository = Repository;
-            core.Policy = Policy;
-            var identity = SetIndentity(request);
-            if (core.IsWhitelisted(identity))
+            ThrottlingCore.ThrottleRepo = ThrottleRepo;
+            ThrottlingCore.Policy = Policy;
+
+            if (!Policy.IpThrottling && !Policy.ClientThrottling && !Policy.EndpointThrottling)
+            {
+                return;
+            }
+            if (ThrottlingCore.IsWhitelisted(Identity))
             {
                 return;
             }
             TimeSpan timeSpan = TimeSpan.FromSeconds(1);
             // get default rates
-            var defRates = core.RatesWithDefaults(Policy.Rates.ToList());
+            var defRates = ThrottlingCore.RatesWithDefaults(Policy.Rates.ToList());
             if (Policy.StackBlockedRequests)
             {
                 // all requests including the rejected ones will stack in this order: week, day, hour, min, sec
@@ -160,22 +132,25 @@ namespace ZSharp.Framework.Web.Throttle
             {
                 var rateLimitPeriod = rate.Key;
                 var rateLimit = rate.Value;
-                timeSpan = core.GetTimeSpanFromPeriod(rateLimitPeriod);
-                // apply EnableThrottlingAttribute policy
-                var attrLimit = attrPolicy.GetLimit(rateLimitPeriod);
-                if (attrLimit > 0)
+                timeSpan = ThrottlingCore.GetTimeSpanFromPeriod(rateLimitPeriod);
+                if (attrPolicy != null)
                 {
-                    rateLimit = attrLimit;
+                    // apply EnableThrottlingAttribute policy
+                    var attrLimit = attrPolicy.GetLimit(rateLimitPeriod);
+                    if (attrLimit > 0)
+                    {
+                        rateLimit = attrLimit;
+                    }
                 }
                 // apply global rules
-                core.ApplyRules(identity, timeSpan, rateLimitPeriod, ref rateLimit);
+                ThrottlingCore.ApplyRules(Identity, timeSpan, rateLimitPeriod, ref rateLimit);
                 if (rateLimit == 0)
                 {
                     continue;
                 }
                 // increment counter
                 string requestId;
-                var throttleCounter = core.ProcessRequest(identity, timeSpan, rateLimitPeriod, out requestId);
+                var throttleCounter = ThrottlingCore.ProcessRequest(Identity, timeSpan, rateLimitPeriod, out requestId);
                 // check if key expired
                 if (throttleCounter.Timestamp + timeSpan < DateTime.UtcNow)
                 {
@@ -187,11 +162,11 @@ namespace ZSharp.Framework.Web.Throttle
                     // log blocked request
                     if (Logger != null)
                     {
-                        var logEntry = core.ComputeLogEntry(requestId, identity, throttleCounter,
-                            rateLimitPeriod.ToString(), rateLimit, request);
+                        var logEntry = ThrottlingCore.ComputeLogEntry(requestId, Identity, throttleCounter,
+                            rateLimitPeriod.ToString(), rateLimit);
                         Logger.Log(logEntry);
                     }
-                    var retryAfter = core.RetryAfterFrom(throttleCounter.Timestamp, rateLimitPeriod);
+                    var retryAfter = ThrottlingCore.RetryAfterFrom(throttleCounter.Timestamp, rateLimitPeriod);
                     ProcessQuotaExceeded(rateLimitPeriod, rateLimit, retryAfter);
                     return;
                 }
@@ -214,21 +189,5 @@ namespace ZSharp.Framework.Web.Throttle
             processResult.RetryAfter = retryAfter;
             processResult.StatusCode = (int)QuotaExceededResponseCode;
         }
-
-        protected abstract object GetRequest(object actionContext);
-
-        protected abstract RequestIdentity SetIndentity(object request);
-
-        protected virtual string ComputeThrottleKey(RequestIdentity requestIdentity, RateLimitPeriod period)
-        {
-            return core.ComputeThrottleKey(requestIdentity, period);
-        }
-
-        protected IPAddress GetClientIp(object request)
-        {
-            return core.GetClientIp(request);
-        }
-
-        protected abstract bool ApplyThrottling(object filterContext, out IEnableThrottlingAttribute attr);
     }
 }

@@ -16,35 +16,17 @@ namespace ZSharp.Framework.Web.Api.Throttle
                 return null;
             }
 
-            IPAddress ipAddress;
+            var ip = string.Empty;
             if (requestMsg.Properties.ContainsKey("MS_HttpContext"))
             {
-                var ok = IPAddress.TryParse(((HttpContextBase)requestMsg.Properties["MS_HttpContext"]).Request.UserHostAddress, out ipAddress);
-
-                if (ok)
-                {
-                    return ipAddress;
-                }
+                ip = ((HttpContextBase)requestMsg.Properties["MS_HttpContext"]).Request.UserHostAddress;
+                return ParseIp(ip);              
             }
 
             if (requestMsg.Properties.ContainsKey(RemoteEndpointMessageProperty.Name))
             {
-                var ok = IPAddress.TryParse(((RemoteEndpointMessageProperty)requestMsg.Properties[RemoteEndpointMessageProperty.Name]).Address, out ipAddress);
-
-                if (ok)
-                {
-                    return ipAddress;
-                }
-            }
-
-            if (requestMsg.Properties.ContainsKey("MS_OwinContext"))
-            {
-                var ok = IPAddress.TryParse(((Microsoft.Owin.OwinContext)requestMsg.Properties["MS_OwinContext"]).Request.RemoteIpAddress, out ipAddress);
-
-                if (ok)
-                {
-                    return ipAddress;
-                }
+                ip = ((RemoteEndpointMessageProperty)requestMsg.Properties[RemoteEndpointMessageProperty.Name]).Address;
+                return ParseIp(ip);
             }
 
             return null;

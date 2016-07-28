@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using ZSharp.Framework.Configurations.Throttle;
 
@@ -15,6 +16,11 @@ namespace ZSharp.Framework.Web.Throttle
 
         public ThrottlePolicySettings ReadSettings()
         {
+            EndpointThrottlingType endpointThrottlingType = EndpointThrottlingType.ControllerAndAction;
+            if (Enum.TryParse<EndpointThrottlingType>(policyConfig.EndpointThrottlingType, out endpointThrottlingType) == false)
+            {
+                endpointThrottlingType = EndpointThrottlingType.ControllerAndAction;
+            }
             var settings = new ThrottlePolicySettings()
             {
                 IpThrottling = policyConfig.IpThrottling,
@@ -25,7 +31,8 @@ namespace ZSharp.Framework.Web.Throttle
                 LimitPerMinute = policyConfig.LimitPerMinute,
                 LimitPerHour = policyConfig.LimitPerHour,
                 LimitPerDay = policyConfig.LimitPerDay,
-                LimitPerWeek = policyConfig.LimitPerWeek
+                LimitPerWeek = policyConfig.LimitPerWeek,
+                EndpointThrottlingType = endpointThrottlingType
             };
 
             return settings;

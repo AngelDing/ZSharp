@@ -43,14 +43,8 @@ namespace ZSharp.Framework.Web.Mvc.Throttle
             {
                 ip = null;
             }
-
-            IPAddress ipAddress;
-            var ok = IPAddress.TryParse(ip, out ipAddress);
-            if (ok)
-            {
-                return ipAddress;
-            }
-            return null;
+           
+            return ParseIp(ip);
         }
     }
 }

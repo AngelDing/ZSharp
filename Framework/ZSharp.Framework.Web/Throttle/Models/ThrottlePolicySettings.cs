@@ -19,5 +19,7 @@
         public bool EndpointThrottling { get; set; }
 
         public bool StackBlockedRequests { get; set; }
+
+        public EndpointThrottlingType EndpointThrottlingType { get; internal set; }
     }
 }

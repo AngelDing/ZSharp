@@ -5,9 +5,9 @@ namespace ZSharp.Framework.Web.Throttle
     /// <summary>
     /// Stores policy in runtime cache, intended for OWIN self host.
     /// </summary>
-    public class PolicyMemoryCacheRepository : PolicyBaseRepository
+    public class MemoryCachePolicyRepository : CachePolicyRepository
     {
-        protected override ICacheManager CacheManager()
+        protected override ICacheManager GetCacheManager()
         {
             return CacheHelper.MemoryCache;
         }

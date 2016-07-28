@@ -21,7 +21,5 @@ namespace ZSharp.Framework.Web.Throttle
         public string RateLimitPeriod { get; set; }
 
         public DateTimeOffset LogDate { get; set; }
-
-        public object Request { get; internal set; }
     }
 }

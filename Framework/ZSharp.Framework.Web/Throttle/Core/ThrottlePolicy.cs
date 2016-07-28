@@ -77,6 +77,8 @@ namespace ZSharp.Framework.Web.Throttle
 
         public List<string> EndpointWhitelist { get; set; }
 
+        public EndpointThrottlingType EndpointType { get; set; }
+
         public IDictionary<string, RateLimits> EndpointRules { get; set; }
 
         /// <summary>
@@ -144,5 +146,13 @@ namespace ZSharp.Framework.Web.Throttle
             }
             return policy;
         }
+    }
+
+    public enum EndpointThrottlingType
+    {
+        AbsolutePath = 1,
+        PathAndQuery,
+        ControllerAndAction,
+        Controller
     }
 }

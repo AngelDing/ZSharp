@@ -20,7 +20,7 @@ namespace ZSharp.Framework.Web.Throttle
 
         public ThrottlePolicy Policy { get; set; }
 
-        public IThrottleRepository Repository { get; set; }
+        public IThrottleRepository ThrottleRepo { get; set; }
 
         internal IIpAddressParser IpAddressParser { get; set; }
 
@@ -44,8 +44,7 @@ namespace ZSharp.Framework.Web.Throttle
             RequestIdentity identity,
             ThrottleCounter throttleCounter, 
             string rateLimitPeriod, 
-            long rateLimit,
-            object request)
+            long rateLimit)
         {
             return new ThrottleLogEntry
             {
@@ -57,8 +56,7 @@ namespace ZSharp.Framework.Web.Throttle
                 RateLimitPeriod = rateLimitPeriod,
                 RequestId = requestId,
                 StartPeriod = throttleCounter.Timestamp,
-                TotalRequests = throttleCounter.TotalRequests,
-                Request = request
+                TotalRequests = throttleCounter.TotalRequests
             };
         }
 
@@ -196,7 +194,7 @@ namespace ZSharp.Framework.Web.Throttle
             // serial reads and writes
             lock (ProcessLocker)
             {
-                var entry = Repository.FirstOrDefault(id);
+                var entry = ThrottleRepo.FirstOrDefault(id);
                 if (entry.HasValue)
                 {
                     // entry has not expired
@@ -215,7 +213,7 @@ namespace ZSharp.Framework.Web.Throttle
                 }
 
                 // stores: id (string) - timestamp (datetime) - total (long)
-                Repository.Save(id, throttleCounter, timeSpan);
+                ThrottleRepo.Save(id, throttleCounter, timeSpan);
             }
 
             return throttleCounter;

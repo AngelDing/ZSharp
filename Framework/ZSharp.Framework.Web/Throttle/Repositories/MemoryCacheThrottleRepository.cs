@@ -5,9 +5,9 @@ namespace ZSharp.Framework.Web.Throttle
     /// <summary>
     /// Stors throttle metrics in runtime cache, intented for owin self host.
     /// </summary>
-    public class ThrottleMemoryCacheRepository : ThrottleBaseRepository
+    public class MemoryCacheThrottleRepository : CacheThrottleRepository
     {
-        protected override ICacheManager CacheManager()
+        protected override ICacheManager GetCacheManager()
         {
             return CacheHelper.MemoryCache;
         }

@@ -5,9 +5,9 @@ namespace ZSharp.Framework.Web.Throttle
     /// <summary>
     /// Stores throttle metrics in asp.net cache
     /// </summary>
-    public class ThrottleWebCacheRepository : ThrottleBaseRepository
+    public class WebCacheThrottleRepository : CacheThrottleRepository
     {
-        protected override ICacheManager CacheManager()
+        protected override ICacheManager GetCacheManager()
         {
             return CacheHelper.WebCache;
         }
