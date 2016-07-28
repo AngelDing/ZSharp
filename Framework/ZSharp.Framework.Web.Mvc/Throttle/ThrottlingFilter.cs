@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using ZSharp.Framework.Web.Throttle;
 
@@ -56,7 +55,6 @@ namespace ZSharp.Framework.Web.Mvc.Throttle
             var request = filterContext.HttpContext.Request;
             var entry = new RequestIdentity();
             entry.ClientIp = processer.GetClientIp(request).ToString();
-
             entry.ClientKey = request.IsAuthenticated ? "auth" : "anon";
 
             var rd = request.RequestContext.RouteData;
