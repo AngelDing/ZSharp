@@ -98,6 +98,41 @@ namespace Framework.SqlDb.Test.EfCommonTest
             studentNames.Should().NotBeNullOrEmpty();
         }
 
+        [Fact]
+        public void any_test()
+        {
+            var exist = dbContext.Students.Any(t => t.Name == "张三2");
+            
+            var studenNames = new List<string>() { "张三3", "李四" };
+            var result = dbContext.Teachers
+                .Where(t => t.Students.Any(s => studenNames.Contains(s.Name)))
+                .Select(t => t.Name)
+                .ToList();
+        }
+
+        [Fact]
+        public void transparent_identifier_test()
+        {
+            var studenNames = new List<string>() { "张三3", "李四" };
+
+            //Bad
+            var result = dbContext.Teachers
+              .Where(t => t.Students.Where(s => studenNames.Contains(s.Name)).FirstOrDefault() != null
+                  && t.Students.Where(s => studenNames.Contains(s.Name)).FirstOrDefault().Name.Contains("张三")
+                  && t.Students.Where(s => studenNames.Contains(s.Name)).FirstOrDefault().Age == "18")
+              .Select(t => t.Students.Where(s => studenNames.Contains(s.Name)).FirstOrDefault().Name)
+              .ToList();
+
+            //Good
+            result = dbContext.Teachers
+              .Select(t => new { Students = t.Students.Where(s => studenNames.Contains(s.Name)).FirstOrDefault() })
+              .Where(t => t.Students != null
+                  && t.Students.Name.Contains("张三")
+                  && t.Students.Age == "18")
+              .Select(t => t.Students.Name)
+              .ToList();
+        }
+
         #region Init DB
 
         private void InitDb()
