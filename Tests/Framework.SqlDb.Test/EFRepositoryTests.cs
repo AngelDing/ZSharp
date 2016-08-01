@@ -8,9 +8,9 @@ using ZSharp.Framework;
 
 namespace Framework.SqlDb.Test
 {
-    public class EFRepositoryTests : DisposableObject
+    public class EfRepositoryTests : DisposableObject
     {
-        public EFRepositoryTests()
+        public EfRepositoryTests()
         {
             InitializeEFTestDB();
         }

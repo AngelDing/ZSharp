@@ -6,7 +6,7 @@ namespace Framework.Benchmark.Test.ObjectsMapper
         public SpecBase()
         {
             NLite.Mapper.Reset();
-            AutoMapper.Mapper.Reset();
+            //AutoMapper.Mapper.Reset();
             EmitMapper.ObjectMapperManager._defaultInstance = null;
             SetUp();
         }

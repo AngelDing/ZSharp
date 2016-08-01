@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.5.0.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dll\EntityFramework\EntityFramework.dll</HintPath>
@@ -48,6 +52,7 @@
     <Reference Include="FluentAssertions.Core">
       <HintPath>..\..\Dll\FluentAssertions\FluentAssertions.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Xml" />
@@ -79,10 +84,17 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ConstHelper.cs" />
-    <Compile Include="EFRepositoryTests.cs" />
+    <Compile Include="EfCommonTest\Configuration.cs" />
+    <Compile Include="EfCommonTest\EfCommonTest.cs" />
+    <Compile Include="EfCommonTest\HiQueryableExtension.cs" />
+    <Compile Include="EfRepositoryTests.cs" />
     <Compile Include="Entities\EFAddress.cs" />
     <Compile Include="Entities\EFCustomer.cs" />
     <Compile Include="Entities\EFNote.cs" />
+    <Compile Include="EfCommonTest\EfCommonTestDb.cs" />
+    <Compile Include="EfCommonTest\Score.cs" />
+    <Compile Include="EfCommonTest\Student.cs" />
+    <Compile Include="EfCommonTest\Teacher.cs" />
     <Compile Include="FluentApiTest\ProductContext.cs" />
     <Compile Include="FluentApiTest\SchoolContext.cs" />
     <Compile Include="FluentApiTest\TableInheritanceTest.cs" />
@@ -94,7 +106,9 @@
     <Compile Include="Repositories\ICustomerRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
