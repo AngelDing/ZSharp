@@ -94,13 +94,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.RabbitMq.Test", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.WebApi.Demo", "Demos\ZSharp.WebApi.Demo\ZSharp.WebApi.Demo.csproj", "{B1F906AF-380A-4E79-AD24-D717D08998BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.WebApi.Demo.Tests", "ZSharp.WebApi.Demo.Tests\ZSharp.WebApi.Demo.Tests.csproj", "{9C5292CE-35CC-411C-8A02-91E01F2DA2DA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.Web", "Framework\ZSharp.Framework.Web\ZSharp.Framework.Web.csproj", "{50E0DE5F-685F-4B1A-81B5-16FABC438754}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.Web.Api", "Framework\ZSharp.Framework.Web.Api\ZSharp.Framework.Web.Api.csproj", "{FBC2CC4D-D7EA-4D15-880A-F5231D946673}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.Framework.Web.Mvc", "Framework\ZSharp.Framework.Web.Mvc\ZSharp.Framework.Web.Mvc.csproj", "{059F8A77-FB13-4A46-BC3C-42B0427C7DBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSharp.WebApi.Demo.Tests", "Demos\ZSharp.WebApi.Demo.Tests\ZSharp.WebApi.Demo.Tests.csproj", "{9C5292CE-35CC-411C-8A02-91E01F2DA2DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -268,10 +268,6 @@ Global
 		{B1F906AF-380A-4E79-AD24-D717D08998BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1F906AF-380A-4E79-AD24-D717D08998BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1F906AF-380A-4E79-AD24-D717D08998BA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C5292CE-35CC-411C-8A02-91E01F2DA2DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C5292CE-35CC-411C-8A02-91E01F2DA2DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C5292CE-35CC-411C-8A02-91E01F2DA2DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C5292CE-35CC-411C-8A02-91E01F2DA2DA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{50E0DE5F-685F-4B1A-81B5-16FABC438754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{50E0DE5F-685F-4B1A-81B5-16FABC438754}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50E0DE5F-685F-4B1A-81B5-16FABC438754}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -284,6 +280,10 @@ Global
 		{059F8A77-FB13-4A46-BC3C-42B0427C7DBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{059F8A77-FB13-4A46-BC3C-42B0427C7DBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{059F8A77-FB13-4A46-BC3C-42B0427C7DBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C5292CE-35CC-411C-8A02-91E01F2DA2DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C5292CE-35CC-411C-8A02-91E01F2DA2DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C5292CE-35CC-411C-8A02-91E01F2DA2DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C5292CE-35CC-411C-8A02-91E01F2DA2DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -87,7 +87,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Demos\ZSharp.WebApi.Demo\ZSharp.WebApi.Demo.csproj">
+    <ProjectReference Include="..\ZSharp.WebApi.Demo\ZSharp.WebApi.Demo.csproj">
       <Project>{B1F906AF-380A-4E79-AD24-D717D08998BA}</Project>
       <Name>ZSharp.WebApi.Demo</Name>
     </ProjectReference>
