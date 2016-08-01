@@ -5,10 +5,12 @@ namespace Framework.SqlDb.Test.EfCommonTest
     public class EfCommonTestDb : DbContext
     {
         public EfCommonTestDb()
-            : base("Default")
+            : base("EfCommonTestDb")
         {
-            //每次重新启动总是初始化数据库到最新版本（连接字符串为“Default”）
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<EfCommonTestDb, Configuration>("Default"));
+            //每次重新启动总是初始化数据库到最新版本
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<EfCommonTestDb, Configuration>("EfCommonTestDb"));
+            ////禁用延遲加載
+            //this.Configuration.LazyLoadingEnabled = false;
         }
 
         /// <summary>

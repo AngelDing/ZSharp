@@ -87,6 +87,7 @@
     <Compile Include="EfCommonTest\Configuration.cs" />
     <Compile Include="EfCommonTest\EfCommonTest.cs" />
     <Compile Include="EfCommonTest\HiQueryableExtension.cs" />
+    <Compile Include="EfCommonTest\ScoresDto.cs" />
     <Compile Include="EfRepositoryTests.cs" />
     <Compile Include="Entities\EFAddress.cs" />
     <Compile Include="Entities\EFCustomer.cs" />

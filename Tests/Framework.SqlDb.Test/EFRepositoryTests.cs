@@ -17,7 +17,7 @@ namespace Framework.SqlDb.Test
 
         private void InitializeEFTestDB()
         {
-            Database.SetInitializer<EFTestContext>(new DropCreateDatabaseIfModelChanges<EFTestContext>());
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<EFTestContext>());
             using (var context = new EFTestContext())
             {
                 context.Database.Initialize(true);
