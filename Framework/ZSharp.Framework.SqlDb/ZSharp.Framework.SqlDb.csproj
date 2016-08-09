@@ -42,6 +42,7 @@
     <Compile Include="BaseCustomDbContext.cs" />
     <Compile Include="CustomConnectionFactory.cs" />
     <Compile Include="EfHelper.cs" />
+    <Compile Include="IEfRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EfRepository.cs" />
     <Compile Include="EfRepositoryContext.cs" />
@@ -58,6 +59,10 @@
     <ProjectReference Include="..\ZSharp.Framework.Core\ZSharp.Framework.Core.csproj">
       <Project>{ab3663cd-0434-4e29-84ef-b8b559f537bc}</Project>
       <Name>ZSharp.Framework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSharp.Framework.EfExtensions\ZSharp.Framework.EfExtensions.csproj">
+      <Project>{500f07ef-fc30-4968-a330-479276ac1124}</Project>
+      <Name>ZSharp.Framework.EfExtensions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

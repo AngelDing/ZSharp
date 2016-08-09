@@ -6,10 +6,11 @@ using System.Data.Entity;
 using ZSharp.Framework.Entities;
 using ZSharp.Framework.Specifications;
 using ZSharp.Framework.Repositories;
+using ZSharp.Framework.EfExtensions;
 
 namespace ZSharp.Framework.SqlDb
 {
-    public class EfRepository<T, Tkey> : Repository<T, Tkey>
+    public class EfRepository<T, Tkey> : Repository<T, Tkey>, IEfRepository<T, Tkey>
         where T : Entity<Tkey>, IAggregateRoot<Tkey>
     {
         private readonly IEfRepositoryContext efContext;
@@ -97,6 +98,25 @@ namespace ZSharp.Framework.SqlDb
         {
             var count = this.Entities.Count(predicate);
             return count != 0;
+        }
+
+        #endregion
+
+        #region IEfRepository
+        public void BulkDelete(Expression<Func<T, bool>> predicate)
+        {
+            var queray = Entities.AsNoTracking().Where(predicate);
+            queray.Delete();
+        }
+
+        public void BulkInsert(IEnumerable<T> entities)
+        {
+            db.BulkInsert(entities);
+        }
+
+        public void Update(Expression<Func<T, bool>> predicate, Expression<Func<T, T>> funcEntity)
+        {
+            Entities.Where(predicate).Update(funcEntity);
         }
 
         #endregion
