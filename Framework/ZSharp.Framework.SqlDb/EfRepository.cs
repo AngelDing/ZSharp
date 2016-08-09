@@ -15,7 +15,7 @@ namespace ZSharp.Framework.SqlDb
     {
         private readonly IEfRepositoryContext efContext;
         private readonly DbContext db;
-        private IDbSet<T> entities;
+        private IDbSet<T> dbSet;
 
         public EfRepository(IRepositoryContext context)
             : base(context)
@@ -67,16 +67,15 @@ namespace ZSharp.Framework.SqlDb
 
         public override void Delete(Tkey key)
         {
-            var deleteEntity = this.GetByKey(key);
-            this.Delete(deleteEntity);
+            var deleteEntity = GetByKey(key);
+            Delete(deleteEntity);
         }
 
         public override void Delete(T entity)
         {
             if (entity is ISoftDeletable)
             {
-                //TODO:可優化，不要HardCode。
-                entity.NeedUpdateList.Add("IsDeleted", true);
+                entity.NeedUpdateList.Add(nameof(ISoftDeletable.IsDeleted), true);
                 Update(entity);
             }
             else
@@ -87,16 +86,16 @@ namespace ZSharp.Framework.SqlDb
 
         public override void Delete(Expression<Func<T, bool>> predicate)
         {
-            var deleteList = this.GetBy(predicate);
+            var deleteList = GetBy(predicate);
             foreach (var e in deleteList)
             {
-                this.Delete(e);
+                Delete(e);
             }
         }
 
         public override bool Exists(Expression<Func<T, bool>> predicate)
         {
-            var count = this.Entities.Count(predicate);
+            var count = DbSet.Count(predicate);
             return count != 0;
         }
 
@@ -105,7 +104,7 @@ namespace ZSharp.Framework.SqlDb
         #region IEfRepository
         public void BulkDelete(Expression<Func<T, bool>> predicate)
         {
-            var queray = Entities.AsNoTracking().Where(predicate);
+            var queray = DbSet.AsNoTracking().Where(predicate);
             queray.Delete();
         }
 
@@ -116,7 +115,7 @@ namespace ZSharp.Framework.SqlDb
 
         public void Update(Expression<Func<T, bool>> predicate, Expression<Func<T, T>> funcEntity)
         {
-            Entities.Where(predicate).Update(funcEntity);
+            DbSet.Where(predicate).Update(funcEntity);
         }
 
         #endregion
@@ -125,55 +124,55 @@ namespace ZSharp.Framework.SqlDb
 
         public override T GetByKey(Tkey key)
         {
-            return this.Entities.Find(key);//.FirstOrDefault(p => (object)p.Id == (object)key);
+            return DbSet.Find(key);//.FirstOrDefault(p => (object)p.Id == (object)key);
         }
 
         public override IEnumerable<T> GetAll()
         {
-            return this.Entities.AsNoTracking().ToList();
+            return DbSet.AsNoTracking().ToList();
         }
 
         public override IEnumerable<T> GetBy(Expression<Func<T, bool>> predicate)
         {
-            return this.Entities.Where(predicate).AsNoTracking().ToList();
+            return DbSet.Where(predicate).AsNoTracking().ToList();
         }
 
         public override IEnumerable<T> GetBy(ISpecification<T> spec)
         {
-            return this.Entities.Where(spec.SatisfiedBy()).AsNoTracking().ToList();
+            return DbSet.Where(spec.SatisfiedBy()).AsNoTracking().ToList();
         }
 
         public override T Single(Expression<Func<T, bool>> predicate)
         {
-            return this.Entities.Single(predicate);
+            return DbSet.Single(predicate);
         }
 
         public override T FirstOrDefault(Expression<Func<T, bool>> predicate)
         {
-            return this.Entities.FirstOrDefault(predicate);
+            return DbSet.FirstOrDefault(predicate);
         }
 
         public override int Count(Expression<Func<T, bool>> predicate)
         {
-            return this.Entities.Count(predicate);
+            return DbSet.Count(predicate);
         }
 
         public override long LongCount(Expression<Func<T, bool>> predicate)
         {
-            return this.Entities.LongCount(predicate);
+            return DbSet.LongCount(predicate);
         }
 
         #endregion     
 
-        private DbSet<T> Entities
+        private DbSet<T> DbSet
         {
             get
             {
-                if (entities == null)
+                if (dbSet == null)
                 {
-                    entities = db.Set<T>();
+                    dbSet = db.Set<T>();
                 }
-                return entities as DbSet<T>;
+                return dbSet as DbSet<T>;
             }
         }
     }
