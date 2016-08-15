@@ -133,6 +133,18 @@ namespace Framework.SqlDb.Test.EfCommonTest
               .ToList();
         }
 
+        [Fact]
+        public void ef_contains_test()
+        {
+            var studIds = new List<int>();
+            for (var i = 1; i < 1000; i++)
+            {
+                studIds.Add(i);
+            }
+            var result = dbContext.Scores.Where(p => studIds.Contains(p.StudentId)).ToList();
+            result.Should().NotBeNullOrEmpty();
+        }
+
         #region Init DB
 
         private void InitDb()
